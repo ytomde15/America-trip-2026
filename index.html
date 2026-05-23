@@ -8,7 +8,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Meiryo", sans-serif;
-      background: #f5f5f5;
+      background: #f0f2f5;
       color: #333;
       font-size: 15px;
       line-height: 1.6;
@@ -31,6 +31,9 @@
       background: #fff;
       border-bottom: 1px solid #ddd;
       justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     nav a {
       text-decoration: none;
@@ -58,57 +61,96 @@
     }
     .section-body { padding: 14px 16px; }
 
-    /* 日程サマリー */
-    .day-cards { display: flex; flex-direction: column; gap: 10px; }
-    .day-card {
+    /* 日程カード */
+    .day-cards { display: flex; flex-direction: column; gap: 12px; }
+    details.day-card {
       border-left: 4px solid #2e6da4;
-      padding: 10px 12px;
       background: #f8fbff;
       border-radius: 0 8px 8px 0;
+      overflow: hidden;
     }
-    .day-card .day-label {
-      font-size: 12px;
-      color: #2e6da4;
+    details.day-card[open] { border-left-color: #1a5a9a; }
+    details.day-card summary {
+      padding: 10px 12px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    details.day-card summary::-webkit-details-marker { display: none; }
+    .day-label { font-size: 12px; color: #2e6da4; font-weight: bold; }
+    .day-date { font-size: 13px; color: #666; }
+    .day-main { font-size: 15px; font-weight: bold; }
+    .day-stay { font-size: 13px; color: #555; }
+    .day-stay span { font-weight: bold; color: #c0392b; }
+    .expand-hint { font-size: 11px; color: #888; margin-top: 4px; }
+    details[open] .expand-hint { display: none; }
+
+    /* 詳細タイムライン */
+    .timeline { margin: 0; }
+    .tl-row {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 4px 10px;
+      padding: 7px 12px;
+      border-top: 1px solid #e8f0fb;
+      align-items: start;
+    }
+    .tl-time { font-size: 12px; color: #2e6da4; font-weight: bold; white-space: nowrap; }
+    .tl-main { font-size: 13px; }
+    .tl-note { font-size: 11px; color: #888; margin-top: 1px; }
+    .cat-badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      margin-right: 4px;
       font-weight: bold;
     }
-    .day-card .day-date { font-size: 13px; color: #666; }
-    .day-card .day-main { font-size: 15px; font-weight: bold; margin: 2px 0; }
-    .day-card .day-stay { font-size: 13px; color: #555; }
-    .day-card .day-stay span { font-weight: bold; color: #c0392b; }
+    .cat-移動 { background: #e3f2fd; color: #1565c0; }
+    .cat-観光 { background: #e8f5e9; color: #2e7d32; }
+    .cat-食事 { background: #fff3e0; color: #e65100; }
+    .cat-宿泊 { background: #f3e5f5; color: #7b1fa2; }
+    .cat-空港 { background: #fce4ec; color: #c62828; }
+    .cat-飛行機 { background: #e8eaf6; color: #283593; }
+    .cat-注意 { background: #ffebee; color: #b71c1c; }
 
-    /* フライト */
+    /* フライトテーブル */
+    .flight-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .flight-table th {
+      background: #e8f0fb;
+      color: #1a3a5c;
+      padding: 8px 10px;
+      text-align: left;
+      font-size: 12px;
+    }
+    .flight-table td { padding: 8px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+    .flight-table tr:last-child td { border-bottom: none; }
+    .flight-table tr.layover td { background: #fffde7; font-size: 12px; color: #777; }
+
+    /* 情報グリッド */
     .info-grid {
       display: grid;
       grid-template-columns: auto 1fr;
       gap: 8px 12px;
       align-items: start;
     }
-    .info-label {
-      font-size: 12px;
-      color: #888;
-      white-space: nowrap;
-      padding-top: 2px;
-    }
+    .info-label { font-size: 12px; color: #888; white-space: nowrap; padding-top: 2px; }
     .info-value { font-size: 14px; color: #333; }
     .divider { border: none; border-top: 1px solid #eee; margin: 12px 0; }
+
     .badge {
       display: inline-block;
-      background: #e8f5e9;
-      color: #2e7d32;
       border-radius: 4px;
       font-size: 12px;
       padding: 2px 8px;
       margin-bottom: 8px;
       font-weight: bold;
     }
-    .badge.red {
-      background: #fce4ec;
-      color: #c62828;
-    }
-    .badge.blue {
-      background: #e3f2fd;
-      color: #1565c0;
-    }
+    .badge.green { background: #e8f5e9; color: #2e7d32; }
+    .badge.red   { background: #fce4ec; color: #c62828; }
+    .badge.blue  { background: #e3f2fd; color: #1565c0; }
 
     /* ホテル候補 */
     .hotel-card {
@@ -117,7 +159,7 @@
       padding: 12px;
       margin-bottom: 10px;
     }
-    .hotel-day { font-size: 12px; color: #2e6da4; font-weight: bold; }
+    .hotel-day  { font-size: 12px; color: #2e6da4; font-weight: bold; }
     .hotel-name { font-size: 15px; font-weight: bold; margin: 2px 0 4px; }
     .hotel-tag {
       display: inline-block;
@@ -128,11 +170,8 @@
       padding: 1px 7px;
       margin-right: 4px;
     }
-    .hotel-tag.confirmed {
-      background: #e8f5e9;
-      color: #2e7d32;
-    }
-    .hotel-note { font-size: 13px; color: #666; margin-top: 4px; }
+    .hotel-tag.confirmed { background: #e8f5e9; color: #2e7d32; }
+    .hotel-note { font-size: 13px; color: #666; margin-top: 4px; line-height: 1.6; }
 
     /* 持ち物 */
     .checklist { list-style: none; }
@@ -150,8 +189,11 @@
       font-size: 13px;
       font-weight: bold;
       color: #2e6da4;
-      margin: 12px 0 6px;
+      margin: 14px 0 6px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #e8f0fb;
     }
+    .checklist-title:first-child { margin-top: 0; }
 
     /* やることリスト */
     .todo-item {
@@ -164,14 +206,12 @@
     }
     .todo-item:last-child { border-bottom: none; }
     .todo-box {
-      width: 18px;
-      height: 18px;
+      width: 18px; height: 18px;
       border: 2px solid #bbb;
       border-radius: 4px;
       flex-shrink: 0;
       margin-top: 2px;
     }
-    .todo-box.done { background: #2e6da4; border-color: #2e6da4; }
     .priority-high { color: #c0392b; font-weight: bold; }
 
     /* 注意事項 */
@@ -184,6 +224,15 @@
       font-size: 14px;
     }
     .alert-box strong { color: #e65100; }
+
+    .note-box {
+      font-size: 13px;
+      color: #666;
+      background: #f8f8f8;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
 
     footer {
       text-align: center;
@@ -213,62 +262,324 @@
 
 <!-- ======== 日程 ======== -->
 <section id="schedule">
-  <div class="section-title">📅 日程・確定ルート</div>
+  <div class="section-title">📅 日程・確定ルート（タップで詳細表示）</div>
   <div class="section-body">
     <div class="day-cards">
 
-      <div class="day-card">
-        <div class="day-label">Day 1</div>
-        <div class="day-date">10月4日（日）</div>
-        <div class="day-main">✈️ SLC 深夜到着</div>
-        <div class="day-stay">宿泊：<span>SLC空港周辺</span></div>
-      </div>
-
-      <div class="day-card">
-        <div class="day-label">Day 2</div>
-        <div class="day-date">10月5日（月）</div>
-        <div class="day-main">🏜️ アーチーズ国立公園</div>
-        <div class="day-stay">訪問：The Windows Section<br>宿泊：<span>ブランディング or モンティセロ</span></div>
-      </div>
-
-      <div class="day-card">
-        <div class="day-label">Day 3</div>
-        <div class="day-date">10月6日（火）</div>
-        <div class="day-main">🛤️ フォレストガンプポイント → モニュメントバレー</div>
-        <div class="day-stay">訪問：Forrest Gump Point → Monument Valley<br>宿泊：<span>The View Hotel（確定希望）</span></div>
-      </div>
-
-      <div class="day-card">
-        <div class="day-label">Day 4</div>
-        <div class="day-date">10月7日（水）</div>
-        <div class="day-main">🏔️ グランドキャニオン（入り・サンセット）</div>
-        <div class="day-stay">訪問：Mather Point / Lookout Studio / Hopi Point（サンセット）<br>宿泊：<span>GC園内 or トゥサヤン</span></div>
-      </div>
-
-      <div class="day-card">
-        <div class="day-label">Day 5</div>
-        <div class="day-date">10月8日（木）</div>
-        <div class="day-main">🥾 グランドキャニオン（ハイキング）</div>
-        <div class="day-stay">訪問：Lipan Point / Rim Trail / 登山2〜3時間<br>宿泊：<span>GC園内 or トゥサヤン</span></div>
-      </div>
-
-      <div class="day-card">
-        <div class="day-label">Day 6</div>
-        <div class="day-date">10月9日（金）</div>
-        <div class="day-main">🌅 セドナへ移動（回復日）</div>
-        <div class="day-stay">宿泊：<span>セドナ市内（マリオット系候補）</span></div>
-      </div>
-
-      <div class="day-card" style="border-left-color: #c0392b;">
-        <div class="day-label" style="color:#c0392b;">Day 7</div>
-        <div class="day-date">10月10日（土）</div>
-        <div class="day-main">🚗 セドナ → Williams → PHX → 帰国</div>
-        <div class="day-stay" style="font-size:13px;">
-          09:00 セドナ出発 → 10:00〜12:00 Williams（Route 66）観光<br>
-          → 15:00〜16:30 予備時間 → 16:30〜17:30 PHX返却<br>
-          → <span>23:25 PHX出発</span>
+      <!-- Day1 -->
+      <details class="day-card">
+        <summary>
+          <div class="day-label">Day 1 ▸</div>
+          <div class="day-date">10月4日（日）</div>
+          <div class="day-main">✈️ SLC 深夜到着</div>
+          <div class="day-stay">宿泊：<span>SLC空港周辺</span></div>
+          <div class="expand-hint">▼ 詳細タイムラインを見る</div>
+        </summary>
+        <div class="timeline">
+          <div class="tl-row">
+            <div class="tl-time">〜22:22</div>
+            <div><span class="cat-badge cat-飛行機">飛行機</span><div class="tl-main">SLC到着（JX847-JX032-AS3298）</div><div class="tl-note">KMJ 11:55出発 → 台北・シアトル経由</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">22:22〜</div>
+            <div><span class="cat-badge cat-空港">空港</span><div class="tl-main">入国審査・荷物受取・レンタカー手続き確認</div><div class="tl-note">レンタカーは翌朝受取推奨</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">23:00頃</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">SLC空港周辺ホテルへ移動</div><div class="tl-note">疲労考慮・深夜移動のみ</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">宿泊</div>
+            <div><span class="cat-badge cat-宿泊">宿泊</span><div class="tl-main">SLC空港周辺ホテル</div><div class="tl-note">翌朝早出発に備え早めに就寝</div></div>
+          </div>
         </div>
-      </div>
+      </details>
+
+      <!-- Day2 -->
+      <details class="day-card">
+        <summary>
+          <div class="day-label">Day 2 ▸</div>
+          <div class="day-date">10月5日（月）</div>
+          <div class="day-main">🏜️ アーチーズ国立公園</div>
+          <div class="day-stay">訪問：The Windows Section / 宿泊：<span>ブランディング or モンティセロ</span></div>
+          <div class="expand-hint">▼ 詳細タイムラインを見る</div>
+        </summary>
+        <div class="timeline">
+          <div class="tl-row">
+            <div class="tl-time">07〜09時</div>
+            <div><span class="cat-badge cat-空港">空港</span><div class="tl-main">SLC空港 レンタカー受取</div><div class="tl-note">シナリオB確定。早朝受取推奨</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">〜10:00</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">SLC → アーチーズ国立公園方面出発</div><div class="tl-note">約240km・約3時間</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">10:00頃</div>
+            <div><span class="cat-badge cat-食事">食事</span><div class="tl-main">途中休憩・給油・朝食</div><div class="tl-note">ガソリン半分以下になったら給油</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">13:00頃</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">アーチーズ国立公園 到着</div><div class="tl-note">入場料：車1台（Annual Pass検討）</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">13:30〜16:30</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">The Windows Section</div><div class="tl-note">North Window・South Window・Turret Arch・Double Arch</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">16:30〜17:30</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Balanced Rock・周辺エリア散策</div><div class="tl-note">体力・時間に余裕があれば追加</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">18:00頃</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">アーチーズ → ブランディング or モンティセロへ</div><div class="tl-note">約75〜90km・1時間</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">19:00〜19:30</div>
+            <div><span class="cat-badge cat-宿泊">宿泊</span><div class="tl-main">ホテルチェックイン</div><div class="tl-note">Day3の動線考慮して選択</div></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Day3 -->
+      <details class="day-card">
+        <summary>
+          <div class="day-label">Day 3 ▸</div>
+          <div class="day-date">10月6日（火）</div>
+          <div class="day-main">🛤️ Forrest Gump Point → モニュメントバレー</div>
+          <div class="day-stay">宿泊：<span>The View Hotel（確定希望）</span></div>
+          <div class="expand-hint">▼ 詳細タイムラインを見る</div>
+        </summary>
+        <div class="timeline">
+          <div class="tl-row">
+            <div class="tl-time">08:00</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">ブランディング/モンティセロ 出発</div><div class="tl-note">朝食は早めに済ませる</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">09:00〜10:00</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Forrest Gump Point（US-163沿い）停車・撮影</div><div class="tl-note">Monument Valleyの手前約25km地点</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">10:30〜12:00</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">Monument Valley ビジターセンター到着</div><div class="tl-note">ナバホ族管轄・入場料/人</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">12:00〜13:00</div>
+            <div><span class="cat-badge cat-食事">食事</span><div class="tl-main">ビジターセンター付近で昼食</div><div class="tl-note">The View Hotel レストランも可</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">13:00〜15:30</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">17マイルドライブ（砂利道・約1.5〜2時間）</div><div class="tl-note">⚠️ 雨天時は閉鎖の可能性あり・要確認</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">15:30〜16:00</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">各ビューポイント撮影・散策</div><div class="tl-note">West Mitten・East Mitten・Merrick Butte</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">16:30頃</div>
+            <div><span class="cat-badge cat-宿泊">宿泊</span><div class="tl-main">The View Hotel チェックイン（確定希望）</div><div class="tl-note">早めの予約必須。眺望絶景ルーム推奨</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">18:00〜</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">The View Hotelから夕日鑑賞</div><div class="tl-note">部屋・テラスから直接鑑賞可能</div></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Day4 -->
+      <details class="day-card">
+        <summary>
+          <div class="day-label">Day 4 ▸</div>
+          <div class="day-date">10月7日（水）</div>
+          <div class="day-main">🏔️ グランドキャニオン（入り・サンセット）</div>
+          <div class="day-stay">訪問：Mather Point / Lookout Studio / Hopi Point（サンセット）<br>宿泊：<span>GC園内 or トゥサヤン</span></div>
+          <div class="expand-hint">▼ 詳細タイムラインを見る</div>
+        </summary>
+        <div class="timeline">
+          <div class="tl-row">
+            <div class="tl-time">08:00</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">Monument Valley 出発</div><div class="tl-note">約230km・3〜4時間</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">08:00〜11:00</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">US-160 → AZ-64 グランドキャニオン南口方面</div><div class="tl-note">給油必須（区間内スタンド少）</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">11:30〜12:30</div>
+            <div><span class="cat-badge cat-空港">入場</span><div class="tl-main">グランドキャニオン国立公園 入場</div><div class="tl-note">入場料/車（Annual Pass可）</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">12:30〜13:30</div>
+            <div><span class="cat-badge cat-食事">食事</span><div class="tl-main">昼食（Yavapai Lodge付近・Bright Angel Lodge）</div><div class="tl-note">事前予約推奨</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">13:30〜15:00</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Mather Point（メインビューポイント）</div><div class="tl-note">最も迫力ある景観・写真撮影</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">15:00〜15:30</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Lookout Studio（1914年建造の歴史的建物）</div><div class="tl-note">Mather Pointから徒歩5分</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">16:00〜18:00</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Hopi Point（サンセット鑑賞）</div><div class="tl-note">⚠️ 時期によりシャトルバスのみ・自家用車規制あり</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">18:30頃</div>
+            <div><span class="cat-badge cat-宿泊">宿泊</span><div class="tl-main">グランドキャニオン園内 or トゥサヤン周辺ホテル</div><div class="tl-note">Bright Angel Lodge / Yavapai Lodge等</div></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Day5 -->
+      <details class="day-card">
+        <summary>
+          <div class="day-label">Day 5 ▸</div>
+          <div class="day-date">10月8日（木）</div>
+          <div class="day-main">🥾 グランドキャニオン（ハイキング・登山）</div>
+          <div class="day-stay">訪問：Lipan Point / Rim Trail / Bright Angel Trail登山（2〜3時間）<br>宿泊：<span>GC園内 or トゥサヤン（連泊）</span></div>
+          <div class="expand-hint">▼ 詳細タイムラインを見る</div>
+        </summary>
+        <div class="timeline">
+          <div class="tl-row">
+            <div class="tl-time">07:00</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">日の出鑑賞（任意）</div><div class="tl-note">Mather Point / Yaki Pointが人気</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">08:00</div>
+            <div><span class="cat-badge cat-食事">食事</span><div class="tl-main">朝食</div><div class="tl-note">Bright Angel Lodge Restaurantなど</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">09:00〜09:30</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">Lipan Point（東側展望台）へ移動</div><div class="tl-note">車で約45分・渓谷の深さが特徴的</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">09:30〜10:30</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Lipan Point 展望・撮影</div><div class="tl-note">Colorado川の蛇行が見渡せる</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">11:00〜12:00</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Rim Trail 中心部散策（Mather→Bright Angel区間）</div><div class="tl-note">平坦で歩きやすい・約2km</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">12:00〜13:00</div>
+            <div><span class="cat-badge cat-食事">食事</span><div class="tl-main">昼食</div><div class="tl-note">体力温存</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">13:00〜16:00</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Bright Angel Trail 登山（2〜3時間）</div><div class="tl-note">1.5マイル地点（Mile-and-a-Half）往復推奨</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">注意</div>
+            <div><span class="cat-badge cat-注意">注意</span><div class="tl-main">登山装備必須：マスク・汚れてもいい靴・手袋・十分な水</div><div class="tl-note">下り30分→上りは倍以上かかる。無理禁物</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">17:00〜</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">夕方のんびりRimトレイル散歩</div><div class="tl-note">体力回復</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">18:30頃</div>
+            <div><span class="cat-badge cat-宿泊">宿泊</span><div class="tl-main">グランドキャニオン園内 or トゥサヤン（連泊）</div></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Day6 -->
+      <details class="day-card">
+        <summary>
+          <div class="day-label">Day 6 ▸</div>
+          <div class="day-date">10月9日（金）</div>
+          <div class="day-main">🌅 セドナへ移動（回復日）</div>
+          <div class="day-stay">観光：Cathedral Rock / Bell Rock / Airport Mesa<br>宿泊：<span>セドナ市内（マリオット系候補）</span></div>
+          <div class="expand-hint">▼ 詳細タイムラインを見る</div>
+        </summary>
+        <div class="timeline">
+          <div class="tl-row">
+            <div class="tl-time">09:00</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">グランドキャニオン 出発</div><div class="tl-note">約150km・約2時間</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">11:00〜12:00</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">セドナ到着・ホテルチェックイン交渉</div><div class="tl-note">疲労回復デー。早めにチェックインできれば◎</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">12:00〜13:00</div>
+            <div><span class="cat-badge cat-食事">食事</span><div class="tl-main">セドナ市内で昼食</div><div class="tl-note">Tlaquepaque付近がおすすめ</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">13:00〜15:00</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Cathedral Rock Trail（往復約3km）</div><div class="tl-note">赤い岩の代名詞。撮影スポット多数</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">15:00〜17:00</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Bell Rock Trail（軽い散歩・1〜2時間）</div><div class="tl-note">起伏少なく歩きやすい</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">17:00〜18:00</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Airport Mesa（夕日鑑賞）</div><div class="tl-note">セドナ全景と赤岩のパノラマ</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">18:30〜</div>
+            <div><span class="cat-badge cat-食事">食事</span><div class="tl-main">セドナ市内で夕食</div><div class="tl-note">翌日PHX移動に備えて早めに就寝</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">宿泊</div>
+            <div><span class="cat-badge cat-宿泊">宿泊</span><div class="tl-main">セドナ市内ホテル</div><div class="tl-note">回復・リラックス重視</div></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Day7 -->
+      <details class="day-card" style="border-left-color: #c0392b;">
+        <summary>
+          <div class="day-label" style="color:#c0392b;">Day 7 ▸</div>
+          <div class="day-date">10月10日（土）</div>
+          <div class="day-main">🚗 セドナ → Williams → PHX → 帰国</div>
+          <div class="day-stay">出発：<span>PHX 23:25発</span></div>
+          <div class="expand-hint">▼ 詳細タイムラインを見る</div>
+        </summary>
+        <div class="timeline">
+          <div class="tl-row">
+            <div class="tl-time">09:00</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">セドナ ホテル出発</div><div class="tl-note">PHX行きの長丁場・早めスタート</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">09:00〜10:00</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">セドナ → Williams（Route 66起点）約95km・1時間</div><div class="tl-note">I-17南下経由</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">10:00〜12:00</div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Williams Route 66観光・散策</div><div class="tl-note">旧市街・土産屋・写真撮影</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">12:00</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">Williams 出発</div><div class="tl-note">昼食はWilliamsで済ませるか車内</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">12:00〜15:00</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">Williams → PHX空港方面 約280km・3時間</div><div class="tl-note">I-40 → I-17南下</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">15:00〜16:30</div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">予備時間バッファ（給油・トイレ・渋滞吸収）</div><div class="tl-note">ガソリンはPHX手前で満タン</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">16:30〜17:30</div>
+            <div><span class="cat-badge cat-空港">空港</span><div class="tl-main">PHX空港到着・レンタカー返却</div><div class="tl-note">Sky Train → Rental Car Center → ターミナル移動</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">17:30〜20:30</div>
+            <div><span class="cat-badge cat-空港">空港</span><div class="tl-main">チェックイン・手荷物検査・国際線搭乗手続き</div><div class="tl-note">⚠️ PHX初利用。ターミナル確認必須</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">20:30〜23:25</div>
+            <div><span class="cat-badge cat-空港">空港</span><div class="tl-main">搭乗ゲート待機・夕食・免税店</div></div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-time">23:25</div>
+            <div><span class="cat-badge cat-飛行機">飛行機</span><div class="tl-main">PHX出発 → 帰国フライト</div><div class="tl-note">便名・経由地は未定</div></div>
+          </div>
+        </div>
+      </details>
 
     </div>
   </div>
@@ -279,36 +590,59 @@
   <div class="section-title">✈️ フライト情報</div>
   <div class="section-body">
 
-    <div class="badge blue">往路（確定）</div>
-    <div class="info-grid">
-      <div class="info-label">便名</div>
-      <div class="info-value">JX847 → JX032 → <strong>AS3298</strong></div>
-      <div class="info-label">ルート</div>
-      <div class="info-value">KMJ 11:55発 → 台北(TPE)経由 → シアトル(SEA)経由 → SLC 22:22着</div>
-      <div class="info-label">機材</div>
-      <div class="info-value">A330-900NEO → A350-900 → Embraer 175</div>
-      <div class="info-label">料金</div>
-      <div class="info-value">エコノミー JPY 202,530〜<br>プレミアムエコノミー JPY 370,630〜</div>
-      <div class="info-label">状況</div>
-      <div class="info-value" style="color:#c0392b; font-weight:bold;">⚠️ 未予約（要対応）</div>
+    <div class="badge blue">往路（確定）— 2026年10月4日</div>
+    <div style="overflow-x:auto;">
+      <table class="flight-table">
+        <tr><th>区間</th><th>便名</th><th>機材</th><th>出発 → 到着</th><th>航空会社</th></tr>
+        <tr>
+          <td><strong>KMJ→TPE</strong></td>
+          <td>JX847</td>
+          <td>A330-900NEO</td>
+          <td>11:55 KMJ<br>→ 13:20 TPE（T1）</td>
+          <td>STARLUX</td>
+        </tr>
+        <tr class="layover">
+          <td colspan="5">⏳ TPE乗継：6時間50分（T1 → T2移動あり）／ 出発 20:10</td>
+        </tr>
+        <tr>
+          <td><strong>TPE→SEA</strong></td>
+          <td>JX032</td>
+          <td>A350-900</td>
+          <td>20:10 TPE（T2）<br>→ 16:10 SEA</td>
+          <td>STARLUX</td>
+        </tr>
+        <tr class="layover">
+          <td colspan="5">⏳ SEA乗継：3時間6分／ 出発 19:16</td>
+        </tr>
+        <tr>
+          <td><strong>SEA→SLC</strong></td>
+          <td><strong>AS3298</strong></td>
+          <td>Embraer 175</td>
+          <td>19:16 SEA<br>→ 22:22 SLC</td>
+          <td>SkyWest (AS)</td>
+        </tr>
+      </table>
+    </div>
+    <div class="note-box">
+      💴 エコノミー：JPY 202,530〜　／　プレミアムエコノミー：JPY 370,630〜（往復合計・税込）<br>
+      🌿 CO2排出量：≒897kg<br>
+      ⚠️ <strong>状況：未予約（要対応）</strong>　3人それぞれのクレカで1人ずつ別々に予約
     </div>
 
     <hr class="divider">
 
-    <div class="badge red">復路（未確定）</div>
-    <div class="info-grid">
-      <div class="info-label">ルート</div>
-      <div class="info-value">PHX 23:25発 → KMJ着</div>
-      <div class="info-label">経由・便名</div>
-      <div class="info-value">未定</div>
-      <div class="info-label">料金</div>
-      <div class="info-value">未定</div>
-    </div>
-
-    <hr class="divider">
-    <div style="font-size:13px; color:#666; background:#f8f8f8; padding:10px; border-radius:8px;">
-      💡 <strong>予約方針</strong>：3人それぞれのクレカで1人ずつ別々に予約<br>
-      （クレカ旅行保険を各自に適用させるため）
+    <div class="badge red">復路（未確定）— 2026年10月10日</div>
+    <div style="overflow-x:auto;">
+      <table class="flight-table">
+        <tr><th>区間</th><th>便名</th><th>出発</th><th>到着</th><th>備考</th></tr>
+        <tr>
+          <td><strong>PHX→KMJ</strong></td>
+          <td>未定</td>
+          <td>23:25 PHX</td>
+          <td>KMJ（翌日）</td>
+          <td>経由地・料金未定</td>
+        </tr>
+      </table>
     </div>
 
   </div>
@@ -319,17 +653,12 @@
   <div class="section-title">🚗 レンタカー情報</div>
   <div class="section-body">
     <div class="info-grid">
-      <div class="info-label">シナリオ</div>
-      <div class="info-value"><strong>シナリオB（確定）</strong></div>
-      <div class="info-label">受取</div>
-      <div class="info-value">SLC空港 2026/10/5（月）07〜09時</div>
-      <div class="info-label">返却</div>
-      <div class="info-value">PHX空港 2026/10/10（土）17時頃<br><span style="color:#666; font-size:13px;">乗り捨て（ワンウェイ）</span></div>
-      <div class="info-label">会社・車種</div>
-      <div class="info-value" style="color:#c0392b;">未選定（要対応）</div>
+      <div class="info-label">シナリオ</div><div class="info-value"><strong>シナリオB（確定）</strong></div>
+      <div class="info-label">受取</div><div class="info-value">SLC空港　10/5（月）07〜09時</div>
+      <div class="info-label">返却</div><div class="info-value">PHX空港　10/10（土）17時頃<br><span style="color:#888; font-size:13px;">乗り捨て（ワンウェイ）</span></div>
+      <div class="info-label">会社・車種</div><div class="info-value" style="color:#c0392b;">未選定（要対応）</div>
     </div>
-    <hr class="divider">
-    <div style="font-size:13px; color:#666; background:#f8f8f8; padding:10px; border-radius:8px;">
+    <div class="note-box" style="margin-top:12px;">
       ⛽ <strong>給油ルール</strong>：残量半分になったら即給油（スタンド少ない区間あり）<br>
       🌙 <strong>夜間運転</strong>：長距離は避ける（動物飛び出し・街灯なし）<br>
       📡 <strong>電波</strong>：圏外区間あり → Googleマップのオフライン保存必須<br>
@@ -344,43 +673,44 @@
   <div class="section-body">
 
     <div class="hotel-card">
-      <div class="hotel-day">Day 1 / 10月4日</div>
+      <div class="hotel-day">Day 1 / 10月4日（日）</div>
       <div class="hotel-name">SLC空港周辺ホテル</div>
       <span class="hotel-tag">未選定</span>
       <div class="hotel-note">マリオット系候補：Courtyard / SpringHill Suites / Residence Inn（SLC Airport）</div>
     </div>
 
     <div class="hotel-card">
-      <div class="hotel-day">Day 2 / 10月5日</div>
+      <div class="hotel-day">Day 2 / 10月5日（月）</div>
       <div class="hotel-name">ブランディング or モンティセロ周辺</div>
       <span class="hotel-tag">未選定</span>
-      <div class="hotel-note">マリオット系なし。モアブ泊も選択肢（SpringHill Suites Moab等）</div>
+      <div class="hotel-note">マリオット系なし。モアブ泊も選択肢（SpringHill Suites Moab / Fairfield Inn Moab等）</div>
     </div>
 
     <div class="hotel-card" style="border-color: #2e7d32;">
-      <div class="hotel-day">Day 3 / 10月6日</div>
+      <div class="hotel-day">Day 3 / 10月6日（火）</div>
       <div class="hotel-name">The View Hotel（モニュメントバレー）</div>
       <span class="hotel-tag confirmed">確定希望・早期予約必須</span>
-      <div class="hotel-note">ナバホ族管轄。満室になりやすいため早めに予約すること</div>
+      <div class="hotel-note">ナバホ族管轄。人気のため早めに予約すること。眺望絶景ルーム推奨。</div>
     </div>
 
     <div class="hotel-card">
-      <div class="hotel-day">Day 4・5 / 10月7〜8日</div>
+      <div class="hotel-day">Day 4・5 / 10月7〜8日（水・木）</div>
       <div class="hotel-name">グランドキャニオン園内 or トゥサヤン</div>
       <span class="hotel-tag">未選定</span>
-      <div class="hotel-note">近隣にマリオット系なし。Xanterra系ロッジまたはトゥサヤン市内</div>
+      <div class="hotel-note">近隣にマリオット系なし。Bright Angel Lodge / Yavapai Lodge またはトゥサヤン市内のホテル。</div>
     </div>
 
     <div class="hotel-card">
-      <div class="hotel-day">Day 6 / 10月9日</div>
-      <div class="hotel-name">セドナ市内（マリオットボンヴォイ系候補）</div>
-      <span class="hotel-tag">候補検討中</span>
+      <div class="hotel-day">Day 6 / 10月9日（金）</div>
+      <div class="hotel-name">セドナ市内（マリオットボンヴォイ系・検討中）</div>
+      <span class="hotel-tag">候補2択</span>
       <div class="hotel-note">
         <strong>① Residence Inn by Marriott Sedona</strong>（ウエストセドナ）<br>
-        　朝食無料・全員分・フルキッチン / $200〜350<br>
+        　朝食無料（全員分）・フルキッチン・Devil's Bridge近 / 参考：$200〜350<br><br>
         <strong>② Element by Marriott Sedona</strong>（ビレッジ・オブ・オーククリーク）<br>
-        　朝食無料・全員分・プール・自転車レンタル / $200〜350<br>
-        <span style="color:#888; font-size:12px;">チタン特典：ルームアップグレード・4PMレイトチェックアウト保証</span>
+        　朝食無料（全員分）・プール・自転車レンタル・Bell Rock近 / 参考：$200〜350<br><br>
+        <span style="color:#888; font-size:12px;">📌 チタンエリート特典：ルームアップグレード・4PMレイトチェックアウト保証・ポイント+75%<br>
+        ※朝食は元々無料のため、ウェルカムギフトはポイントに充当可</span>
       </div>
     </div>
 
@@ -389,15 +719,15 @@
 
 <!-- ======== 持ち物 ======== -->
 <section id="items">
-  <div class="section-title">🎒 持ち物・装備</div>
+  <div class="section-title">🎒 持ち物・装備チェックリスト</div>
   <div class="section-body">
 
     <div class="checklist-title">🥾 グランドキャニオン登山（必須）</div>
     <ul class="checklist">
-      <li><span class="check-icon">😷</span>マスク（砂埃・粉塵対策）</li>
-      <li><span class="check-icon">👟</span>汚れてもいい靴（かなり汚れる）</li>
+      <li><span class="check-icon">😷</span>マスク（砂埃・粉塵対策。登山時は必須）</li>
+      <li><span class="check-icon">👟</span>汚れてもいい靴（かなり汚れる）ハイキングシューズ推奨</li>
       <li><span class="check-icon">🧤</span>手袋（岩・防寒・安全面）</li>
-      <li><span class="check-icon">💧</span>十分な水（脱水注意）</li>
+      <li><span class="check-icon">💧</span>十分な水（1人2L以上推奨）</li>
     </ul>
 
     <div class="checklist-title">🌡️ 気候対策（10月上旬）</div>
@@ -415,12 +745,19 @@
       <li><span class="check-icon">🔌</span>車載充電器</li>
     </ul>
 
-    <div class="checklist-title">📋 書類・その他</div>
+    <div class="checklist-title">📋 書類・手続き</div>
     <ul class="checklist">
-      <li><span class="check-icon">📘</span>パスポート</li>
-      <li><span class="check-icon">💳</span>クレジットカード（各自）</li>
+      <li><span class="check-icon">📘</span>パスポート（有効期限6ヶ月以上残っていること）</li>
+      <li><span class="check-icon">🌐</span>ESTA 事前申請（渡航前72時間以内推奨・米国入国に必須）</li>
+      <li><span class="check-icon">💳</span>クレジットカード各自（Visa/Mastercard複数枚推奨・海外手数料確認）</li>
       <li><span class="check-icon">📄</span>旅行保険証書</li>
-      <li><span class="check-icon">💊</span>常備薬・酔い止め</li>
+    </ul>
+
+    <div class="checklist-title">💰 現地で必要なもの</div>
+    <ul class="checklist">
+      <li><span class="check-icon">💵</span>現金USD（チップ・小額支払い用に〜$200程度）</li>
+      <li><span class="check-icon">🔌</span>変換プラグ（日本のプラグは米国でそのまま使用可・電圧100V→120V要確認）</li>
+      <li><span class="check-icon">💊</span>常備薬（酔い止め・頭痛薬・絆創膏等）</li>
     </ul>
 
   </div>
@@ -434,7 +771,7 @@
     <div class="todo-item">
       <div class="todo-box"></div>
       <div><span class="priority-high">🔴 最優先</span>｜フライト予約（AS3298）<br>
-      <span style="font-size:12px; color:#888;">3人それぞれのクレカで1人ずつ別々に予約</span></div>
+      <span style="font-size:12px; color:#888;">3人それぞれのクレカで1人ずつ別々に予約（旅行保険の適用のため）</span></div>
     </div>
 
     <div class="todo-item">
@@ -446,24 +783,29 @@
     <div class="todo-item">
       <div class="todo-box"></div>
       <div>🟡 レンタカー 会社・車種の最終選定・予約<br>
-      <span style="font-size:12px; color:#888;">シナリオB確定：SLC 10/5朝受取 / PHX 10/10 17時返却</span></div>
+      <span style="font-size:12px; color:#888;">シナリオB確定：SLC 10/5朝受取 / PHX 10/10 17時返却（乗り捨て）</span></div>
     </div>
 
     <div class="todo-item">
       <div class="todo-box"></div>
       <div>🟡 各日のホテル予約<br>
-      <span style="font-size:12px; color:#888;">Day1・Day2・Day4/5・Day6</span></div>
+      <span style="font-size:12px; color:#888;">Day1（SLC）・Day2（ブランディング/モアブ）・Day4/5（GC）・Day6（セドナ）</span></div>
     </div>
 
     <div class="todo-item">
       <div class="todo-box"></div>
       <div>🟡 グランドキャニオン 登山トレイル選定<br>
-      <span style="font-size:12px; color:#888;">Bright Angel Trail 等</span></div>
+      <span style="font-size:12px; color:#888;">Bright Angel Trail 等・1.5マイル地点往復推奨</span></div>
     </div>
 
     <div class="todo-item">
       <div class="todo-box"></div>
-      <div>🟡 セドナ 観光スポット・アクティビティ選定</div>
+      <div>🟡 セドナ 観光スポット・アクティビティ詳細調査</div>
+    </div>
+
+    <div class="todo-item">
+      <div class="todo-box"></div>
+      <div>🟢 ESTA 申請（米国入国に必須・渡航前72時間以内推奨）</div>
     </div>
 
     <div class="todo-item">
@@ -475,7 +817,7 @@
     <div class="todo-item">
       <div class="todo-box"></div>
       <div>🟢 Monument Valley 17マイルドライブ 営業状況確認<br>
-      <span style="font-size:12px; color:#888;">雨天閉鎖の可能性あり</span></div>
+      <span style="font-size:12px; color:#888;">雨天閉鎖の可能性あり・ナバホ族管轄</span></div>
     </div>
 
     <div class="todo-item">
@@ -510,8 +852,8 @@
 
     <div class="alert-box">
       <strong>🚗 運転</strong><br>
-      夜間は街灯少なく鹿など動物の飛び出しあり。<strong>夜間長距離運転は禁止</strong>。<br>
-      ガソリンは半分で給油。電波圏外あり。
+      夜間は街灯少なく動物の飛び出しあり。<strong>夜間長距離運転は禁止。</strong><br>
+      ガソリンは半分で給油。電波圏外あり → Googleマップオフライン必須。
     </div>
 
     <div class="alert-box">
@@ -521,13 +863,18 @@
 
     <div class="alert-box">
       <strong>🏜️ Monument Valley 17マイルドライブ</strong><br>
-      ナバホ族管轄。雨天で閉鎖の可能性あり。当日の天気・営業状況を確認すること。
+      ナバホ族管轄。営業時間変動あり。雨天で閉鎖の可能性あり。当日確認すること。
     </div>
 
     <div class="alert-box">
       <strong>✈️ PHX空港（フェニックス）</strong><br>
       初利用。<strong>Sky Train</strong>でターミナル移動・レンタカー返却（Rental Car Center）。<br>
-      時間に余裕を持って行動すること。
+      国際線ターミナル確認・手続きに余裕を持たせること。
+    </div>
+
+    <div class="alert-box">
+      <strong>🌐 ESTA</strong><br>
+      米国入国に必須。渡航前72時間以内に申請推奨（余裕を持って事前に対応）。
     </div>
 
   </div>
