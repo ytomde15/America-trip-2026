@@ -247,7 +247,7 @@
 <header>
   <h1>🇺🇸 2026年10月 アメリカ南西部旅行</h1>
   <p>SLC → アーチーズ → モニュメントバレー → グランドキャニオン → セドナ → PHX</p>
-  <p class="updated">最終更新：2026年5月23日</p>
+  <p class="updated" id="last-updated">最終更新：-</p>
 </header>
 
 <nav>
@@ -898,8 +898,23 @@
 
 <footer>
   🇺🇸 2026年10月 アメリカ南西部旅行計画<br>
-  最終更新：2026年5月23日
+  <span id="footer-updated">最終更新：-</span>
 </footer>
+
+<script>
+  // GitHubにpushされた時刻を自動取得して日本時間で表示
+  const raw = document.lastModified; // ブラウザがサーバーから取得した更新日時
+  const dt = new Date(raw);
+  const jst = new Date(dt.getTime() + (9 * 60 * 60 * 1000)); // UTC→JST変換
+  const fmt = jst.getFullYear() + '年'
+    + (jst.getUTCMonth() + 1) + '月'
+    + jst.getUTCDate() + '日 '
+    + String(jst.getUTCHours()).padStart(2, '0') + ':'
+    + String(jst.getUTCMinutes()).padStart(2, '0');
+  const text = '最終更新：' + fmt + '（JST）';
+  document.getElementById('last-updated').textContent = text;
+  document.getElementById('footer-updated').textContent = text;
+</script>
 
 </body>
 </html>
