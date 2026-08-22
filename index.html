@@ -240,6 +240,131 @@
       color: #aaa;
       padding: 20px;
     }
+
+    /* ============================================================
+       2026/8/22 追加：旅行中モード（文字拡大／スマホ対応／新UI）
+       ※ 既存ルールを上書きするため、必ず末尾に置くこと
+       ============================================================ */
+    body { font-size: 16px; padding-bottom: 70px; }
+    .tl-time { font-size: 14px; }
+    .tl-main { font-size: 15px; line-height: 1.55; }
+    .tl-note { font-size: 13px; color: #55606b; line-height: 1.75; }
+    .day-date { font-size: 14px; }
+    .day-main { font-size: 17px; }
+    .day-stay { font-size: 14px; }
+    nav a { font-size: 14px; }
+    .hotel-note, .checklist li, .todo-item, .alert-box, .note-box { font-size: 14px; }
+    .section-title { font-size: 17px; }
+
+    /* 本文中に直接書かれた 10〜12px を一律 13px へ底上げ（母ペルソナ対策） */
+    [style*="font-size:10px"], [style*="font-size: 10px"],
+    [style*="font-size:11px"], [style*="font-size: 11px"],
+    [style*="font-size:12px"], [style*="font-size: 12px"] { font-size: 13px !important; }
+
+    /* 表：スマホでは横スクロールさせて潰れを防ぐ */
+    table { font-size: 14px; }
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+    /* ---- 固定フッターナビ（親指の届く位置） ---- */
+    .fnav { position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 200;
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; padding: 0;
+      background: #fff; border-top: 1px solid #d5d9de; border-bottom: none;
+      box-shadow: 0 -2px 10px rgba(0,0,0,.08); }
+    .fnav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+      padding: 7px 2px 8px; text-decoration: none; color: #5a6b7b; font-size: 12px; font-weight: bold;
+      background: transparent; border-radius: 0; }
+    .fnav a:active { background: #eef4fa; }
+    .fnav a .ic { font-size: 20px; line-height: 1.1; }
+    .fnav a.hot { color: #c0392b; }
+
+    /* ---- 「今日」カード ---- */
+    .today-wrap { margin: 16px 12px; }
+    .today { background: #fff; border: 2px solid #2e6da4; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 2px 8px rgba(46,109,164,.18); }
+    .today-head { background: #2e6da4; color: #fff; padding: 11px 14px; font-size: 16px; font-weight: bold;
+      display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .today-head .sub { font-size: 13px; font-weight: normal; opacity: .92; }
+    .now-box { padding: 14px; border-bottom: 1px solid #eef2f6; }
+    .now-lbl { font-size: 12px; color: #8a97a4; font-weight: bold; }
+    .now-time { font-size: 30px; font-weight: bold; color: #c0392b; line-height: 1.15; }
+    .now-main { font-size: 16px; font-weight: bold; margin-top: 3px; }
+    .now-sub { font-size: 13px; color: #666; margin-top: 4px; line-height: 1.6; }
+    .today-rest { padding: 8px 14px 12px; }
+    .today-rest .cap { font-size: 12px; color: #8a97a4; font-weight: bold; padding: 4px 0; }
+    .rest-row { display: grid; grid-template-columns: 66px 1fr; gap: 8px; padding: 6px 0;
+      font-size: 14px; border-top: 1px solid #f2f5f8; }
+    .rest-row .t { color: #2e6da4; font-weight: bold; font-size: 13px; }
+    .today-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 14px; background: #f7fafd; }
+    .tf-card { background: #fff; border: 1px solid #e2e8ef; border-radius: 8px; padding: 9px 11px; }
+    .tf-card .k { font-size: 12px; color: #8a97a4; font-weight: bold; }
+    .tf-card .v { font-size: 14px; font-weight: bold; margin-top: 2px; line-height: 1.5; }
+    .tf-full { grid-column: 1 / -1; }
+
+    /* ---- 行動ボタン（地図・電話） ---- */
+    .btn-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
+    .btn { display: inline-flex; align-items: center; gap: 4px; text-decoration: none;
+      font-size: 13px; font-weight: bold; padding: 8px 13px; border-radius: 8px;
+      border: 1px solid #cfdae6; background: #f2f7fc; color: #2e6da4; }
+    .btn.map { background: #eaf6ee; border-color: #c7e4d2; color: #1a7a42; }
+    .btn.tel { background: #fdf0ef; border-color: #f2cdc9; color: #b03a2e; }
+    a.telink { color: #b03a2e; font-weight: bold; text-decoration: none; border-bottom: 1px dotted #b03a2e; }
+
+    /* ---- タブ（Day3で試作） ---- */
+    .tabs { display: flex; gap: 5px; padding: 10px 12px 0; }
+    .tab-btn { flex: 1; text-align: center; padding: 10px 4px; font-size: 14px; font-weight: bold;
+      border: 1px solid #dbe4ec; border-bottom: none; background: #eff4f9; color: #6b7c8d;
+      border-radius: 8px 8px 0 0; cursor: pointer; font-family: inherit; }
+    .tab-btn[aria-selected="true"] { background: #2e6da4; color: #fff; border-color: #2e6da4; }
+    .tab-panel[hidden] { display: none; }
+
+    /* ---- 「遅れたときは」 ---- */
+    .delay { margin: 10px 12px 14px; border: 1px solid #f0d9b5; border-radius: 8px; background: #fffaf0; }
+    .delay > summary { padding: 11px 12px; font-size: 14px; font-weight: bold; color: #8a5a00;
+      cursor: pointer; list-style: none; }
+    .delay > summary::-webkit-details-marker { display: none; }
+    .delay .dbody { padding: 0 12px 12px; font-size: 13px; line-height: 1.8; }
+
+    @media (max-width: 640px) {
+      section { margin: 12px 8px; }
+      .today-wrap { margin: 12px 8px; }
+      .tl-row { grid-template-columns: 60px 1fr; padding: 9px 10px; gap: 4px 8px; }
+      .tl-time { font-size: 13px; }
+      .tl-main { font-size: 15px; }
+      table { font-size: 13px; }
+      .table-scroll table { min-width: 540px; }
+      nav { gap: 4px; padding: 8px 6px; }
+      nav a { padding: 7px 10px; font-size: 13px; }
+      .today-foot { grid-template-columns: 1fr; }
+      .now-time { font-size: 27px; }
+      header h1 { font-size: 19px; }
+    }
+
+    /* ---- Day3タブ試作：行動タブでは詳細を畳む ---- */
+    .compact .tl-note { display: none; }
+    .compact .tl-note.shown { display: block; margin-top: 6px; }
+    .more-btn { margin-top: 5px; font-size: 13px; font-weight: bold; color: #2e6da4;
+      background: #f2f7fc; border: 1px solid #cfdae6; border-radius: 6px;
+      padding: 5px 11px; cursor: pointer; font-family: inherit; }
+    .imp-chip { display: inline-block; background: #fdecea; color: #b03a2e; border: 1px solid #f2cdc9;
+      border-radius: 5px; font-size: 12px; font-weight: bold; padding: 1px 7px; margin-left: 6px; vertical-align: 2px; }
+    .tab-note { font-size: 13px; color: #6b7c8d; padding: 10px 12px 0; }
+
+    /* ---- 小さすぎる文字の最終的な底上げ（クラス由来） ---- */
+    .cat-badge { font-size: 12px; }
+    .expand-hint { font-size: 13px; }
+    .day-label { font-size: 13px; }
+    .hotel-day { font-size: 13px; }
+    .hotel-tag { font-size: 12px; }
+    .info-label { font-size: 13px; }
+    .badge { font-size: 12px; }
+    .updated { font-size: 12px; }
+    .fnav a { font-size: 13px; }
+    footer { font-size: 13px; }
+    table th, table td { font-size: 14px; }
+    .flight-table th, .flight-table td { font-size: 14px; }
+    @media (max-width: 640px) {
+      table th, table td, .flight-table th, .flight-table td { font-size: 13px; }
+    }
   </style>
 </head>
 <body>
@@ -257,8 +382,18 @@
   <a href="#hotel">🏨 ホテル</a>
   <a href="#items">🎒 持ち物</a>
   <a href="#todo">✅ やること</a>
+  <a href="#resv">🎫 予約</a>
+  <a href="#emergency">🆘 緊急</a>
   <a href="#notes">⚠️ 注意事項</a>
 </nav>
+
+<!-- ======== 今日（自動判定・JSで中身を生成） ======== -->
+<div class="today-wrap" id="today">
+  <div class="today" id="today-card">
+    <div class="today-head"><span>📍 今日の予定</span><span class="sub">読み込み中…</span></div>
+    <div class="now-box"><div class="now-sub">JavaScriptが無効の場合は、下の「日程」から該当の日をタップしてください。</div></div>
+  </div>
+</div>
 
 <!-- ======== 日程 ======== -->
 <section id="schedule">
@@ -267,7 +402,7 @@
     <div class="day-cards">
 
       <!-- Day1 -->
-      <details class="day-card">
+      <details class="day-card" data-day="1" data-date="2026-10-04" data-hotel="SpringHill Suites SLC Downtown" data-addr="625 S 300 W, Salt Lake City, UT" data-tel="">
         <summary>
           <div class="day-label">Day 1 ▸</div>
           <div class="day-date">10月4日（日）</div>
@@ -302,13 +437,21 @@
           </div>
           <div class="tl-row">
             <div class="tl-time">保険</div>
-            <div><span class="cat-badge cat-注意">注意</span><div class="tl-main">🆘 大幅遅延で車を受け取れなかった場合の代替手順</div><div class="tl-note">AS669が<strong>1時間半以上遅延</strong>すると、02:00のクローズに間に合わない可能性があります。その場合は以下で対応してください。<br><br>① <strong>無理に急がない。</strong>スタッフがいなければ受け取りは物理的に不可能です<br>② <strong>Uber / Lyft でホテルへ</strong>（約10km・深夜料金で$35〜45程度／ホテルの無料シャトルは23:00で終了しているため使えません）<br>③ <strong>翌朝あらためて空港のAvisへ</strong>（<strong>営業開始5:00</strong>）。フライト番号を登録しているため、<strong>予約は貸出時刻から24時間（＝10/5 23:00まで）保持されます</strong>。車はなくなりません<br>④ 課金は<strong>実際に借り出した時刻から24時間単位</strong>のため、朝受取でも<strong>6日課金のまま</strong>で料金は変わりません<br>⑤ ホテル → 空港は<strong>無料シャトル（7:00始発）</strong>または Uber<br><br>💡 この場合、<strong>Day2の出発が1〜2時間遅れます</strong>。アーチーズの滞在を短縮し、<strong>ブランディング到着18:32（日没18:55前）だけは死守</strong>してください</div></div>
+            <div><span class="cat-badge cat-注意">注意</span><div class="tl-main">🆘 大幅遅延で車を受け取れなかった場合の代替手順</div><div class="tl-note">AS669が<strong>1時間半以上遅延</strong>すると、02:00のクローズに間に合わない可能性があります。その場合は以下で対応してください。<br><br>① <strong>無理に急がない。</strong>スタッフがいなければ受け取りは物理的に不可能です<br>② <strong>Uber / Lyft でホテルへ</strong>（約10km・深夜料金で$35〜45程度／ホテルの無料シャトルは23:00で終了しているため使えません）<br>③ <strong>翌朝あらためて空港のAvisへ</strong>（<strong>営業開始5:00</strong>）。フライト番号を登録しているため、<strong>予約は貸出時刻から24時間（＝10/5 23:00まで）保持されます</strong>。車はなくなりません<br>④ 課金は<strong>実際に借り出した時刻から24時間単位</strong>のため、朝受取でも<strong>6日課金のまま</strong>で料金は変わりません<br>⑤ ホテル → 空港は<strong>無料シャトル（7:00始発）</strong>または Uber<br><br>💡 この場合、<strong>Day2の出発が1〜2時間遅れます</strong>。まず<strong>Dead Horse Point を取りやめて</strong>ください（アーチーズから26分でモアブに着きます）。それでも足りなければ The Windows Section を短縮し、<strong>明るいうちにモアブへ到着すること</strong>を優先してください（日没18:55）</div></div>
           </div>
         </div>
+      
+        <details class="delay">
+          <summary>⏱ 予定が遅れたとき・トラブル時はここ</summary>
+          <div class="dbody"><strong>① 便が遅れて 02:00 までに Avis に着けない</strong><br>
+上の「🆘 大幅遅延で車を受け取れなかった場合」を見てください。<strong>無理に急がず Uber でホテルへ</strong>（$35〜45）→ <strong>翌朝5:00以降に受取</strong>。予約は貸出時刻から24時間保持され、<u>6日課金のまま料金は変わりません</u>。<br>
+<strong>② 翌朝の出発が1〜2時間遅れる場合</strong><br>
+Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分ぶん吸収できます</strong>。まずそこで調整してください。</div>
+        </details>
       </details>
 
       <!-- Day2 -->
-      <details class="day-card">
+      <details class="day-card" data-day="2" data-date="2026-10-05" data-hotel="ラスティック イン（モアブ）" data-addr="120 E 100 S, Moab, UT 84532" data-tel="">
         <summary>
           <div class="day-label">Day 2 ▸</div>
           <div class="day-date">10月5日（月）</div>
@@ -395,10 +538,19 @@
             <div><span class="cat-badge cat-注意">注意</span><div class="tl-main">⚠️ 本日は約490km・今回最長。<strong>無理だと感じたらDead Horse Pointを外す</strong></div><div class="tl-note">前夜の睡眠が約5時間のため、体調を最優先してください。<strong>Dead Horse Point を取りやめれば、アーチーズから26分でモアブに着き17:00には休めます</strong>（入園料$20も不要に）<br>⛽ <strong>給油はグリーンリバーの1回だけ</strong>。翌朝モアブで満タンにしてから出発します</div></div>
           </div>
         </div>
+      
+        <details class="delay">
+          <summary>⏱ 予定が遅れたとき・トラブル時はここ</summary>
+          <div class="dbody"><strong>🔺 削る順番（上から順に）</strong><br>
+① <strong>Balanced Rock</strong>（15分）── 帰り道にあるので寄らなくても遠回りになりません<br>
+② <strong>Dead Horse Point</strong>（往復1時間20分＋滞在1時間30分）── <u>この日最大の調整弁</u>。外せばアーチーズから<strong>26分でモアブ</strong>、17:00には部屋で休めます（入園料$20も不要に）<br>
+③ <strong>The Windows Section</strong> を 2時間45分 → 1時間45分に短縮<br>
+<strong>🚩 死守すること</strong>：<strong>明るいうちにモアブへ着く</strong>（日没18:55・完全に暗くなるのは19:21）。US-191とUT-313は街灯がなく動物が出ます</div>
+        </details>
       </details>
 
       <!-- Day3 -->
-      <details class="day-card">
+      <details class="day-card" data-day="3" data-date="2026-10-06" data-hotel="Goulding's Lodge" data-addr="Goulding's Lodge, Oljato-Monument Valley, UT" data-tel="435-727-3231">
         <summary>
           <div class="day-label">Day 3 ▸</div>
           <div class="day-date">10月6日（火）</div>
@@ -407,7 +559,7 @@
           <div class="expand-hint">▼ 詳細タイムラインを見る</div>
         </summary>
         <div class="timeline">
-          <div style="margin:0 0 14px 0; padding:11px 13px; background:#f4f9f4; border-left:4px solid #7f8c8d; border-radius:4px; font-size:12px; line-height:1.7;">
+          <div data-tabgroup="det" style="margin:0 0 14px 0; padding:11px 13px; background:#f4f9f4; border-left:4px solid #7f8c8d; border-radius:4px; font-size:12px; line-height:1.7;">
             <strong style="font-size:13px;">🛒 本日の買い出し ── <u>モアブを出る前に済ませる</u></strong><br>
             <strong>① City Market</strong>（モアブ）<strong>07:15〜07:45</strong> 🔴 <strong>30分</strong>｜425 S Main St・US-191沿い<br>
             <strong>② Goulding's内の売店</strong> <strong>13:10〜14:55の休憩中</strong> 🟢 <strong>±0分</strong>｜<span style="color:#c0392b;">ツアーの帰着が18:45と遅いため、<strong>寄るなら休憩時間中に</strong></span><br>
@@ -417,7 +569,7 @@
 
           <div class="tl-row">
             <div class="tl-time">07:00</div>
-            <div><span class="cat-badge cat-食事">食事</span><div class="tl-main">起床・出発準備</div><div class="tl-note">⚠️ <strong>ラスティック インに朝食は付いていません。</strong>07:15からのCity Marketで購入するか、市内のカフェで<br>チェックアウト時に現地払い（$178.08）</div></div>
+            <div><span class="cat-badge cat-宿泊">宿泊</span><div class="tl-main">起床・出発準備</div><div class="tl-note">⚠️ <strong>ラスティック インに朝食は付いていません。</strong>07:15からのCity Marketで購入するか、市内のカフェで<br>チェックアウト時に現地払い（$178.08）</div></div>
           </div>
           <div class="tl-row">
             <div class="tl-time">07:15〜07:45</div>
@@ -425,13 +577,13 @@
           </div>
           <div class="tl-row">
             <div class="tl-time">07:45</div>
-            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">ラスティック イン（モアブ）出発 → US-191南下</div><div class="tl-note">📏 <strong>Googleマップ実測：モアブ → MVビジターセンターは 2時間39分・149マイル(240km)</strong>（US-191 S → US-163 S）<br>途中<strong>ブランディング（約1時間15分後）</strong>と<strong>ブラフ／メキシカンハット</strong>がトイレ休憩に使えます<br>⏱ 従来のブランディング泊より<strong>1時間14分長くなりました</strong>が、ツアーが15:00発なので余裕は十分あります</div></div>
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">ラスティック イン（モアブ）出発 → US-191南下</div><div class="tl-note">📏 <strong>Googleマップ実測：モアブ → MVビジターセンターは 2時間39分・149マイル(240km)</strong>（US-191 S → US-163 S）<br>途中<strong>ブランディング（約1時間15分後）</strong>と<strong>ブラフ／メキシカンハット</strong>がトイレ休憩に使えます<br>⏱ 従来のブランディング泊より<strong>1時間14分長くなりました</strong>が、ツアーが<strong>15:15発</strong>なので余裕は十分あります</div></div>
           </div>
           <div class="tl-row">
             <div class="tl-time">10:10〜10:40</div>
             <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Forrest Gump Point（US-163沿い）停車・撮影</div><div class="tl-note">Monument Valleyの手前約25km地点（US-163沿い）｜モアブから<strong>2時間25分</strong><br>📸 道路の先にモニュメントバレーの岩が並ぶ、映画『フォレスト・ガンプ』で有名な構図<br>⚠️ <strong>現役の公道です。</strong>撮影時は必ず路肩に寄せ、車の往来に注意してください</div></div>
           </div>
-          <div style="margin:0 0 14px 0; padding:11px 13px; background:#eafaf1; border-left:4px solid #27ae60; border-radius:4px; font-size:12px; line-height:1.7;">
+          <div data-tabgroup="why" style="margin:0 0 14px 0; padding:11px 13px; background:#eafaf1; border-left:4px solid #27ae60; border-radius:4px; font-size:12px; line-height:1.7;">
             <strong style="font-size:13px;">✅ ツアーは「デラックスツアー 15:15発」で予約完了しました（2026/8/22）</strong><br>
             クラシック（2時間30分・$79/人）と比較したうえで、<strong>デラックス（3時間30分）</strong>を選びました。決め手は3つです。<br>
             ① <strong style="color:#c0392b;">一般車が入れない制限区域</strong>に入れる（Sun's Eye／Ear of the Wind／天然アーチ）。保険の都合で自走を諦めたぶん、ツアーの内容を厚くする価値がありました<br>
@@ -441,7 +593,7 @@
 
           <div class="tl-row">
             <div class="tl-time">10:55〜12:00</div>
-            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Monument Valley ビジターセンター着 ── 展望テラスから撮影</div><div class="tl-note">ナバホ族管轄（Navajo Tribal Park）｜ゲートで入園料を支払います<br>🎫 <strong>入園料：ここの料金所で支払います</strong><br><div style="margin:6px 0; padding:8px 10px; background:#eafaf1; border-left:4px solid #27ae60; border-radius:4px;"><strong>✅ 2026/8/22 ツアーの明細で判明しました</strong><br>・実額は <strong>1人 $10</strong>。<u>車両料金$15は請求されていません</u>（従来「3名$45」としていたのは過大でした）<br>・ツアー予約時に <strong>「公園入場料 $10 × 3名 ＝ $30」を支払済み</strong>です<br>・ただしそれは<u>ツアー分</u>。<strong>朝に自分の運転で入るこの場面は、ここで別途支払う想定</strong>です（目安 3名 $30）<br>💡 料金所で<strong>「今日15:15のGoulding'sのツアーを予約している」と伝えてみる</strong>価値はあります。同日有効なら二重に払わずに済む可能性がありますが、<u>これは未確認</u>です。断られたら素直に払ってください</div>🔴 <strong>America the Beautiful パス（$250の非居住者パスを含む）は使えません。</strong>ここは国立公園ではなく<u>ナバホ族が独自に運営する部族立公園</u>のためです<br>📸 ビジターセンターの展望テラスから、<strong>West Mitten・East Mitten・Merrick Butte</strong>という一番有名な3つの岩が正面に見えます。<strong>ここは歩きません</strong>（テラスから眺めるだけ）<br>✅ <strong>10月の営業時間が公式サイトで確定しました（2026/8/22）。</strong>10/6は「10月1日〜1月31日」の区分にあたります<br>・<strong>料金所：7:00〜19:00</strong>（10:55の到着は問題なし）<br>・<strong>ビジターセンター／スケニックドライブ：8:00〜17:00</strong><br>・<strong>スケニックドライブの最終入場：14:30</strong> ← これは<u>自分で運転して17マイルループに入る場合</u>の話です。<strong>ガイドツアーは別枠</strong>なので15:00発でも問題ありません<br>⚠️ 雨天閉鎖の可能性あり｜☎ 435-727-5870｜🐕 <strong>園内は犬の持ち込み禁止</strong>／🚁 ドローン禁止（発見されると没収）</div></div>
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">Monument Valley ビジターセンター着 ── 展望テラスから撮影</div><div class="tl-note">ナバホ族管轄（Navajo Tribal Park）｜ゲートで入園料を支払います<br>🎫 <strong>入園料：ここの料金所で支払います</strong><br><div style="margin:6px 0; padding:8px 10px; background:#eafaf1; border-left:4px solid #27ae60; border-radius:4px;"><strong>✅ 2026/8/22 ツアーの明細で判明しました</strong><br>・実額は <strong>1人 $10</strong>。<u>車両料金$15は請求されていません</u>（従来「3名$45」としていたのは過大でした）<br>・ツアー予約時に <strong>「公園入場料 $10 × 3名 ＝ $30」を支払済み</strong>です<br>・ただしそれは<u>ツアー分</u>。<strong>朝に自分の運転で入るこの場面は、ここで別途支払う想定</strong>です（目安 3名 $30）<br>💡 料金所で<strong>「今日15:15のGoulding'sのツアーを予約している」と伝えてみる</strong>価値はあります。同日有効なら二重に払わずに済む可能性がありますが、<u>これは未確認</u>です。断られたら素直に払ってください</div>🔴 <strong>America the Beautiful パス（$250の非居住者パスを含む）は使えません。</strong>ここは国立公園ではなく<u>ナバホ族が独自に運営する部族立公園</u>のためです<br>📸 ビジターセンターの展望テラスから、<strong>West Mitten・East Mitten・Merrick Butte</strong>という一番有名な3つの岩が正面に見えます。<strong>ここは歩きません</strong>（テラスから眺めるだけ）<br>✅ <strong>10月の営業時間が公式サイトで確定しました（2026/8/22）。</strong>10/6は「10月1日〜1月31日」の区分にあたります<br>・<strong>料金所：7:00〜19:00</strong>（10:55の到着は問題なし）<br>・<strong>ビジターセンター／スケニックドライブ：8:00〜17:00</strong><br>・<strong>スケニックドライブの最終入場：14:30</strong> ← これは<u>自分で運転して17マイルループに入る場合</u>の話です。<strong>ガイドツアーは別枠</strong>なので<strong>15:15発</strong>でも問題ありません<br>⚠️ 雨天閉鎖の可能性あり｜☎ <a class="telink" href="tel:+14357275870">435-727-5870</a>｜🐕 <strong>園内は犬の持ち込み禁止</strong>／🚁 ドローン禁止（発見されると没収）</div></div>
           </div>
           <div class="tl-row">
             <div class="tl-time">12:00〜13:00</div>
@@ -472,10 +624,21 @@
             <div><span class="cat-badge cat-食事">食事</span><div class="tl-main">夕食・翌日の準備</div><div class="tl-note">Goulding's Lodge のレストラン、または朝モアブで買っておいたもの<br>⚠️ <strong style="color:#c0392b;">レストランのラストオーダーを、チェックイン時に必ず確認してください。</strong>19:00開始は遅めです<br>📌 翌朝はグランドキャニオンへ移動（08:00発）。<strong>ここから先はアリゾナ州本体に入るため時計が1時間戻ります</strong>（Day4参照）</div></div>
           </div>
         </div>
+      
+        <details class="delay">
+          <summary>⏱ 予定が遅れたとき・トラブル時はここ</summary>
+          <div class="dbody"><strong>🔴 最優先：15:15のツアーに間に合わせること</strong>（前払い済み・返金されない可能性があります）<br>
+<strong>14:55までに Goulding&#39;s のツアーデスク</strong>へ。遅れそうなら早めに <a class="telink" href="tel:+14357273231">435-727-3231</a> へ電話を。<br>
+<strong>🔺 削る順番</strong><br>
+① <strong>ビジターセンターの滞在</strong>（10:55〜12:00の65分）を短縮 ── 展望テラスの撮影だけにする<br>
+② <strong>Forrest Gump Point</strong>（30分）を車窓のみに<br>
+③ <strong>昼食</strong>を車内・軽食に切り替える<br>
+④ モアブでの買い出し（30分）を最小限に（ただし<strong>給油だけは必ず</strong>／MVまで240km）</div>
+        </details>
       </details>
 
       <!-- Day4 -->
-      <details class="day-card">
+      <details class="day-card" data-day="4" data-date="2026-10-07" data-hotel="Red Feather Lodge（トゥサヤン）" data-addr="Red Feather Lodge, Tusayan, AZ" data-tel="928-638-2414">
         <summary>
           <div class="day-label">Day 4 ▸</div>
           <div class="day-date">10月7日（水）</div>
@@ -562,10 +725,20 @@
             <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">トゥサヤンへ帰還</div><div class="tl-note">⚠️ <strong>夜間運転11km</strong>。街灯なし・鹿の飛び出し注意・速度控えめに</div></div>
           </div>
         </div>
+      
+        <details class="delay">
+          <summary>⏱ 予定が遅れたとき・トラブル時はここ</summary>
+          <div class="dbody"><strong>🟢 この日はもともと余裕があります</strong><br>
+モニュメントバレー→東口は<strong>実測2時間34分</strong>、さらに<strong>時差で1時間得します</strong>（MDT→MST）。08:00発で<strong>10:05（MST）着</strong>の計画です。<br>
+<strong>🔺 削る順番</strong><br>
+① <strong>Lipan Point</strong>（55分）── 入園ゲートから2.5マイルで寄り道ゼロですが、外しても南リムの展望は Mather Point で見られます<br>
+② <strong>チェックイン後の休憩100分</strong>を短縮 ── ただし<u>標高2,100mでの回復時間なので、削るのは最後にしてください</u><br>
+<strong>🚩 死守すること</strong>：夕日の時間に展望台にいること</div>
+        </details>
       </details>
 
       <!-- Day5 -->
-      <details class="day-card">
+      <details class="day-card" data-day="5" data-date="2026-10-08" data-hotel="Red Feather Lodge（トゥサヤン）" data-addr="Red Feather Lodge, Tusayan, AZ" data-tel="928-638-2414">
         <summary>
           <div class="day-label">Day 5 ▸</div>
           <div class="day-date">10月8日（木）</div>
@@ -697,10 +870,20 @@
             <div><span class="cat-badge cat-食事">食事</span><div class="tl-main">夕食（トゥサヤン）</div><div class="tl-note">翌日はWilliams経由でセドナへ。早めに休む</div></div>
           </div>
         </div>
+      
+        <details class="delay">
+          <summary>⏱ 予定が遅れたとき・トラブル時はここ</summary>
+          <div class="dbody"><strong>🟢 母はホテルにいるので、時間が動いても影響が出にくい日です</strong><br>
+<strong>🔺 調整のしかた</strong><br>
+① <strong>駐車場が満車</strong> → 午後は必ず <strong>Lot D</strong> へ。NPS公式が「他の駐車場が満車のときも空いていることが多い」と案内しています<br>
+② <strong>ハイクが遅れた</strong> → Village歴史地区（14:30〜16:30）を短縮。Lookout Studio は<strong>17:00で閉まる</strong>ので、そこだけ先に<br>
+③ <strong>体調が悪い・寒すぎる</strong> → <strong>Ooh Aah Point は中止して構いません</strong>。Village地区とRim Trailだけでもこの日は成立します<br>
+<strong>🚩 注意</strong>：登山口の給水所は<strong>使用不可</strong>（配管破損）。水は全量持って入ること</div>
+        </details>
       </details>
 
       <!-- Day6 -->
-      <details class="day-card">
+      <details class="day-card" data-day="6" data-date="2026-10-09" data-hotel="Sugar Loaf Lodge（西セドナ）" data-addr="1870 W State Route 89A, Sedona, AZ" data-tel="">
         <summary>
           <div class="day-label">Day 6 ▸</div>
           <div class="day-date">10月9日（金）</div>
@@ -742,18 +925,18 @@
           </div>
           <div class="tl-row">
             <div class="tl-time">15:05〜16:05</div>
-            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">⛪ Chapel of the Holy Cross（60分）── <strong>Day7から前倒ししました</strong></div><div class="tl-note">岩壁に埋め込まれた建築・<strong>入場無料</strong>｜<strong>開館9:00〜17:00（最終入場16:45）</strong>｜☎️ 928-282-4069
+            <div><span class="cat-badge cat-観光">観光</span><div class="tl-main">⛪ Chapel of the Holy Cross（60分）── <strong>Day7から前倒ししました</strong></div><div class="tl-note">岩壁に埋め込まれた建築・<strong>入場無料</strong>｜<strong>開館9:00〜17:00（最終入場16:45）</strong>｜☎️ <a class="telink" href="tel:+19282824069">928-282-4069</a>
             <div style="margin:6px 0; padding:8px 10px; background:#eafaf1; border-left:4px solid #27ae60; border-radius:4px;">
             <strong>🔴 なぜ Day7（土曜）から Day6（金曜）に移したか</strong><br>
             Googleマップの実測混雑データで、<strong>土曜が週内で最も混む日</strong>だと判明したためです。<strong>駐車場は45台しかありません。</strong>
-            <table style="width:100%; border-collapse:collapse; margin:6px 0; font-size:11px;">
+            <div class="table-scroll"><table style="width:100%; border-collapse:collapse; margin:6px 0; font-size:11px;">
             <tr style="background:#f7f7f7;"><th style="border:1px solid #ddd; padding:4px;">時刻</th><th style="border:1px solid #ddd; padding:4px;">金曜（今回）</th><th style="border:1px solid #ddd; padding:4px;">土曜（従来案）</th></tr>
             <tr><td style="border:1px solid #ddd; padding:4px; text-align:center;">11時</td><td style="border:1px solid #ddd; padding:4px; text-align:center;">75%</td><td style="border:1px solid #ddd; padding:4px; text-align:center; color:#c0392b;"><strong>93%</strong></td></tr>
             <tr><td style="border:1px solid #ddd; padding:4px; text-align:center;">12時</td><td style="border:1px solid #ddd; padding:4px; text-align:center;">77%</td><td style="border:1px solid #ddd; padding:4px; text-align:center; color:#c0392b;"><strong>98%</strong></td></tr>
             <tr style="background:#eafaf1;"><td style="border:1px solid #ddd; padding:4px; text-align:center;"><strong>15時</strong></td><td style="border:1px solid #ddd; padding:4px; text-align:center;"><strong>64%</strong></td><td style="border:1px solid #ddd; padding:4px; text-align:center;">87%</td></tr>
             <tr style="background:#eafaf1;"><td style="border:1px solid #ddd; padding:4px; text-align:center;"><strong>16時</strong></td><td style="border:1px solid #ddd; padding:4px; text-align:center;"><strong>50%</strong></td><td style="border:1px solid #ddd; padding:4px; text-align:center;">66%</td></tr>
             <tr><td style="border:1px solid #ddd; padding:4px; text-align:center;">ピーク</td><td style="border:1px solid #ddd; padding:4px; text-align:center;">77%</td><td style="border:1px solid #ddd; padding:4px; text-align:center; color:#c0392b;"><strong>100%</strong></td></tr>
-            </table>
+            </table></div>
             → <strong>金曜の15〜16時は 64%→50% まで下がります。</strong>この時間帯を狙います
             </div>
             🚶 <strong>駐車場から礼拝堂までは坂道</strong>です。✅ <strong>坂の上に転回所があり、そこで降車できます</strong>（母はここで降ろすとよい）。車椅子の貸出あり・ゴルフカートでの補助もあり<br>
@@ -775,12 +958,12 @@
     <span style="color:#c0392b;">⚠️ 「Airport Mesa」で検索すると<u>坂の途中の無料駐車場（約10台）</u>に案内される場合があります。必ず上記の名称・住所で検索してください</span>
     </div>
     セドナ全景と赤岩のパノラマ。<strong>日没は18:00</strong>（USNO）・完全に暗くなるのは18:25<br>🔴 <strong>Airport Mesa には展望地点が3つあります。夕日なら Scenic Lookout が正解です</strong>
-            <table style="width:100%; border-collapse:collapse; margin:7px 0; font-size:11px;">
+            <div class="table-scroll"><table style="width:100%; border-collapse:collapse; margin:7px 0; font-size:11px;">
             <tr style="background:#f7f7f7;"><th style="border:1px solid #ddd; padding:4px; text-align:left;">場所</th><th style="border:1px solid #ddd; padding:4px;">標高</th><th style="border:1px solid #ddd; padding:4px; text-align:left;">駐車・アクセス</th><th style="border:1px solid #ddd; padding:4px; text-align:left;">夕日</th></tr>
             <tr style="background:#eafaf1;"><td style="border:1px solid #ddd; padding:4px;">✅ <strong>Sedona Airport<br>Scenic Lookout</strong><br>（上）</td><td style="border:1px solid #ddd; padding:4px; text-align:center;"><strong>4,800ft</strong></td><td style="border:1px solid #ddd; padding:4px;"><strong>大きな有料ロット $3</strong><br>駐車場の向かい・<strong>歩かずに見られる</strong></td><td style="border:1px solid #ddd; padding:4px;">🟢 <strong>西と北に大きく開ける<br>＝夕日に最適</strong></td></tr>
             <tr><td style="border:1px solid #ddd; padding:4px;">🟡 Sedona Trail<br>View Point<br>（中）</td><td style="border:1px solid #ddd; padding:4px; text-align:center;">4,613ft</td><td style="border:1px solid #ddd; padding:4px; color:#c0392b;"><strong>駐車が少ない</strong><br>Sedona View Trail 沿い</td><td style="border:1px solid #ddd; padding:4px;">🟡 街の眺めは絶品だが<br>西側の抜けは劣る</td></tr>
             <tr><td style="border:1px solid #ddd; padding:4px;">❌ Airport Mesa<br>Vortex<br>（下）</td><td style="border:1px solid #ddd; padding:4px; text-align:center;">丘の上</td><td style="border:1px solid #ddd; padding:4px; color:#c0392b;"><strong>約10台</strong><br><strong>急な岩場を登る</strong></td><td style="border:1px solid #ddd; padding:4px; color:#c0392b;">🔴 <strong>手前の丘が太陽を遮り<br>日没が見えない</strong></td></tr>
-            </table>
+            </table></div>
             <span style="color:#1a5490;">💡 <strong>「Sedona Trail View Point」を検討した結果</strong>：ベンチがあり「Scenic Lookoutより眺めが良い」と評する人もいる隠れた名所です。Scenic Lookout に停めて <strong>Sedona View Trail を片道0.6マイル・16分</strong>歩けば行けますが、<strong>帰りは187フィートの登り返し</strong>になります。<u>夕暮れ時に母が登り返すのは負担が大きいため、今回は Scenic Lookout のみとしました</u>（余裕があれば夫婦だけ往復するのも可）</span><br>
             🔴 <strong>「Airport Mesa」で検索すると坂の途中の駐車場に案内されることがあります。</strong>必ず<strong>「Sedona Airport Scenic Lookout」</strong>で検索してください
             🔴 <strong>16:15着＝日没の1時間45分前</strong>。セドナで最も混む夕日スポットで、各所が「日没の1〜2時間前に到着」と警告しています。<u>頂上の有料ロット（$3）を目指してください</u><br>🔦 <strong>懐中電灯／ヘッドランプ必須</strong>。日没後は急激に暗くなり、赤岩の段差でつまずきます</div></div>
@@ -794,10 +977,20 @@
             <div><span class="cat-badge cat-宿泊">宿泊</span><div class="tl-main">Sugar Loaf Lodge（西セドナ・確定）</div><div class="tl-note">1870 W State Route 89A｜USD 261.37・現地払い・朝食無料・駐車無料<br>🔴 <strong>荷造りは今夜のうちに済ませること。</strong>翌朝は5:30起床・チェックアウトは11:00です</div></div>
           </div>
         </div>
+      
+        <details class="delay">
+          <summary>⏱ 予定が遅れたとき・トラブル時はここ</summary>
+          <div class="dbody"><strong>🔺 削る順番</strong><br>
+① <strong>Williams（Route 66）</strong>の2時間を短縮 ── この日最大の調整弁<br>
+② <strong>Chapel of the Holy Cross</strong>（60分）── 駐車場は45台のみ。混んでいたら潔く見送る<br>
+<strong>🚩 死守すること</strong>：<strong>Airport Mesa の夕日</strong>（日没18:00・<u>16:15までに到着</u>）。検索は必ず「<strong>Sedona Airport Scenic Lookout</strong>」で<br>
+💡 <strong>Chapelは金曜16時台が最も空いています</strong>（混雑50%）。ずらすならこの時間帯へ<br>
+💡 到着が遅れてチェックインが押しても、この日は<strong>回復日</strong>です。無理に詰めないでください</div>
+        </details>
       </details>
 
       <!-- Day7 -->
-      <details class="day-card" style="border-left-color: #c0392b;">
+      <details class="day-card" style="border-left-color: #c0392b;" data-day="7" data-date="2026-10-10" data-hotel="（帰国便・宿泊なし）" data-addr="Phoenix Sky Harbor Rental Car Center" data-tel="">
         <summary>
           <div class="day-label" style="color:#c0392b;">Day 7 ▸</div>
           <div class="day-date">10月10日（土）</div>
@@ -851,7 +1044,7 @@
           </div>
           <div class="tl-row">
             <div class="tl-time">06:00〜06:20</div>
-            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">ホテル → Dry Creek Vista駐車場</div><div class="tl-note">⚠️ 駐車場は朝7時前に満車 → <strong>6:20着を死守</strong>（実測ではホテルから<strong>5.9km・10分</strong>なので6:10には着けます）<br>🌅 <strong>日の出は 06:29</strong>（米海軍天文台の確定値。従来「6:22頃」は誤り）。ただし<strong>市民薄明は06:04開始</strong>なので、6:20時点で既に薄明るく行動できます<br>✅ <strong>Dry Creek Vista の駐車場はシャトル運行日でも閉鎖されません</strong>（公式確認済み。閉鎖対象は Cathedral Rock と Soldier Pass の2箇所のみ）<br>🎫 <strong>Red Rock Pass が必要</strong>（$5/日）。America the Beautiful パスで代用できるか要確認（Red Rock Ranger District 928-203-2900）
+            <div><span class="cat-badge cat-移動">移動</span><div class="tl-main">ホテル → Dry Creek Vista駐車場</div><div class="tl-note">⚠️ 駐車場は朝7時前に満車 → <strong>6:20着を死守</strong>（実測ではホテルから<strong>5.9km・10分</strong>なので6:10には着けます）<br>🌅 <strong>日の出は 06:29</strong>（米海軍天文台の確定値。従来「6:22頃」は誤り）。ただし<strong>市民薄明は06:04開始</strong>なので、6:20時点で既に薄明るく行動できます<br>✅ <strong>Dry Creek Vista の駐車場はシャトル運行日でも閉鎖されません</strong>（公式確認済み。閉鎖対象は Cathedral Rock と Soldier Pass の2箇所のみ）<br>🎫 <strong>Red Rock Pass が必要</strong>（$5/日）。America the Beautiful パスで代用できるか要確認（Red Rock Ranger District <a class="telink" href="tel:+19282032900">928-203-2900</a>）
             <div style="margin:7px 0 0 0; padding:9px 11px; background:#fff9e6; border-left:4px solid #f39c12; border-radius:4px;">
             <strong>🅿️ もし満車だったら ── <u>潔く諦めて、回復と朝食の時間に充てます</u></strong><br>
             無理に別の手段を探さず、<strong>そのままホテルへ戻ってください。</strong><br><br>
@@ -934,6 +1127,16 @@
             <div><span class="cat-badge cat-飛行機">飛行機</span><div class="tl-main">PHX出発 → 帰国フライト</div><div class="tl-note">便名・経由地は未定</div></div>
           </div>
         </div>
+      
+        <details class="delay">
+          <summary>⏱ 予定が遅れたとき・トラブル時はここ</summary>
+          <div class="dbody"><strong>🅿️ Dry Creek Vista が満車だったら → 潔く諦める</strong>（決定済み）<br>
+シャトルは使いません（始発7:00で1時間遅れ、帰りの便が読めず11:00のチェックアウトが運任せになるため）。<strong>帰国日に不確定要素を持ち込まない</strong>という判断です。<br>
+→ 代わりにホテルで<strong>朝食（無料）・プール・ジャグジー</strong>で回復し、<strong>3人そろって McDonald&#39;s と Sedonuts</strong> へ。<br>
+<strong>🎡 州フェアで I-17 が渋滞したら</strong><br>
+<strong>I-17 → Loop 101東 → Loop 202</strong> で東側から Sky Harbor へ迂回。出発前にGoogleマップで両ルートを比較してください。<br>
+<strong>🚩 死守すること</strong>：<strong>17:00のレンタカー返却</strong>。Bell Rock → 返却場所は<strong>実測1時間48分</strong>。13:55にセドナを出れば15:45に着きます</div>
+        </details>
       </details>
 
     </div>
@@ -952,7 +1155,7 @@
 
     <div class="badge blue">往路（確定）— 2026年10月4日</div>
     <div style="overflow-x:auto;">
-      <table class="flight-table">
+      <div class="table-scroll"><table class="flight-table">
         <tr><th>区間</th><th>便名</th><th>所要時間</th><th>出発 → 到着</th><th>航空会社</th></tr>
         <tr>
           <td><strong>KMJ→TPE</strong></td>
@@ -981,7 +1184,7 @@
           <td>10/4 20:48 シアトル<br>→ <strong style="color:#c0392b; font-size:15px;">23:51 ソルトレイクシティ</strong></td>
           <td>ALASKA</td>
         </tr>
-      </table>
+      </table></div>
     </div>
     <div class="alert-box" style="margin-top:10px;">
       🔴 <strong>SLC到着は 23:51 です</strong>（従来「22:22着」と記載していたのは誤りでした）<br>
@@ -993,7 +1196,7 @@
 
     <div class="badge blue">復路（確定）— 2026年10月10日発</div>
     <div style="overflow-x:auto;">
-      <table class="flight-table">
+      <div class="table-scroll"><table class="flight-table">
         <tr><th>区間</th><th>便名</th><th>所要時間</th><th>出発 → 到着</th><th>航空会社</th></tr>
         <tr>
           <td><strong>PHX→TPE</strong></td>
@@ -1012,7 +1215,7 @@
           <td>10/12 07:30 台北（T1）<br>→ <strong>10:45 熊本</strong></td>
           <td>STARLUX</td>
         </tr>
-      </table>
+      </table></div>
     </div>
     <div class="note-box" style="margin-top:10px;">
       ✈️ <strong>レンタカー返却17:00 → 出発23:25</strong>で<strong>約6時間25分の余裕</strong>があります（PHXは初利用のため十分な余裕を確保）<br>
@@ -1031,8 +1234,8 @@
       <div class="info-label">状態</div><div class="info-value" style="color:#2e7d32; font-weight:bold;">✅ 予約確定（2026/8/19）</div>
       <div class="info-label">会社</div><div class="info-value"><strong>Avis</strong>（日本サイト経由／株式会社ジェイバ）</div>
       <div class="info-label">予約番号</div><div class="info-value"><strong>23616375JP6</strong>（26803582）</div>
-      <div class="info-label">受取</div><div class="info-value"><strong>SLC空港　10/4（日）23:00</strong><br><span style="color:#c0392b; font-size:13px;">⚠️ 実際の到着（AS669）は23:51、カウンター到着は00:30頃 → ✅ <strong>Avis確認済み：フライト番号を登録しているため、このままで受取可能</strong>（時刻変更は不可）</span><br><span style="color:#888; font-size:13px;">Gateway Center（駐車場棟）／Avis SLCは5:00〜深夜2:00営業<br>3921 West Terminal Drive　TEL 801-258-5238</span></div>
-      <div class="info-label">返却</div><div class="info-value"><strong>PHX空港　10/10（土）17:00</strong><br><span style="color:#888; font-size:13px;">乗り捨て（ワンウェイ）／1805 E Sky Harbor Circle South　TEL 602-261-5900</span></div>
+      <div class="info-label">受取</div><div class="info-value"><strong>SLC空港　10/4（日）23:00</strong><br><span style="color:#c0392b; font-size:13px;">⚠️ 実際の到着（AS669）は23:51、カウンター到着は00:30頃 → ✅ <strong>Avis確認済み：フライト番号を登録しているため、このままで受取可能</strong>（時刻変更は不可）</span><br><span style="color:#888; font-size:13px;">Gateway Center（駐車場棟）／Avis SLCは5:00〜深夜2:00営業<br>3921 West Terminal Drive　TEL <a class="telink" href="tel:+18012585238">801-258-5238</a></span></div>
+      <div class="info-label">返却</div><div class="info-value"><strong>PHX空港　10/10（土）17:00</strong><br><span style="color:#888; font-size:13px;">乗り捨て（ワンウェイ）／1805 E Sky Harbor Circle South　TEL <a class="telink" href="tel:+16022615900">602-261-5900</a></span></div>
       <div class="info-label">車種</div><div class="info-value">スタンダードSUV（Group W）<br><span style="color:#888; font-size:13px;">Chevrolet Equinox または同等車種／荷物3個・5人乗り・4ドア・AT</span></div>
       <div class="info-label">期間</div><div class="info-value">6日間・<strong>走行距離無制限</strong></div>
       <div class="info-label">料金</div><div class="info-value"><strong>US$ 623.54</strong>（現地払い）<br>＋ ロードセーフサービス US$ 53.94（現地払い・税別）<br><span style="color:#888; font-size:13px;">＝ 実質総額 約 US$ 690（約10.7万円）／キャンセルは当日まで無料</span></div>
@@ -1076,7 +1279,7 @@
 
     <!-- 表形式サマリー -->
     <div style="overflow-x:auto; margin-bottom:12px;">
-      <table class="flight-table" style="min-width:680px;">
+      <div class="table-scroll"><table class="flight-table" style="min-width:680px;">
         <tr><th>日程</th><th>ホテル</th><th>状態</th><th>決済カード</th><th>備考</th></tr>
         <tr>
           <td>Day1<br>10/4（日）</td>
@@ -1113,7 +1316,7 @@
           <td><strong>Visa ****8359</strong><br><span style="font-size:11px; color:#666;">現地払い</span></td>
           <td><strong>USD 261.37</strong>（約¥40,500）<strong>現地払い</strong><br>✅ <strong>朝食無料</strong>・クイーンベッド2台（定員4）・駐車場無料<br>⚠️ キャンセル無料：<strong>10/7 16時頃（JST）まで</strong>（Agoda予約）<br>📋 <strong>Devil's Bridge登山口まで約10分</strong>・口コミ 8.8／1,475件</td>
         </tr>
-      </table>
+      </table></div>
     </div>
 
     <!-- カード持参の注意書き -->
@@ -1224,7 +1427,7 @@
       </div>
 
       <div style="margin-top:14px; overflow-x:auto;">
-        <table class="flight-table" style="font-size:12px; min-width:460px;">
+        <div class="table-scroll"><table class="flight-table" style="font-size:12px; min-width:460px;">
           <tr><th style="width:38%;">項目</th><th>内容</th></tr>
           <tr style="background:#eafaf1;"><td><strong>Devil's Bridge登山口まで</strong></td><td><strong>約10分</strong>（3.7マイル）</td></tr>
           <tr style="background:#eafaf1;"><td><strong>チェックアウト</strong></td><td><strong>11:00</strong>（セドナ市内はこれが上限。11:30以降の宿は0軒）</td></tr>
@@ -1234,7 +1437,7 @@
           <tr><td>設備</td><td>屋外プール・ジャグジー・無料WiFi</td></tr>
           <tr><td>口コミ</td><td><strong>8.8 / 1,475件</strong>（Booking.com）── 件数が多く信頼性が高い</td></tr>
           <tr><td>McDonald's・Sedonutsまで</td><td><strong>約3分</strong>（同じW.89A沿い・0.5マイル）</td></tr>
-        </table>
+        </table></div>
       </div>
 
       <div class="note-box" style="margin-top:12px; border-left:4px solid #27ae60; font-size:12px;">
@@ -1306,7 +1509,7 @@
       <strong>🔴＝行程に時間が追加でかかる</strong>／<strong>🟢＝既存の食事・休憩枠に吸収でき、時間の追加なし</strong>
     </div>
     <div style="overflow-x:auto; margin-bottom:20px;">
-      <table class="flight-table" style="font-size:12px; min-width:700px;">
+      <div class="table-scroll"><table class="flight-table" style="font-size:12px; min-width:700px;">
         <tr><th style="width:8%;">日</th><th style="width:20%;">店舗</th><th style="width:10%;">時間帯</th><th style="width:8%;">時間</th><th style="width:18%;">場所・道路</th><th>この時点で買うべきもの</th></tr>
         <tr style="background:#eafaf1;">
           <td><strong>Day2</strong></td><td><strong>Walmart Supercenter</strong><br>スパニッシュ・フォーク／スプリングビル</td><td>08:55〜09:30</td><td>🔴 35分</td><td>I-15沿い・US-6分岐の直前</td>
@@ -1351,7 +1554,7 @@
           <td>Day7</td><td>Safeway セドナ</td><td>09:45頃</td><td>🟢 ±0分</td><td>Sedonuts・McDonald'sの隣</td>
           <td>✈️ <strong>機内・空港用の飲み物と軽食</strong>。PHXは物価が高く搭乗まで約6時間待機</td>
         </tr>
-      </table>
+      </table></div>
     </div>
 
     <div class="alert-box" style="margin-bottom:20px; font-size:12px;">
@@ -1363,7 +1566,7 @@
 
     <div class="checklist-title">🛒 現地スーパーでの買い出しリスト（節約効果が高い順）</div>
     <div style="overflow-x:auto; margin-bottom:8px;">
-      <table class="flight-table" style="font-size:12px; min-width:560px;">
+      <div class="table-scroll"><table class="flight-table" style="font-size:12px; min-width:560px;">
         <tr><th style="width:26%;">品目</th><th style="width:16%;">目安価格</th><th>理由・ポイント</th></tr>
         <tr style="background:#eafaf1;"><td><strong>飲料水（24本ケース）</strong></td><td><strong>$4〜6</strong></td><td>1本あたり約20〜25円。現地で1本買うと$2〜3のため<strong>最も節約効果が大きい</strong>。3人×7日分を考えると数千円〜1万円の差に</td></tr>
         <tr style="background:#eafaf1;"><td><strong>クーラーボックス</strong><br>（発泡スチロール製）</td><td><strong>$5〜15</strong></td><td>Walmartで購入可。<strong>飲料を冷やせるかで満足度が大きく変わる</strong>。旅の最初に買うのが正解</td></tr>
@@ -1374,7 +1577,7 @@
         <tr><td>パン・シリアル</td><td>$3〜6</td><td>朝食の代替。<strong>ラスティック インは朝食なし</strong>のため、Day3の朝食用に必ず確保</td></tr>
         <tr><td>インスタントコーヒー・ティーバッグ</td><td>$3〜8</td><td>ホテルに給湯設備あり。カフェ代の節約に</td></tr>
         <tr><td>ウェットティッシュ・ゴミ袋</td><td>$2〜5</td><td>車内飲食・ハイキング後に重宝</td></tr>
-      </table>
+      </table></div>
     </div>
 
     <div class="note-box" style="margin-bottom:20px; font-size:12px;">
@@ -1561,7 +1764,7 @@
     <div class="todo-item">
       <div class="todo-box"></div>
       <div>🟡 America the Beautiful 非居住者パス 購入（$250 × 1枚）<br>
-      <span style="font-size:12px; color:#888;">アーチーズ＋グランドキャニオン入場料・$100/人サーチャージを3人分カバー。パスなしより$120節約。<br>🔴 <strong>モニュメントバレーには使えません</strong>（ナバホ族の部族立公園のため。別途 3名で $45 が必要）<br>🟡 セドナの Red Rock Pass を代用できるかは未確認 → 森林局 ☎ 928-203-2900<br>購入：<a href="https://www.recreation.gov/pass" target="_blank">Recreation.gov</a> または <a href="https://store.usgs.gov/2026-non-resident-annual-pass" target="_blank">USGS Store</a></span></div>
+      <span style="font-size:12px; color:#888;">アーチーズ＋グランドキャニオン入場料・$100/人サーチャージを3人分カバー。パスなしより$120節約。<br>🔴 <strong>モニュメントバレーには使えません</strong>（ナバホ族の部族立公園のため。別途 3名で $45 が必要）<br>🟡 セドナの Red Rock Pass を代用できるかは未確認 → 森林局 ☎ <a class="telink" href="tel:+19282032900">928-203-2900</a><br>購入：<a href="https://www.recreation.gov/pass" target="_blank">Recreation.gov</a> または <a href="https://store.usgs.gov/2026-non-resident-annual-pass" target="_blank">USGS Store</a></span></div>
     </div>
 
     <div class="todo-item">
@@ -1582,7 +1785,7 @@
       ▸ <strong>Goulding's デラックスツアー</strong>／<strong>2026年10月6日(火) 15:15〜18:45</strong>／大人3名<br>
       ▸ <strong>予約番号 374070232</strong>／支払済み <strong>US$382.53</strong>（Visa 末尾8359・2026/8/22 23:09）<br>
       ▸ カード明細の表示は <strong>「FH* Gouldings」</strong><br>
-      ▸ ☎ <strong>変更・キャンセルは (435) 727-3231</strong>（予約前に案内されていた866-313-9769とは別番号）<br>
+      ▸ ☎ <strong>変更・キャンセルは (435) 727-3231</strong>（予約前に案内されていた<a class="telink" href="tel:+18663139769">866-313-9769</a>とは別番号）<br>
       ▸ 内訳：大人 $99×3 ＝ $297／<strong>公園入場料 $10×3 ＝ $30</strong>／<strong>ガイドへのチップ15% ＝ $44.55（前払い済み）</strong>／税・手数料 $40.98<br>
       ▸ 🔴 <strong>チップは前払い済みなので、当日あらためて渡す必要はありません</strong>（追加で渡したい場合は任意）<br>
       ▸ 🔴 <strong>マスク必須</strong>：予約確認書に「トライバルパークではマスク着用が非常に厳しく義務付けられています」と明記<br>
@@ -1624,12 +1827,12 @@
     <div class="alert-box" style="border-left-color:#c0392b; background:#fdecea;">
       <strong>🕐 時差（タイムゾーン）── 旅程で1回だけ切り替わります</strong><br>
       アリゾナ州は夏時間を採用しませんが、<strong>州内にあるナバホ族居留地は夏時間を採用します</strong>。2026年の夏時間終了は11/1なので、<strong>旅行期間中はずっと夏時間の期間内</strong>です。
-      <table style="width:100%; border-collapse:collapse; margin:9px 0; font-size:12px;">
+      <div class="table-scroll"><table style="width:100%; border-collapse:collapse; margin:9px 0; font-size:12px;">
         <tr style="background:#f7f7f7;"><th style="border:1px solid #ddd; padding:5px; text-align:left;">日程</th><th style="border:1px solid #ddd; padding:5px; text-align:left;">場所</th><th style="border:1px solid #ddd; padding:5px;">時間帯</th></tr>
         <tr><td style="border:1px solid #ddd; padding:5px;">Day1〜3</td><td style="border:1px solid #ddd; padding:5px;">SLC・モアブ・ブランディング（ユタ州）<br>モニュメントバレー・カイエンタ（<strong>ナバホ族居留地</strong>）</td><td style="border:1px solid #ddd; padding:5px; text-align:center;"><strong>MDT</strong><br>UTC-6</td></tr>
         <tr style="background:#fdecea;"><td style="border:1px solid #ddd; padding:5px;" colspan="3">🔴 <strong>Day4：キャメロン → AZ-64 → 東口の途中で切り替わり、時計が1時間戻ります（＝1時間得します）</strong></td></tr>
         <tr><td style="border:1px solid #ddd; padding:5px;">Day4〜7</td><td style="border:1px solid #ddd; padding:5px;">グランドキャニオン・ウィリアムズ・セドナ・フェニックス（<strong>アリゾナ州本体</strong>）</td><td style="border:1px solid #ddd; padding:5px; text-align:center;"><strong>MST</strong><br>UTC-7</td></tr>
-      </table>
+      </table></div>
       🔴 <strong>スマホの時刻表示を信用しすぎないこと。</strong>アリゾナ／ナバホの境界付近は、基地局の影響で<strong>端末が誤った時刻を表示することがある</strong>有名なエリアです。Day4は特に、車のナビとGoogleマップの到着予定時刻を併せて確認してください。<br>
       ✅ <strong>Day5以降は最後まで MST のまま変わりません。PHX 23:25発の帰国便も MST です。</strong>
     </div>
@@ -1637,11 +1840,11 @@
     <div class="alert-box">
       <strong>🌡️ 気候（10月）── 昼夜の寒暖差が20℃前後あります</strong><br>
       観測値にもとづく10月の平均気温です（1992〜2021年）。
-      <table style="width:100%; border-collapse:collapse; margin:8px 0; font-size:12px;">
+      <div class="table-scroll"><table style="width:100%; border-collapse:collapse; margin:8px 0; font-size:12px;">
         <tr style="background:#f7f7f7;"><th style="border:1px solid #ddd; padding:5px; text-align:left;">場所</th><th style="border:1px solid #ddd; padding:5px;">平均最高</th><th style="border:1px solid #ddd; padding:5px;">平均最低</th><th style="border:1px solid #ddd; padding:5px;">寒暖差</th></tr>
         <tr><td style="border:1px solid #ddd; padding:5px;"><strong>グランドキャニオン</strong>（Day4-5・標高2,100m）</td><td style="border:1px solid #ddd; padding:5px; text-align:center;">19℃</td><td style="border:1px solid #ddd; padding:5px; text-align:center; color:#c0392b;"><strong>−2℃</strong></td><td style="border:1px solid #ddd; padding:5px; text-align:center;">21℃</td></tr>
         <tr><td style="border:1px solid #ddd; padding:5px;"><strong>セドナ</strong>（Day6-7）</td><td style="border:1px solid #ddd; padding:5px; text-align:center;">18℃</td><td style="border:1px solid #ddd; padding:5px; text-align:center; color:#c0392b;"><strong>0℃</strong></td><td style="border:1px solid #ddd; padding:5px; text-align:center;">18℃</td></tr>
-      </table>
+      </table></div>
       🔴 <strong>グランドキャニオンの朝は氷点下です</strong>（従来「0〜5℃」と記載していましたが、実際は −2℃）。<strong>Day5のOoh Aah Point（08:30発）とDay7のDevil's Bridge（06:30発）は、いずれも一日で最も寒い時間帯に歩き始めます</strong><br>
       🧥 <strong>必須</strong>：フリース or ダウン／手袋／帽子。<strong>重ね着にして、脱いだ分をザックに入れられるようにしてください</strong>（登り始めるとすぐ暑くなります）
     </div>
@@ -1682,6 +1885,140 @@
   </div>
 </section>
 
+<!-- ======== 予約ダッシュボード ======== -->
+<section id="resv">
+  <div class="section-title">🎫 予約一覧（番号・連絡先・期限）</div>
+  <div class="section-body">
+    <div class="note-box" style="margin-bottom:14px;">
+      <strong>📌 この1枚に、旅行中に聞かれる番号をすべて集めています。</strong><br>
+      各項目の詳しい条件は、下の「フライト」「レンタカー」「ホテル」の各セクションに元のまま残してあります。
+    </div>
+
+    <div class="table-scroll">
+    <table class="flight-table">
+      <tr><th style="width:96px">種別</th><th>内容</th><th style="width:150px">番号・連絡先</th></tr>
+
+      <tr><td>✈️ 航空券</td>
+        <td><strong>往復・エコノミー</strong><br>往路 10/4 熊本→台北→シアトル→SLC<br>復路 10/10 23:25 PHX発 → 10/12 10:45 熊本着<br>
+        <span style="color:#888;">3名それぞれのクレジットカードで個別に決済済み</span></td>
+        <td><strong>予約番号<br>FUU9JX</strong><br><a href="#flight" style="color:#2e6da4;">詳細を見る</a></td></tr>
+
+      <tr><td>🚗 レンタカー</td>
+        <td><strong>Avis</strong>／スタンダードSUV（Chevrolet Equinox級）<br>
+        <strong>10/4 23:00 SLC受取 → 10/10 17:00 PHX返却</strong>（乗り捨て・走行距離無制限）<br>
+        <span style="color:#c0392b;">三井住友NLゴールド（VISA）で決済。JCB不可</span></td>
+        <td><strong>予約番号<br>23616375JP6</strong><br>(26803582)<br>AWD <strong>L893300</strong><br><a href="#car" style="color:#2e6da4;">詳細を見る</a></td></tr>
+
+      <tr><td>🏜️ Day3 ツアー</td>
+        <td><strong>Goulding&#39;s デラックスツアー</strong><br><strong>10/6（火）15:15〜18:45</strong>・大人3名<br>
+        支払済み US$382.53（Visa 末尾8359）／明細表示「FH* Gouldings」<br>
+        <span style="color:#c0392b;">チップ15%は前払い済み・マスク必須</span></td>
+        <td><strong>予約番号<br>374070232</strong><br>変更・キャンセル<br><a class="telink" href="tel:+14357273231">435-727-3231</a></td></tr>
+
+      <tr><td>🏨 Day1<br>10/4</td>
+        <td><strong>SpringHill Suites by Marriott SLC Downtown</strong><br>625 S 300 W, Salt Lake City<br>駐車場無料・朝食付き
+        <div class="btn-row"><a class="btn map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=SpringHill%20Suites%20Salt%20Lake%20City%20Downtown%20625%20S%20300%20W">🗺 地図</a></div></td>
+        <td>予約済み<br><a href="#hotel" style="color:#2e6da4;">詳細を見る</a></td></tr>
+
+      <tr><td>🏨 Day2<br>10/5</td>
+        <td><strong>ラスティック イン（モアブ）</strong><br>120 E 100 S, Moab, UT 84532<br>US$178.08・Visa 末尾8359・<strong>朝食なし</strong>
+        <div class="btn-row"><a class="btn map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Rustic%20Inn%20120%20E%20100%20S%20Moab%20UT%2084532">🗺 地図</a></div></td>
+        <td><span style="color:#c0392b;">キャンセル無料<br>10/3 0:00（UT）</span></td></tr>
+
+      <tr><td>🏨 Day3<br>10/6</td>
+        <td><strong>Goulding&#39;s Lodge</strong>（オルジャト・モニュメントバレー）<br>1ベッドルーム・ヴィラ／USD 346.88（Agoda・4人分）
+        <div class="btn-row"><a class="btn map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Gouldings%20Lodge%20Monument%20Valley%20UT">🗺 地図</a><a class="btn tel" href="tel:+14357273231">📞 電話</a></div></td>
+        <td><span style="color:#c0392b;">キャンセル無料<br>10/3 16時頃（JST）</span></td></tr>
+
+      <tr><td>🏨 Day4-5<br>10/7-8</td>
+        <td><strong>Red Feather Lodge</strong>（トゥサヤン）<br>2泊・$387.70・Visa 末尾8359
+        <div class="btn-row"><a class="btn map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Red%20Feather%20Lodge%20Tusayan%20AZ">🗺 地図</a><a class="btn tel" href="tel:+19286382414">📞 電話</a></div></td>
+        <td><span style="color:#c0392b;">キャンセル無料<br>米国時間10/5</span></td></tr>
+
+      <tr><td>🏨 Day6<br>10/9</td>
+        <td><strong>Sugar Loaf Lodge</strong>（西セドナ）<br>1870 W State Route 89A, Sedona, AZ<br>USD 261.37・<strong>現地払い</strong>・朝食無料
+        <div class="btn-row"><a class="btn map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Sugar%20Loaf%20Lodge%201870%20W%20State%20Route%2089A%20Sedona%20AZ">🗺 地図</a></div></td>
+        <td><span style="color:#c0392b;">キャンセル無料<br>10/7 16時頃（JST）</span></td></tr>
+    </table>
+    </div>
+
+    <div class="alert-box" style="margin-top:16px;">
+      <strong>🔴 まだ済んでいない手続き</strong><br>
+      ・<strong>Four Corners Inn（ブランディング）のキャンセル</strong> ── 期限 <strong>10/3 23:59（現地時間）</strong>。放置すると $108.55 が課金されます<br>
+      ・ ESTA申請／America the Beautiful 非居住者パス（$250）／海外旅行保険／国際運転免許証<br>
+      <a href="#todo" style="color:#2e6da4;font-weight:bold;">→ やることリストで確認する</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 緊急・連絡先 ======== -->
+<section id="emergency">
+  <div class="section-title" style="background:#c0392b;">🆘 緊急・連絡先</div>
+  <div class="section-body">
+
+    <div class="alert-box" style="border-color:#c0392b;background:#fdf0ef;">
+      <strong style="font-size:17px;">🚨 米国の緊急通報</strong><br>
+      <div class="btn-row" style="margin-top:8px;">
+        <a class="btn tel" style="font-size:16px;padding:11px 20px;" href="tel:911">📞 911（警察・救急・消防）</a>
+      </div>
+      <span style="color:#666;">日本語は通じません。<strong>&quot;I need an ambulance.&quot;（救急車）／&quot;I need the police.&quot;（警察）</strong>と伝え、現在地を落ち着いて説明してください。</span>
+    </div>
+
+    <div class="note-box" style="margin-top:14px;border-color:#f0d9b5;background:#fffaf0;">
+      <strong>✏️ 出発前に必ず記入してください（現在は空欄です）</strong><br>
+      <span style="color:#8a5a00;">以下は本人しか調べられない情報のため、枠だけ用意しています。出発前に埋めてください。</span>
+    </div>
+
+    <div class="table-scroll" style="margin-top:12px;">
+    <table class="flight-table">
+      <tr><th style="width:150px">連絡先</th><th>番号・メモ</th></tr>
+      <tr><td><strong>海外旅行保険<br>緊急アシスタンス</strong><br><span style="color:#888;">24時間・日本語</span></td>
+          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">保険証券に記載の「事故受付・緊急デスク」の番号。3名分の証券番号もここに控えること</span></td></tr>
+      <tr><td><strong>クレジットカード<br>紛失・盗難窓口</strong></td>
+          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">三井住友NLゴールド（VISA）／Visa 末尾8359／JALカード など、持参する全カード分</span></td></tr>
+      <tr><td><strong>Avis<br>ロードサービス</strong></td>
+          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">受取時に渡される契約書に記載。<strong>受取後すぐここに書き写すこと</strong>。パンク・バッテリー上がり・事故時に使用</span></td></tr>
+      <tr><td><strong>在米日本国<br>領事館</strong></td>
+          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">パスポート紛失時。訪問先はユタ州・アリゾナ州のため、管轄の総領事館を出発前に確認</span></td></tr>
+      <tr><td><strong>パスポート情報</strong></td>
+          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">3名分の番号・発行日・有効期限。<strong>顔写真ページの写真をスマホにも保存</strong>しておくこと</span></td></tr>
+      <tr><td><strong>ESTA番号</strong></td>
+          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">3名分の申請番号</span></td></tr>
+    </table>
+    </div>
+
+    <div class="checklist-title" style="margin-top:18px;">📞 旅行中に使う可能性がある番号（判明分）</div>
+    <div class="table-scroll">
+    <table class="flight-table">
+      <tr><th style="width:170px">相手</th><th>番号</th><th>用件</th></tr>
+      <tr><td>Goulding&#39;s Lodge / ツアー</td><td><a class="telink" href="tel:+14357273231">435-727-3231</a></td><td>Day3のツアー変更・宿の連絡</td></tr>
+      <tr><td>Goulding&#39;s 予約センター</td><td><a class="telink" href="tel:+18663139769">866-313-9769</a></td><td>ツアーの新規予約・問い合わせ</td></tr>
+      <tr><td>Red Feather Lodge</td><td><a class="telink" href="tel:+19286382414">928-638-2414</a></td><td>Day4-5の宿・到着遅れの連絡</td></tr>
+      <tr><td>モニュメントバレー<br>ナバホ族公園</td><td><a class="telink" href="tel:+14357275870">435-727-5870</a></td><td>閉鎖・営業時間の確認</td></tr>
+      <tr><td>Chapel of the Holy Cross</td><td><a class="telink" href="tel:+19282824069">928-282-4069</a></td><td>Day6の開館状況</td></tr>
+      <tr><td>Red Rock Ranger District<br>（森林局・セドナ）</td><td><a class="telink" href="tel:+19282032900">928-203-2900</a></td><td>Devil&#39;s Bridge の閉鎖・パス</td></tr>
+      <tr><td>SLC空港 Avis</td><td><a class="telink" href="tel:+18012585238">801-258-5238</a></td><td>Day1の受取（<strong>02:00で閉店</strong>）</td></tr>
+      <tr><td>PHX空港 Avis</td><td><a class="telink" href="tel:+16022615900">602-261-5900</a></td><td>Day7の返却</td></tr>
+    </table>
+    </div>
+
+    <div class="alert-box" style="margin-top:16px;">
+      <strong>📵 電波が届かないとき</strong><br>
+      ・ このページは<strong>画像も外部データも使っていない1枚のファイル</strong>です。一度開いておけば、圏外でも表示できる可能性が高い構造になっています<br>
+      ・ <strong>出発前に「ホーム画面に追加」しておいてください</strong>（iPhone：共有ボタン→ホーム画面に追加／Android：メニュー→ホーム画面に追加）<br>
+      ・ <strong>Googleマップのオフライン地図</strong>を6エリアに分けて必ずダウンロードしておくこと（有効期限があるため出発1〜2週間前に）
+    </div>
+  </div>
+</section>
+
+<nav class="fnav" aria-label="主要メニュー">
+  <a href="#today"><span class="ic">📍</span>今日</a>
+  <a href="#schedule"><span class="ic">📅</span>日程</a>
+  <a href="#resv"><span class="ic">🎫</span>予約</a>
+  <a href="#hotel"><span class="ic">🏨</span>宿</a>
+  <a href="#emergency" class="hot"><span class="ic">🆘</span>緊急</a>
+</nav>
+
 <footer>
   🇺🇸 2026年10月 アメリカ南西部旅行計画<br>
   <span id="footer-updated">最終更新：-</span>
@@ -1700,6 +2037,223 @@
   const text = '最終更新：' + fmt + '（JST）';
   document.getElementById('last-updated').textContent = text;
   document.getElementById('footer-updated').textContent = text;
+</script>
+
+
+<script>
+(function () {
+  "use strict";
+  var cards = Array.prototype.slice.call(document.querySelectorAll('details.day-card[data-date]'));
+  if (!cards.length) return;
+
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function todayKey(){ var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()); }
+  function nowMin(){ var d = new Date(); return d.getHours()*60 + d.getMinutes(); }
+  function txt(el){ return el ? (el.textContent || '').replace(/\s+/g,' ').trim() : ''; }
+  function esc(x){ return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function mapURL(q){ return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q); }
+
+  function startMin(t){
+    var m = t.match(/(\d{1,2}):(\d{2})/);
+    if (!m) return null;
+    return parseInt(m[1],10)*60 + parseInt(m[2],10);
+  }
+
+  function rowsOf(card){
+    return Array.prototype.slice.call(card.querySelectorAll('.tl-row')).map(function(r){
+      var t = txt(r.querySelector('.tl-time'));
+      return { time: t, min: startMin(t), main: txt(r.querySelector('.tl-main')) };
+    });
+  }
+
+  function buildDayOptions(sel){
+    return cards.map(function(c){
+      var d = c.getAttribute('data-date'), n = c.getAttribute('data-day');
+      var md = d.slice(5).split('-').map(function(x){return String(parseInt(x,10));}).join('/');
+      return '<option value="'+d+'"'+(d===sel?' selected':'')+'>Day'+n+'（'+md+'）</option>';
+    }).join('');
+  }
+
+  function render(key, forced){
+    var card = null, i;
+    for (i=0;i<cards.length;i++){ if (cards[i].getAttribute('data-date') === key) { card = cards[i]; break; } }
+    var box = document.getElementById('today-card');
+    var first = cards[0].getAttribute('data-date');
+    var last  = cards[cards.length-1].getAttribute('data-date');
+
+    if (!card){
+      var diff = Math.round((new Date(first+'T00:00:00') - new Date(todayKey()+'T00:00:00')) / 86400000);
+      var msg = diff > 0 ? ('出発まで あと <strong style="font-size:26px">'+diff+'</strong> 日')
+                         : '旅行期間は終了しました。おつかれさまでした。';
+      box.innerHTML =
+        '<div class="today-head"><span>📍 今日</span><span class="sub">'+todayKey().replace(/-/g,'/')+'</span></div>'+
+        '<div class="now-box"><div class="now-lbl">旅行期間：'+first.replace(/-/g,'/')+' 〜 '+last.replace(/-/g,'/')+'</div>'+
+        '<div class="now-main" style="margin-top:6px">'+msg+'</div>'+
+        '<div class="now-sub">下の「日程」から各日の詳細を確認できます。旅行中はこの欄が自動で「今日の予定」に変わります。</div></div>'+
+        '<div class="today-foot"><div class="tf-card tf-full"><div class="k">日を選んで内容を確認する</div>'+
+        '<select id="day-pick" style="width:100%;margin-top:5px;padding:9px;font-size:15px">'+
+        '<option value="">— 選択してください —</option>'+buildDayOptions('')+'</select></div></div>';
+      hook();
+      return;
+    }
+
+    var day = card.getAttribute('data-day');
+    var dateLabel = txt(card.querySelector('.day-date'));
+    var theme = txt(card.querySelector('.day-main'));
+    var rows = rowsOf(card).filter(function(r){ return r.min !== null; });
+    var nm = nowMin();
+    var isToday = (key === todayKey());
+
+    var next = null, rest = [];
+    for (i=0;i<rows.length;i++){
+      if (!isToday || rows[i].min >= nm){
+        if (!next) { next = rows[i]; } else { rest.push(rows[i]); }
+      }
+    }
+
+    var head = '<div class="today-head"><span>'+(isToday ? '📍 今日 ・ Day'+day : '📅 Day'+day)+'</span>'+
+               '<span class="sub">'+esc(dateLabel)+'　'+esc(theme)+'</span></div>';
+
+    var nowHTML;
+    if (next){
+      var left = next.min - nm;
+      var leftTxt = '';
+      if (isToday && left >= 0 && left < 600){
+        leftTxt = 'あと ' + (left >= 60 ? Math.floor(left/60)+'時間'+(left%60 ? (left%60)+'分' : '') : left+'分');
+      }
+      nowHTML = '<div class="now-box"><div class="now-lbl">'+(isToday ? '\u25B6 次の行動' : '\u25B6 最初の予定')+'</div>'+
+        '<div class="now-time">'+esc(next.time)+'</div>'+
+        '<div class="now-main">'+esc(next.main)+'</div>'+
+        (leftTxt ? '<div class="now-sub">'+leftTxt+'</div>' : '') +
+        '<div class="btn-row"><a class="btn" href="#day'+day+'">この日の詳細をすべて見る</a></div></div>';
+    } else {
+      nowHTML = '<div class="now-box"><div class="now-lbl">\u25B6 次の行動</div>'+
+        '<div class="now-main" style="margin-top:4px">本日の予定はすべて終了しました</div>'+
+        '<div class="now-sub">ゆっくり休んでください。明日の予定は下の「別の日を見る」から確認できます。</div>'+
+        '<div class="btn-row"><a class="btn" href="#day'+day+'">この日の詳細をすべて見る</a></div></div>';
+    }
+
+    var restHTML = '';
+    if (rest.length){
+      restHTML = '<div class="today-rest"><div class="cap">このあとの予定（'+rest.length+'件）</div>' +
+        rest.map(function(r){
+          return '<div class="rest-row"><span class="t">'+esc(r.time)+'</span><span>'+esc(r.main)+'</span></div>';
+        }).join('') + '</div>';
+    }
+
+    var hotel = card.getAttribute('data-hotel') || '';
+    var addr  = card.getAttribute('data-addr') || '';
+    var tel   = card.getAttribute('data-tel') || '';
+    var btns = '';
+    if (addr) btns += '<a class="btn map" href="'+mapURL(addr)+'" target="_blank" rel="noopener">🗺 地図</a>';
+    if (tel)  btns += '<a class="btn tel" href="tel:+1'+tel.replace(/-/g,'')+'">📞 電話</a>';
+
+    var foot = '<div class="today-foot">'+
+      '<div class="tf-card"><div class="k">今夜の宿</div><div class="v">'+esc(hotel)+'</div>'+
+      (btns ? '<div class="btn-row">'+btns+'</div>' : '')+'</div>'+
+      '<div class="tf-card"><div class="k">困ったとき</div><div class="v" style="font-weight:normal;line-height:1.9">'+
+      '<a href="#resv" style="color:#2e6da4;font-weight:bold">🎫 予約一覧を見る</a><br>'+
+      '<a href="#emergency" style="color:#c0392b;font-weight:bold">🆘 緊急連絡先を見る</a></div></div>'+
+      '<div class="tf-card tf-full"><div class="k">別の日を見る</div>'+
+      '<select id="day-pick" style="width:100%;margin-top:5px;padding:9px;font-size:15px">'+
+      '<option value="">— 今日に戻す —</option>'+buildDayOptions(forced ? key : '')+'</select></div>'+
+      '</div>';
+
+    box.innerHTML = head + nowHTML + restHTML + foot;
+    hook();
+  }
+
+  function hook(){
+    var sel = document.getElementById('day-pick');
+    if (sel) sel.addEventListener('change', function(){ render(this.value || todayKey(), !!this.value); });
+  }
+
+  cards.forEach(function(c){ c.id = 'day' + c.getAttribute('data-day'); });
+
+  function openFromHash(){
+    var h = location.hash.replace('#','');
+    if (/^day[1-7]$/.test(h)) { var el = document.getElementById(h); if (el) el.open = true; }
+  }
+  window.addEventListener('hashchange', openFromHash);
+  openFromHash();
+
+  render(todayKey(), false);
+  setInterval(function(){
+    var sel = document.getElementById('day-pick');
+    if (!sel || !sel.value) render(todayKey(), false);
+  }, 60000);
+})();
+</script>
+
+
+<script>
+/* ===== Day3 タブ試作（行動 / 詳細 / 経緯） ===== */
+(function () {
+  "use strict";
+  var card = document.getElementById('day3');
+  if (!card) return;
+  var tl = card.querySelector('.timeline');
+  if (!tl) return;
+
+  var why = Array.prototype.slice.call(tl.querySelectorAll('[data-tabgroup="why"]'));
+  var det = Array.prototype.slice.call(tl.querySelectorAll('[data-tabgroup="det"]'));
+
+  var wrap = document.createElement('div');
+  wrap.innerHTML =
+    '<div class="tabs" role="tablist">' +
+      '<button class="tab-btn" role="tab" data-tab="act" aria-selected="true">\u25B6 行動</button>' +
+      '<button class="tab-btn" role="tab" data-tab="det" aria-selected="false">📋 詳細</button>' +
+      '<button class="tab-btn" role="tab" data-tab="why" aria-selected="false">📝 経緯</button>' +
+    '</div>' +
+    '<div class="tab-panel" data-panel="act"></div>' +
+    '<div class="tab-panel" data-panel="det" hidden><div class="tab-note">この日の買い出し・持ち物・料金など、当日参照する情報です。</div></div>' +
+    '<div class="tab-panel" data-panel="why" hidden><div class="tab-note">なぜこの予定にしたのかの記録です。旅行中に読む必要はありません。</div></div>';
+
+  var pAct = wrap.querySelector('[data-panel="act"]');
+  var pDet = wrap.querySelector('[data-panel="det"]');
+  var pWhy = wrap.querySelector('[data-panel="why"]');
+
+  why.forEach(function (el) { pWhy.appendChild(el); });
+  det.forEach(function (el) { pDet.appendChild(el); });
+
+  tl.parentNode.insertBefore(wrap, tl);
+  pAct.appendChild(tl);
+  tl.classList.add('compact');
+
+  /* 各行の詳細を畳み、開くボタンを付ける */
+  Array.prototype.slice.call(tl.querySelectorAll('.tl-row')).forEach(function (row) {
+    var note = row.querySelector('.tl-note');
+    if (!note) return;
+    var important = /🔴|必須|要確認|注意/.test(note.textContent);
+    var main = row.querySelector('.tl-main');
+    if (important && main) {
+      var chip = document.createElement('span');
+      chip.className = 'imp-chip';
+      chip.textContent = '要確認';
+      main.appendChild(chip);
+    }
+    var btn = document.createElement('button');
+    btn.className = 'more-btn';
+    btn.type = 'button';
+    btn.textContent = '＋ 詳細を見る';
+    btn.addEventListener('click', function () {
+      var open = note.classList.toggle('shown');
+      btn.textContent = open ? '− 詳細を閉じる' : '＋ 詳細を見る';
+    });
+    note.parentNode.insertBefore(btn, note);
+  });
+
+  var btns = Array.prototype.slice.call(wrap.querySelectorAll('.tab-btn'));
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = b.getAttribute('data-tab');
+      btns.forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
+      ['act', 'det', 'why'].forEach(function (name) {
+        wrap.querySelector('[data-panel="' + name + '"]').hidden = (name !== t);
+      });
+    });
+  });
+})();
 </script>
 
 </body>
