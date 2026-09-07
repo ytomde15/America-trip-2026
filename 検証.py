@@ -3,7 +3,8 @@
 index.html 検証スクリプト
 ------------------------------------------------------------
 使い方:
-    py 検証.py            … 検証する（HTMLは変更しない）
+    py 検証.py            … index.html を検証する（HTMLは変更しない）
+    py 検証.py stable.html … 別のファイルを検証する（予備版の確認用）
     py 検証.py --基準更新  … 今の状態を「正しい基準」として保存し直す
 
 判定の種類:
@@ -323,13 +324,18 @@ def git_diff_note():
 
 
 def main():
+    global HTML
+    # ファイル名を渡せる（例: py 検証.py stable.html）。省略時は index.html
+    argfiles = [x for x in sys.argv[1:] if not x.startswith('--')]
+    if argfiles:
+        HTML = argfiles[0]
     if not os.path.exists(HTML):
         print(f'{HTML} が見つかりません'); sys.exit(2)
     html = open(HTML, encoding='utf-8').read()
     base = json.load(open(BASE, encoding='utf-8')) if os.path.exists(BASE) else {}
 
     print('=' * 60)
-    print(f'  index.html 検証   （{len(html):,} バイト相当）')
+    print(f'  {HTML} 検証   （{len(html):,} バイト相当）')
     print('=' * 60)
 
     counts = check_tags(html)
