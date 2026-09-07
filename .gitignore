@@ -18,3 +18,9 @@ CLAUDE.md
 # CLAUDE.md のバックアップ・ローカルのショートカット
 CLAUDE.md.bak-*
 *.url
+
+# Claude Code のローカル設定・状態
+.claude/
+
+# HTML改善会議の記録（作業メモ）
+HTML改善会議_Round1結果.md
