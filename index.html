@@ -380,6 +380,32 @@
       transform:translateY(-50%);font-size:14px;font-weight:normal;opacity:.9;white-space:nowrap;}
     details.sec[open] > summary.section-title::after{content:"▲ とじる";}
     details.sec > summary.section-title:active{filter:brightness(1.1);}
+  
+    /* ===== もくじ（ボトムシート） ===== */
+    .fnav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+      padding:7px 2px 8px;color:#5a6b7b;font-size:13px;font-weight:bold;background:transparent;
+      border:0;border-radius:0;font-family:inherit;cursor:pointer;min-height:52px;}
+    .fnav button .ic{font-size:20px;line-height:1.1;}
+    .fnav button:active{background:#eef4fa;}
+    #uiDrawer{position:fixed;inset:0;z-index:300;}
+    #uiDrawer[hidden]{display:none !important;}
+    .dw-scrim{position:absolute;inset:0;background:rgba(20,30,40,.45);}
+    .dw-sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:16px 16px 0 0;
+      padding:8px 14px calc(16px + env(safe-area-inset-bottom));box-shadow:0 -6px 24px rgba(0,0,0,.22);
+      max-height:84vh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+    .dw-grip{width:42px;height:4px;border-radius:2px;background:#d5d9de;margin:4px auto 10px;}
+    .dw-title{font-size:17px;font-weight:bold;color:#2c3e50;margin:0 0 10px;}
+    .dw-title .dw-sub{display:block;font-size:14px;font-weight:normal;color:#5a6b7b;margin-top:3px;}
+    .dw-sec{margin-bottom:10px;border:1px solid #e3e9ef;border-radius:10px;overflow:hidden;}
+    a.dw-s{display:flex;align-items:center;min-height:52px;padding:8px 14px;background:#eef4fa;
+      color:#1f5c8b;font-size:16px;font-weight:bold;text-decoration:none;}
+    a.dw-s.hot{background:#fdf0ef;color:#c0392b;}
+    a.dw-h{display:flex;align-items:center;min-height:48px;padding:8px 14px 8px 26px;
+      border-top:1px solid #eef1f4;color:#33475b;font-size:15px;text-decoration:none;background:#fff;}
+    a.dw-s:active,a.dw-h:active{filter:brightness(.95);}
+    .dw-close{display:block;width:100%;min-height:50px;margin-top:6px;border:1px solid #cfdae6;
+      border-radius:10px;background:#f2f7fc;color:#2e6da4;font-size:16px;font-weight:bold;
+      font-family:inherit;cursor:pointer;}
   </style>
 </head>
 <body>
@@ -2533,9 +2559,20 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
   <a href="#today"><span class="ic">📍</span>今日</a>
   <a href="#schedule"><span class="ic">📅</span>日程</a>
   <a href="#resv"><span class="ic">🎫</span>予約</a>
-  <a href="#hotel"><span class="ic">🏨</span>宿</a>
   <a href="#emergency" class="hot"><span class="ic">🆘</span>緊急</a>
+  <button type="button" id="menuBtn" aria-expanded="false" aria-controls="uiDrawer"><span class="ic">☰</span>もくじ</button>
 </nav>
+
+<!-- ======== もくじ（ボトムシート・中身はJSが組み立てる） ======== -->
+<div id="uiDrawer" hidden>
+  <div class="dw-scrim" data-close></div>
+  <div class="dw-sheet" role="dialog" aria-modal="true" aria-label="もくじ">
+    <div class="dw-grip"></div>
+    <div class="dw-title">☰ もくじ　<span class="dw-sub">項目をタップすると、畳んであっても開いて移動します</span></div>
+    <div id="dwList"></div>
+    <button type="button" class="dw-close" data-close>閉じる</button>
+  </div>
+</div>
 
 <footer>
   🇺🇸 2026年10月 アメリカ南西部旅行計画<br>
@@ -2881,6 +2918,51 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
     if (id) setTimeout(function () { openTo(document.getElementById(id)); }, 0);
   });
   fromHash();
+})();
+</script>
+
+<script>
+/* ===== もくじ：セクション9個＋その中の見出しを一覧にして、1タップで飛ばす =====
+   見出しの id は JS が自動で振るので、HTML側に手で id を書く必要がない
+   （見出しを増やしても、もくじが勝手に追いつく） */
+(function () {
+  "use strict";
+  var drawer = document.getElementById('uiDrawer');
+  var btn    = document.getElementById('menuBtn');
+  var list   = document.getElementById('dwList');
+  if (!drawer || !btn || !list) return;
+
+  // 1) 見出しに id を自動付与
+  var heads = Array.prototype.slice.call(document.querySelectorAll('.checklist-title'));
+  heads.forEach(function (h, i) { if (!h.id) h.id = 'h' + (i + 1); });
+
+  // 2) もくじを組み立てる
+  var html = '';
+  Array.prototype.slice.call(document.querySelectorAll('section[id]')).forEach(function (sec) {
+    var sum = sec.querySelector('summary.section-title, .section-title');
+    if (!sum) return;
+    var name = (sum.textContent || '').replace(/\s+/g, ' ').trim();
+    var hot  = (sec.id === 'emergency') ? ' hot' : '';
+    html += '<div class="dw-sec"><a class="dw-s' + hot + '" href="#' + sec.id + '">' + name + '</a>';
+    Array.prototype.slice.call(sec.querySelectorAll('.checklist-title')).forEach(function (h) {
+      var t = (h.textContent || '').replace(/\s+/g, ' ').trim();
+      html += '<a class="dw-h" href="#' + h.id + '">' + t + '</a>';
+    });
+    html += '</div>';
+  });
+  list.innerHTML = html;
+
+  // 3) 開閉
+  function open()  { drawer.hidden = false; btn.setAttribute('aria-expanded', 'true'); }
+  function close() { drawer.hidden = true;  btn.setAttribute('aria-expanded', 'false'); }
+  btn.addEventListener('click', open);
+  drawer.addEventListener('click', function (e) {
+    if (e.target.closest('[data-close], .dw-scrim')) { close(); return; }
+    if (e.target.closest('a')) close();   // 移動はそのまま行わせる（既定動作は止めない）
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !drawer.hidden) close();
+  });
 })();
 </script>
 </body>
