@@ -440,6 +440,19 @@
     .tab-btn{min-height:48px;padding:13px 4px;font-size:15px;color:#4a5a6b;}
     /* 上部ナビは約34px */
     nav a{padding:11px 13px;font-size:15px;}
+  
+    /* ===== おかあさんへ（母専用） ===== */
+    #mom .momday{background:#f6f1fb;border:2px solid #c9b3de;border-radius:12px;padding:14px 15px;margin-bottom:12px;}
+    #mom .mom-t{font-size:21px;font-weight:bold;color:#5b3d7a;line-height:1.4;}
+    #mom .mom-b{font-size:17px;line-height:1.9;margin-top:8px;color:#2f2a35;}
+    #mom .momcard{border:1px solid #e0d6ec;border-radius:12px;padding:13px 15px;margin-bottom:12px;background:#fff;}
+    #mom .mom-h{font-size:17px;font-weight:bold;color:#5b3d7a;}
+    #mom .mom-n{font-size:15px;color:#5a5563;margin-top:8px;line-height:1.8;}
+    #mom .momrow{display:flex;gap:10px;align-items:baseline;min-height:44px;padding:8px 0;border-top:1px solid #eee6f4;}
+    #mom .momrow:first-child{border-top:0;}
+    #mom .momrow .d{flex:0 0 92px;font-weight:bold;color:#5b3d7a;font-size:15px;}
+    #mom .momrow .x{font-size:16px;line-height:1.6;}
+    #mom li{font-size:16px;line-height:1.9;}
   </style>
 </head>
 <body>
@@ -470,6 +483,52 @@
   </div>
 </div>
 
+
+<!-- ======== おかあさんへ（母専用・#mom で直接開ける） ======== -->
+<section id="mom">
+  <details class="sec" id="sec-mom">
+    <summary class="section-title" style="background:#8e6bab;">👵 おかあさんへ</summary>
+    <div class="section-body">
+
+      <div class="momday" id="momday">
+        <div class="mom-t">読み込み中…</div>
+      </div>
+
+      <div class="momcard" id="momstay"></div>
+
+      <div class="momcard">
+        <div class="mom-h">🆘 こまったとき</div>
+        <div class="btn-row" style="margin-top:6px;">
+          <a class="btn tel" style="font-size:17px;padding:13px 18px;" href="tel:911">📞 911（救急・警察・消防）</a>
+        </div>
+        <div style="margin-top:8px;">
+          保険の日本語デスク　<span class="fillin">✍️ 出発前に記入<span class="s">まだ空欄です</span></span><br>
+          息子の電話　<span class="fillin">✍️ 出発前に記入<span class="s">まだ空欄です</span></span>
+        </div>
+        <div class="mom-n">日本語は通じません。<b>&quot;I need an ambulance.&quot;</b>（救急車）
+          <b>&quot;I need the police.&quot;</b>（警察）と伝えてください。</div>
+      </div>
+
+      <div class="momcard">
+        <div class="mom-h">🎒 わたしの持ちもの</div>
+        <ul style="margin:6px 0 0 20px;">
+          <li>キャリーは <b>幅36cmまで・7kgまで</b>（空港ではかられます）</li>
+          <li>スマホは <b>データローミングを「オン」</b>に（ahamo・追加料金なし）</li>
+          <li>おくすりは <b>手荷物</b>に入れる（預けない）</li>
+          <li>😷 マスク（10/6のツアーで必要）／👟 つま先の隠れる靴</li>
+          <li>🧥 上着（朝は氷点下になる日があります）</li>
+        </ul>
+      </div>
+
+      <div class="momcard">
+        <div class="mom-h">📅 7日間の流れ</div>
+        <div id="momlist"></div>
+      </div>
+
+    </div>
+  </details>
+</section>
+
 <!-- ======== 日程 ======== -->
 <section id="schedule">
   <div class="section-title">📅 日程・確定ルート（タップで詳細表示）</div>
@@ -477,7 +536,7 @@
     <div class="day-cards">
 
       <!-- Day1 -->
-      <details class="day-card" data-day="1" data-date="2026-10-04" data-hotel="SpringHill Suites SLC Downtown" data-addr="625 S 300 W, Salt Lake City, UT" data-tel="801-238-3000">
+      <details class="day-card" data-day="1" data-date="2026-10-04" data-hotel="SpringHill Suites SLC Downtown" data-addr="625 S 300 W, Salt Lake City, UT" data-tel="801-238-3000" data-mom-title="きょうは ひたすら移動の日です" data-mom="熊本 → 台北（乗りかえ6時間50分）→ シアトル（**ここでアメリカに入国**）→ ソルトレイクシティ。到着は**夜11時51分**、ホテルに入るのは**深夜1時半ごろ**になります。[改行]機内でできるだけ眠ってください。飲みものはこまめに。">
         <summary>
           <div class="day-label">Day 1 ▸</div>
           <div class="day-date">10月4日（日）</div>
@@ -526,7 +585,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       </details>
 
       <!-- Day2 -->
-      <details class="day-card" data-day="2" data-date="2026-10-05" data-hotel="ラスティック イン（モアブ）" data-addr="120 E 100 S, Moab, UT 84532" data-tel="435-259-6177">
+      <details class="day-card" data-day="2" data-date="2026-10-05" data-hotel="ラスティック イン（モアブ）" data-addr="120 E 100 S, Moab, UT 84532" data-tel="435-259-6177" data-mom-title="きょうは アーチーズ国立公園" data-mom="3人ずっと一緒です。歩くのは短い道が3つだけ（いちばん長くて1.6km・平ら）。[改行]⚠️ **デッドホースポイントは柵のない崖**です。端に近づかないでください。[改行]夜はモアブの町で外食します。宿から歩いて行けます。">
         <summary>
           <div class="day-label">Day 2 ▸</div>
           <div class="day-date">10月5日（月）</div>
@@ -625,7 +684,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       </details>
 
       <!-- Day3 -->
-      <details class="day-card" data-day="3" data-date="2026-10-06" data-hotel="Goulding's Lodge" data-addr="Goulding's Lodge, Oljato-Monument Valley, UT" data-tel="435-727-3231">
+      <details class="day-card" data-day="3" data-date="2026-10-06" data-hotel="Goulding's Lodge" data-addr="Goulding's Lodge, Oljato-Monument Valley, UT" data-tel="435-727-3231" data-mom-title="きょうは モニュメントバレー" data-mom="午後**3時15分〜6時45分**、3人でガイドツアーの車に乗ります。[改行]😷 **マスクが必要です**（忘れずに）。👟 つま先の隠れる靴で。💧 お水は車で用意されます。[改行]帰るころは**10℃くらいまで冷えます**。上着を持って行ってください。夕食は夜7時から。">
         <summary>
           <div class="day-label">Day 3 ▸</div>
           <div class="day-date">10月6日（火）</div>
@@ -713,7 +772,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       </details>
 
       <!-- Day4 -->
-      <details class="day-card" data-day="4" data-date="2026-10-07" data-hotel="Red Feather Lodge（トゥサヤン）" data-addr="Red Feather Lodge, Tusayan, AZ" data-tel="928-638-2414">
+      <details class="day-card" data-day="4" data-date="2026-10-07" data-hotel="Red Feather Lodge（トゥサヤン）" data-addr="Red Feather Lodge, Tusayan, AZ" data-tel="928-638-2414" data-mom-title="きょうは グランドキャニオンへ" data-mom="途中で**時計が1時間もどります**（1時間得します）。[改行]ホテルに着いたら**午後2時45分から4時まで休憩**をとります。標高2,100mで空気がうすいので、ゆっくり動いてください。[改行]夕方、みんなで夕日を見に行きます。">
         <summary>
           <div class="day-label">Day 4 ▸</div>
           <div class="day-date">10月7日（水）</div>
@@ -832,7 +891,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       </details>
 
       <!-- Day5 -->
-      <details class="day-card" data-day="5" data-date="2026-10-08" data-hotel="Red Feather Lodge（トゥサヤン）" data-addr="Red Feather Lodge, Tusayan, AZ" data-tel="928-638-2414">
+      <details class="day-card" data-day="5" data-date="2026-10-08" data-hotel="Red Feather Lodge（トゥサヤン）" data-addr="Red Feather Lodge, Tusayan, AZ" data-tel="928-638-2414" data-mom-title="きょうは ホテルでゆっくり" data-mom="息子たちは朝早く出かけて、**12時05分にホテルへ迎えに来ます**。[改行]それまでお部屋で自由にしていてください。[改行]🍳 朝ごはんは1階の **Plaza Bonita**／☕ コーヒーはロビーに**24時間**あります。[改行]午後は3人でグランドキャニオンの村を散歩します。">
         <summary>
           <div class="day-label">Day 5 ▸</div>
           <div class="day-date">10月8日（木）</div>
@@ -997,7 +1056,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       </details>
 
       <!-- Day6 -->
-      <details class="day-card" data-day="6" data-date="2026-10-09" data-hotel="Sugar Loaf Lodge（西セドナ）" data-addr="1870 W State Route 89A, Sedona, AZ" data-tel="928-282-9451">
+      <details class="day-card" data-day="6" data-date="2026-10-09" data-hotel="Sugar Loaf Lodge（西セドナ）" data-addr="1870 W State Route 89A, Sedona, AZ" data-tel="928-282-9451" data-mom-title="きょうは セドナへ移動" data-mom="3人ずっと一緒です。[改行]⛪ 教会（Chapel of the Holy Cross）は**坂の上で車を降りられます**。[改行]🌇 夕日は空港の展望台から。**舗装された平らな場所**なので歩きやすいです。[改行]🔴 **あすは朝5時半起きです。荷造りは今夜のうちに済ませてください。**">
         <summary>
           <div class="day-label">Day 6 ▸</div>
           <div class="day-date">10月9日（金）</div>
@@ -1104,7 +1163,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       </details>
 
       <!-- Day7 -->
-      <details class="day-card" style="border-left-color: #c0392b;" data-day="7" data-date="2026-10-10" data-hotel="（帰国便・宿泊なし）" data-addr="Phoenix Sky Harbor Rental Car Center" data-tel="">
+      <details class="day-card" style="border-left-color: #c0392b;" data-day="7" data-date="2026-10-10" data-hotel="（帰国便・宿泊なし）" data-addr="Phoenix Sky Harbor Rental Car Center" data-tel="" data-mom-title="きょうは 帰る日です" data-mom="息子たちは朝早く山へ行き、**10時15分にもどります**。[改行]それまでホテルでゆっくりどうぞ（🍳 朝食は無料・🏊 プールもあります）。[改行]🔴 **11時にお部屋を出ます**（荷物は昨夜のうちに）。[改行]そのあと3人でセドナを少し回って、**夜11時25分の飛行機**で帰ります。">
         <summary>
           <div class="day-label" style="color:#c0392b;">Day 7 ▸</div>
           <div class="day-date">10月10日（土）</div>
@@ -3017,6 +3076,73 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
   }
   btn.addEventListener('click', function () { sec.classList.toggle('hide-done'); sync(); });
   sync();
+})();
+</script>
+
+<script>
+/* ===== おかあさんへ：今日の内容を日程カードから組み立てる =====
+   文面は各 day-card の data-mom-title / data-mom に入れてある。
+   属性値には < > を入れず、**強調** と [改行] の印だけを使い、ここでタグに変換する
+   （属性にHTMLを直接書くと、検証スクリプトや後の編集で壊れやすいため） */
+(function () {
+  "use strict";
+  var wrap = document.getElementById('momday');
+  var stay = document.getElementById('momstay');
+  var list = document.getElementById('momlist');
+  if (!wrap) return;
+
+  function esc(x){ return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function deco(x){
+    return esc(x).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\[改行\]/g, '<br>');
+  }
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function todayKey(){ var d = new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function mapURL(q){ return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q); }
+
+  var cards = Array.prototype.slice.call(document.querySelectorAll('details.day-card[data-date]'));
+  var key = todayKey();
+  var card = null;
+  cards.forEach(function (c) { if (c.getAttribute('data-date') === key) card = c; });
+
+  // --- 今日のこと ---
+  if (card) {
+    wrap.innerHTML = '<div class="mom-t">' + deco(card.getAttribute('data-mom-title') || '') + '</div>' +
+                     '<div class="mom-b">' + deco(card.getAttribute('data-mom') || '') + '</div>';
+  } else {
+    var first = cards[0].getAttribute('data-date');
+    var diff = Math.round((new Date(first+'T00:00:00') - new Date(key+'T00:00:00')) / 86400000);
+    wrap.innerHTML = '<div class="mom-t">' +
+      (diff > 0 ? ('しゅっぱつまで あと ' + diff + ' 日') : 'おつかれさまでした') + '</div>' +
+      '<div class="mom-b">下の「7日間の流れ」で、各日の内容を見られます。' +
+      '旅行中はここが「きょうのこと」に変わります。</div>';
+  }
+
+  // --- 今夜の宿 ---
+  var hotel = card ? (card.getAttribute('data-hotel') || '') : '';
+  var addr  = card ? (card.getAttribute('data-addr')  || '') : '';
+  var tel   = card ? (card.getAttribute('data-tel')   || '') : '';
+  if (hotel && hotel.indexOf('宿泊なし') < 0) {
+    stay.innerHTML = '<div class="mom-h">🏨 今夜の宿</div>' +
+      '<div style="font-size:17px;font-weight:bold;margin-top:4px;">' + esc(hotel) + '</div>' +
+      '<div class="mom-n">' + esc(addr) + '</div>' +
+      '<div class="btn-row" style="margin-top:8px;">' +
+      '<a class="btn map" target="_blank" rel="noopener" href="' + mapURL(hotel + ' ' + addr) + '">🗺 地図</a>' +
+      (tel ? '<a class="btn tel" href="tel:+1' + tel.replace(/-/g,'') + '">📞 ホテルに電話</a>' : '') +
+      '</div>';
+  } else {
+    stay.innerHTML = '<div class="mom-h">🏨 今夜の宿</div>' +
+      '<div class="mom-n">旅行がはじまると、その日の宿がここに出ます。</div>';
+  }
+
+  // --- 7日間の流れ ---
+  var rows = '';
+  cards.forEach(function (c) {
+    var d = c.getAttribute('data-date').split('-');
+    var t = c.getAttribute('data-mom-title') || '';
+    rows += '<div class="momrow"><div class="d">' + Number(d[1]) + '月' + Number(d[2]) + '日</div>' +
+            '<div class="x">' + deco(t) + '</div></div>';
+  });
+  list.innerHTML = rows;
 })();
 </script>
 </body>
