@@ -367,6 +367,19 @@
     }
 
     .compact.all-open .tl-note { display: block; margin-top: 6px; }
+  
+    /* 出発前に手で書き込む欄。一目で「まだ空」と分かるようにする */
+    .fillin{display:inline-block;padding:7px 13px;border:2px dashed #d9a441;border-radius:7px;
+      background:#fffbe9;color:#8a5a00;font-weight:bold;font-size:15px;line-height:1.35;}
+    .fillin .s{display:block;font-size:14px;font-weight:normal;color:#a07a2c;margin-top:2px;}
+  
+    /* セクションの折りたたみ（初回表示を軽くする。中身は1タップで出る） */
+    details.sec > summary.section-title{cursor:pointer;list-style:none;position:relative;padding-right:44px;}
+    details.sec > summary.section-title::-webkit-details-marker{display:none;}
+    details.sec > summary.section-title::after{content:"▼ ひらく";position:absolute;right:14px;top:50%;
+      transform:translateY(-50%);font-size:14px;font-weight:normal;opacity:.9;white-space:nowrap;}
+    details.sec[open] > summary.section-title::after{content:"▲ とじる";}
+    details.sec > summary.section-title:active{filter:brightness(1.1);}
   </style>
 </head>
 <body>
@@ -404,7 +417,7 @@
     <div class="day-cards">
 
       <!-- Day1 -->
-      <details class="day-card" data-day="1" data-date="2026-10-04" data-hotel="SpringHill Suites SLC Downtown" data-addr="625 S 300 W, Salt Lake City, UT" data-tel="">
+      <details class="day-card" data-day="1" data-date="2026-10-04" data-hotel="SpringHill Suites SLC Downtown" data-addr="625 S 300 W, Salt Lake City, UT" data-tel="801-238-3000">
         <summary>
           <div class="day-label">Day 1 ▸</div>
           <div class="day-date">10月4日（日）</div>
@@ -453,7 +466,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       </details>
 
       <!-- Day2 -->
-      <details class="day-card" data-day="2" data-date="2026-10-05" data-hotel="ラスティック イン（モアブ）" data-addr="120 E 100 S, Moab, UT 84532" data-tel="">
+      <details class="day-card" data-day="2" data-date="2026-10-05" data-hotel="ラスティック イン（モアブ）" data-addr="120 E 100 S, Moab, UT 84532" data-tel="435-259-6177">
         <summary>
           <div class="day-label">Day 2 ▸</div>
           <div class="day-date">10月5日（月）</div>
@@ -924,7 +937,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       </details>
 
       <!-- Day6 -->
-      <details class="day-card" data-day="6" data-date="2026-10-09" data-hotel="Sugar Loaf Lodge（西セドナ）" data-addr="1870 W State Route 89A, Sedona, AZ" data-tel="">
+      <details class="day-card" data-day="6" data-date="2026-10-09" data-hotel="Sugar Loaf Lodge（西セドナ）" data-addr="1870 W State Route 89A, Sedona, AZ" data-tel="928-282-9451">
         <summary>
           <div class="day-label">Day 6 ▸</div>
           <div class="day-date">10月9日（金）</div>
@@ -1216,7 +1229,8 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
 
 <!-- ======== フライト ======== -->
 <section id="flight">
-  <div class="section-title">✈️ フライト情報</div>
+  <details class="sec" id="sec-flight">
+    <summary class="section-title">✈️ フライト情報</summary>
   <div class="section-body">
 
     <div style="margin-bottom:12px; padding:11px 13px; background:#eafaf1; border-left:4px solid #27ae60; border-radius:4px; font-size:13px;">
@@ -1231,7 +1245,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       <tr><th style="width:22%;">項目</th><th>内容（2026/9/6 運営会社の公式サイトで確認）</th></tr>
       <tr><td><strong>名称</strong></td><td><strong>ピース駐車場</strong>（有限会社トラベルアシスト熊本）</td></tr>
       <tr><td><strong>住所</strong></td><td>〒861-2204 熊本県上益城郡益城町小谷1131-1</td></tr>
-      <tr><td><strong>電話</strong></td><td><a class="telink" href="tel:0962892027"><strong>096-289-2027</strong></a></td></tr>
+      <tr><td><strong>電話</strong></td><td><a class="telink" href="tel:+81962892027"><strong>096-289-2027</strong></a></td></tr>
       <tr><td><strong>営業時間</strong></td><td><strong>年中無休 6:00〜21:30</strong>（最終便到着まで）</td></tr>
       <tr style="background:#eafaf1;"><td><strong>料金</strong></td><td><strong>屋根なし 1日700円</strong>／屋根あり 1日800円<br>🔴 <strong>「1泊2日は2日分、2泊3日は3日分」＝泊数ではなく暦の日数で数えます</strong></td></tr>
       <tr style="background:#eafaf1;"><td><strong>今回の総額</strong></td><td>10/4 入庫 → 10/12 出庫＝<strong>9日分</strong><br>屋根なし <strong>700円 × 9日 = 6,300円</strong>（屋根ありなら7,200円）</td></tr>
@@ -1255,7 +1269,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       <tr><th style="width:24%;">項目</th><th>内容（2026/9/6 Googleマップで確認）</th></tr>
       <tr><td><strong>宿</strong></td><td><strong>Villaくまもと空港</strong>（4.5／17件）</td></tr>
       <tr><td><strong>住所</strong></td><td>〒861-2402 熊本県阿蘇郡西原村布田1964-9</td></tr>
-      <tr><td><strong>電話</strong></td><td><a class="telink" href="tel:0962738881"><strong>096-273-8881</strong></a></td></tr>
+      <tr><td><strong>電話</strong></td><td><a class="telink" href="tel:+81962738881"><strong>096-273-8881</strong></a></td></tr>
       <tr style="background:#eafaf1;"><td><strong>ピース駐車場まで</strong></td><td><strong>5.4km・8分</strong>（県道28号 経由）｜別ルート 5.8km・10分（県道206号）</td></tr>
       <tr><td><strong>空港まで（直行）</strong></td><td>5.6km・9分 ── 🟢 <strong>駐車場に寄っても遠回りになりません</strong>（距離・時間ともほぼ同じ）</td></tr>
     </table>
@@ -1348,7 +1362,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
 
     <div class="note-box" style="margin:10px 0;">
       <strong>10:45</strong> JX846 熊本着 → 入国審査・手荷物受取・税関で<strong>30〜45分</strong>見て <strong>11:15〜11:30 到着ロビー</strong><br>
-      → <strong>到着ロビーからピース駐車場（<a class="telink" href="tel:0962892027">096-289-2027</a>）へ電話して迎えを頼む</strong> → 3〜4分で駐車場 → 車を受け取って帰宅<br>
+      → <strong>到着ロビーからピース駐車場（<a class="telink" href="tel:+81962892027">096-289-2027</a>）へ電話して迎えを頼む</strong> → 3〜4分で駐車場 → 車を受け取って帰宅<br>
       🟢 営業は<strong>21:30まで</strong>なので、多少遅れても問題ありません<br>
       🔴 <strong>帰りの迎えの頼み方は現地で要確認</strong>（公式サイトには「電話予約は受け付けない」とあるだけで、<u>到着時の呼び出し方法の記載がありません</u>）。<strong>10/4の受付時に、帰りの呼び方と当日の連絡先を必ず聞いておいてください</strong>
     </div>
@@ -1424,11 +1438,13 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
     </div>
 
   </div>
+  </details>
 </section>
 
 <!-- ======== レンタカー ======== -->
 <section id="car">
-  <div class="section-title">🚗 レンタカー情報</div>
+  <details class="sec" id="sec-car">
+    <summary class="section-title">🚗 レンタカー情報</summary>
   <div class="section-body">
     <div class="info-grid">
       <div class="info-label">状態</div><div class="info-value" style="color:#2e7d32; font-weight:bold;">✅ 予約確定（2026/8/19）</div>
@@ -1470,11 +1486,13 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       🚭 車内は禁煙（違反時は清掃費請求）／📸 <strong>受取時・返却時に車両を撮影</strong>／🧾 契約書は署名前に必ず内容確認（<em>"I do not wish to upgrade."</em> で追加提案を断れます）
     </div>
   </div>
+  </details>
 </section>
 
 <!-- ======== ホテル候補 ======== -->
 <section id="hotel">
-  <div class="section-title">🏨 ホテル候補一覧</div>
+  <details class="sec" id="sec-hotel">
+    <summary class="section-title">🏨 ホテル候補一覧</summary>
   <div class="section-body">
 
     <!-- 表形式サマリー -->
@@ -1654,11 +1672,13 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
     </div>
 
   </div>
+  </details>
 </section>
 
 <!-- ======== 持ち物 ======== -->
 <section id="items">
-  <div class="section-title">🎒 持ち物・装備チェックリスト</div>
+  <details class="sec" id="sec-items">
+    <summary class="section-title">🎒 持ち物・装備チェックリスト</summary>
   <div class="section-body">
 
     <div class="checklist-title">🧳 手荷物・預け荷物のルール（2026/9/5 両航空会社の規定で確定）</div>
@@ -1935,11 +1955,13 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
     </ul>
 
   </div>
+  </details>
 </section>
 
 <!-- ======== やること ======== -->
 <section id="todo">
-  <div class="section-title">✅ やることリスト</div>
+  <details class="sec" id="sec-todo">
+    <summary class="section-title">✅ やることリスト</summary>
   <div class="section-body">
 
     <div class="todo-item">
@@ -2010,7 +2032,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       <div>🟠 <strong>ピース駐車場に「帰りの迎えの頼み方」を確認する</strong>（10/4の受付時でよい）<br>
       <span style="font-size:12px; color:#888;">
       公式サイトには「<u>電話による予約、受付はおこなっておりません</u>」とあるだけで、<strong>帰着時にどう呼ぶかの記載がありません</strong><br>
-      ▸ 聞くこと：<strong>①到着ロビーから電話してよいか ②当日の連絡先はこの番号でよいか（<a class="telink" href="tel:0962892027">096-289-2027</a>） ③目安の待ち時間 ④どこで待てばよいか</strong><br>
+      ▸ 聞くこと：<strong>①到着ロビーから電話してよいか ②当日の連絡先はこの番号でよいか（<a class="telink" href="tel:+81962892027">096-289-2027</a>） ③目安の待ち時間 ④どこで待てばよいか</strong><br>
       ▸ 🔴 <strong>10/12は11:15〜11:30に到着ロビーへ出る見込み</strong>。営業は21:30までなので時間的な心配はありません<br>
       ▸ あわせて<strong>支払いのタイミング（入庫時か出庫時か）</strong>も確認を。総額は<strong>9日分＝6,300円</strong>（屋根なし）です</span></div>
     </div>
@@ -2108,7 +2130,16 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
     <div class="todo-item">
       <div class="todo-box"></div>
       <div>🔴 <strong style="color:#c0392b;">国際運転免許証の取得（2名分）</strong><br>
-      <span style="font-size:12px; color:#888;">運転する2名それぞれ必要。<strong>マイナ免許証（一体化）は海外では使用不可</strong>のため、従来型の免許証カードを持っているか要確認。一体化のみの場合は再交付が必要<br>▸ あわせて <strong>Avisの「運転免許証英文フォーム」</strong>もマイページから申し込んでおくとカウンターがスムーズ（ただし国際免許証の代わりにはなりません）</span></div>
+      <span style="font-size:12px; color:#888;">運転する2名それぞれ必要。🟢 <strong>2026/9/6 熊本県警の公式ページで手続きを確定しました。</strong><br>
+      ▸ <strong>手数料 2,250円</strong>／🟢 <strong>熊本県運転免許センターなら即日交付</strong>（警察署・氷川幹部交番は<strong>後日交付で約2週間</strong>かかります）<br>
+      ▸ 🔴 <strong>免許センターの受付は月〜木のみ</strong>（金・土・日・祝は不可）<strong>9:00〜11:00／13:00〜15:00</strong>・☎ <a class="telink" href="tel:+81962330110">096-233-0110</a><br>
+      ▸ <strong>持ち物</strong>：運転免許証／<strong>写真1枚（縦4.5cm×横3.5cm・6か月以内・無帽・正面・無背景）</strong>／パスポート原本<br>
+      　 <strong>パスポートが手元になくても大丈夫です。</strong>県警が「<strong>ESTA申請画面の印字</strong>」「eチケット控」も渡航証明として認めると明記しています<br>
+      ▸ <strong>有効期間は発給日から1年</strong>。免許の更新期間に入っている人は、先に免許を更新してから申請してください<br>
+      ▸ 🔴 <strong>マイナ免許証について</strong>：警察庁が「<strong>マイナ免許証のみを保有した状態で日本国外で自動車等を運転することは控え</strong>てください」と明記しています（カードの券面に免許情報が印字されないため）<br>
+      　 🟢 <strong>見分け方は簡単です。財布にカード型の運転免許証があればそのままでOK。</strong>一体化は本人が窓口で手続きした場合にしか起こりません（自動では切り替わりません）<br>
+      ▸ 🔴 <strong>保険とも直結します。</strong>海外旅行保険は「<strong>無資格運転中の事故</strong>」を治療費用の免責にしています。国際免許証を持たずに運転すると、事故のとき治療費まで出ません<br>
+      ▸ あわせて <strong>Avisの「運転免許証英文フォーム」</strong>もマイページから申し込んでおくとカウンターがスムーズ（ただし国際免許証の代わりにはなりません）</span></div>
     </div>
 
     <div class="todo-item">
@@ -2134,12 +2165,41 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
         <span style="font-size:12px;">→ レンタカー事故はAvisのLDW／TPL（上限$300,000）だけが頼り。加入済みなのでこちらは対応済みです。</span>
       </div>
       <span style="font-size:12px; color:#888;">
-      ▸ <strong>本人</strong>：JALカード CLUB-Aゴールドが自動付帯（治療300万・救援者400万・賠償1億）<br>
-      ▸ 🔴 <strong>妻・母は JALカードの家族特約の対象外</strong>（生計を共にする19歳未満の子に限定）<br>
-      ▸ <strong>まず「妻と母が航空券をどのカードで決済したか」と、そのカードの補償額を確認</strong>してください<br>
-      ▸ 米国の医療費は高額（骨折の手術で$98,000の事例あり）。グランドキャニオンの医療搬送ヘリは<strong>1回$15,000程度</strong><br>
-      ▸ 目安：<strong>治療費用1,000万円以上・救援者費用1,000万円以上</strong>（可能なら「治療・救援費用無制限」）<br>
-      ▸ 母は62歳。年齢条件・既往症の告知事項を商品ごとに確認すること</span></div>
+      <div style="margin:8px 0; padding:10px; background:#fdecea; border-left:4px solid #c0392b; border-radius:4px; font-size:13px;">
+        🔴 <strong>2026/9/6 判明：お母様は「たびとも」に加入できません。</strong><br>
+        <span style="font-size:12px;">喘息と高脂血症で定期通院・服薬があるためです。たびともの告知「現在、病気またはケガをしていない」の定義に「定期的に通院されている場合」「医師の指示により薬を服用している場合」が含まれ、<strong>告知は被保険者全員に対してなので、ひとつでも「いいえ」があると契約自体が成立しません。</strong><br>
+        🟢 <strong>お母様は AIG損保へ。</strong>公式FAQに「現症・既往症があっても…<strong>保険期間が31日以内であればご加入いただけます</strong>」とあり、さらに<strong>「疾病に関する応急治療・救援費用補償特約（300万円）」が31日までの契約に標準でセット</strong>されます（🔴 ただし「継続的な治療や投薬」は対象外。喘息発作などの<strong>急な悪化の応急治療</strong>が対象です）</span>
+      </div>
+      <strong>🧮 3人をどう組むか → ✅ A案で決定（2026/9/7）</strong><br>
+      　 ・<strong>A案（採用）</strong>：夫婦＝<strong>たびとも G3 8,000円</strong>／母＝<strong>AIG LW4 11,110円</strong> → <strong>合計 19,110円</strong>。<strong>3人とも治療費は無制限</strong>になります<br>
+      　 ・（参考）B案：3人ともAIG LW4 → 33,330円<br>
+      　 🔴 <strong>どちらを選んでも、レンタカー運転中の対人対物賠償は補償されません</strong>（AIG公式FAQも「いいえ」と明記し「別途現地にて自動車保険に加入されることをお勧めします」としています）<br><br>
+      <strong>🟢 AIG損保 LW4（母用・実測 11,110円／個人・北米・10/3〜10/12）</strong><br>
+      　 治療・救援費用 <strong>無制限</strong>／<strong>疾病応急治療・救援 300万円</strong>／<strong>緊急歯科治療 10万円</strong>／傷害死亡3,000万／疾病死亡1,000万／賠償責任1億／携行品30万／寄託手荷物遅延10万／航空機遅延2万<br>
+      　 （参考）LW3 10,370円／LW2 9,860円。🔴 <strong>62歳でも41歳でも保険料は同額</strong>でした。年齢での割増はありません<br>
+      　 🔴 <strong>AIGも家族プランは「同居の親族」まで</strong>なので、お母様は<strong>個人契約</strong>になります<br>
+      　 ▸ AIGも <strong>契約者ご本人名義のクレジットカードのみ</strong>（デビット不可・一括払のみ）。保険期間は同じく<strong>10/3〜10/12</strong><br><br>
+      🟢 <strong>2026/9/6、夫婦分について前回と同じ「たびとも」（エイチ・エス損保）で実際に見積りを取りました。</strong><br>
+      　 条件：北米・10日間・3名（全員10〜64歳）・グループプラン<br>
+      　 ・<strong>G1</strong>（治療1,000万／救援1,000万）＝ <strong>10,560円</strong>（3人分合計）<br>
+      　 ・<strong>G2</strong>（治療3,000万／救援2,000万）＝ <strong>10,890円</strong><br>
+      　 ・<strong>G3</strong>（<strong>治療 無制限</strong>／救援3,000万）＝ <strong>12,000円</strong><br>
+      🟢 <strong>2026/9/7 追記：実際に申し込む「夫婦2名だけ」の金額も取りました。</strong><br>
+      　 ・<strong>G1 7,040円／G2 7,260円／<span style="color:#c0392b;">G3 8,000円</span></strong>（いずれも2人分合計）<br>
+      　 ・オプション（2人分）：<strong>電子機器等追加補償 ＋1,480円</strong>（スマホ・カメラ・交換レンズ・イヤフォンが携行品補償の対象になります）／<strong>航空機遅延等 ＋520円</strong>（保険金額1万円）<br>
+      　 → 🟢 <strong>G1とG3の差はたった1,440円（1人480円）で治療費が無制限になります。</strong>米国の医療費を考えるとG3が妥当です<br>
+      ▸ 🟢 <strong>母62歳は最安の「10〜64歳」料率区分</strong>です（区分は 0〜9／10〜64／65〜74／75〜84／85以上）。<strong>年齢による割増はありません</strong><br>
+      ▸ 🔴 <strong>保険期間は 10/3〜10/12 で契約してください。</strong>規約に「旅行期間の一部だけの申込みは不可。<strong>ご自宅出発日からご自宅帰着日まで</strong>」とあり、前泊のため10/3に自宅を出るからです。10/4開始にすると10/3が無補償になります<br>
+      ▸ 🔴 <strong>支払いは申込人ご本人名義のカードのみ。家族カード・法人カード・プリペイドは使えません</strong>（＝Visa末尾8359は不可）。PayPay／d払い／auかんたん決済も本人名義に限ります<br>
+      ▸ 🔴 <strong>加入できるかは年齢ではなく「告知事項」で決まります。</strong>本人・妻は該当なしと確認済みです（2026/9/6）<br>
+      ▸ 🔴 <strong>ファミリープランは「同居の親族」までです。</strong>お母様は別居のため対象外 → <strong>夫婦2名でグループプラン</strong>を選んでください<br>
+      ▸ 🟢 <strong>Ooh Aah Point も Devil's Bridge も、免責の「山岳登はん」には当たりません</strong>（定義はピッケル・アイゼン・ザイル・ハンマー等の登山用具を使うもの、ロッククライミング）<br>
+      ▸ 🔴 <strong>賠償責任1億円はレンタカー事故には効きません。</strong>約款が「航空機、船舶、<strong>車両</strong>、銃器の所有、使用または管理に起因する賠償責任」を免責としているためです。<strong>Avis の TPL $300,000 を超える部分を埋める手段はありません</strong>（ALIへの増額も不可のため、この論点はここで終わりです）<br>
+      ▸ 🔴 <strong>携行品30万円は、スマホ・カメラ・交換レンズ・イヤフォン・携帯Wi-Fi などの電子機器が標準では対象外</strong>です。オプションで追加できます<br>
+      ▸ 🟢 <strong>リピーター割引3%</strong>は「マイページから契約すること」が条件です。前回のアカウントでログインしてから申し込んでください<br>
+      ▸ <strong>申込みは出発日の90日前〜出発当日まで</strong>（出国後は不可）。ただし<strong>航空機遅延オプションは出発当日申込だと付けられません</strong><br>
+      ▸ （前提）<strong>本人</strong>：JALカード CLUB-Aゴールドが自動付帯（治療300万・救援者400万・賠償1億）／🔴 <strong>妻・母は JALカードの家族特約の対象外</strong><br>
+      ▸ 米国の医療費は高額（骨折の手術で$98,000の事例あり）。グランドキャニオンの医療搬送ヘリは<strong>1回$15,000程度</strong></span></div>
     </div>
 
     <div class="todo-item">
@@ -2160,8 +2220,18 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
 
     <div class="todo-item">
       <div class="todo-box"></div>
-      <div>🟡 America the Beautiful 非居住者パス 購入（$250 × 1枚）<br>
-      <span style="font-size:12px; color:#888;">アーチーズ＋グランドキャニオン入場料・$100/人サーチャージを3人分カバー。パスなしより$120節約。<br>🔴 <strong>モニュメントバレーには使えません</strong>（ナバホ族の部族立公園のため。別途 3名で $45 が必要）<br>🟡 セドナの Red Rock Pass を代用できるかは未確認 → 森林局 ☎ <a class="telink" href="tel:+19282032900">928-203-2900</a><br>購入：<a href="https://www.recreation.gov/pass" target="_blank">Recreation.gov</a> または <a href="https://store.usgs.gov/2026-non-resident-annual-pass" target="_blank">USGS Store</a></span></div>
+      <div>🔴 <strong style="color:#c0392b;">America the Beautiful 非居住者パス 購入（$250 × 1枚）</strong><br>
+      <span style="font-size:12px; color:#888;">🟢 <strong>2026/9/6 調査完了。買うのが正解で、しかも郵送待ちはゼロになりました。</strong><br>
+      ▸ <strong>recreation.gov の「デジタル非居住者パス」なら購入した瞬間に使えます</strong>（非居住者・海外住所の人は物理カードを同時購入できない仕様）<br>
+      ▸ 🔴 <strong>従来この欄に書いていた「間に合わなければゲートで$35/車」は誤りでした。</strong>パスなしでグランドキャニオンのゲートに着くと <strong>$35 ＋ 非居住者$100×3 ＝ $335</strong> かかります<br>
+      ▸ 🧮 <strong>パスなし $365〜375</strong>（GC $335 ＋ アーチーズ $30 ＋ Red Rock $10）<strong> vs パス $250 → $115〜125 お得</strong><br>
+      ▸ 🔴 <strong>$70のグランドキャニオン年間パスは「US citizens and residents」限定</strong>で日本在住者は買えません（安く済ませる抜け道はありません）<br>
+      ▸ 🔴 <strong>購入は運転する本人の名義で。</strong>Recreation.gov のアカウント名がパスの名義になり、<strong>パスポートの表記と一致している必要があります</strong>。入園時は本人が同席してパスポートを提示します（譲渡・返金不可）<br>
+      ▸ 🟢 <strong>車1台まるごとカバー</strong>＝3人とも入園料もサーチャージも不要<br>
+      ▸ 📵 <strong>圏外対策：Apple/Google ウォレットに保存し、PDFも印刷して持つ。</strong>スクリーンショットも認められますが「QRだけでなくパス全体が写っていること」が条件です<br>
+      ▸ 🔴 <strong>使えない場所</strong>：モニュメントバレー（ナバホ族の部族立公園・$10/人）／デッドホースポイント（ユタ州立公園・$20/台）<br>
+      ▸ 🟡 セドナの Red Rock Pass を代用できるかは未確認 → 森林局 ☎ <a class="telink" href="tel:+19282032900">928-203-2900</a>（ATBは森林局の day-use fee を含むと公式にあるので、代用できる可能性は高い）<br>
+      購入：<a href="https://www.recreation.gov/interagency-pass/types/nonresident" target="_blank">Recreation.gov デジタル非居住者パス</a></span></div>
     </div>
 
     <div class="todo-item">
@@ -2227,11 +2297,13 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
     </div>
 
   </div>
+  </details>
 </section>
 
 <!-- ======== 注意事項 ======== -->
 <section id="notes">
-  <div class="section-title">⚠️ 注意事項</div>
+  <details class="sec" id="sec-notes">
+    <summary class="section-title">⚠️ 注意事項</summary>
   <div class="section-body">
 
     <div class="alert-box" style="border-left-color:#c0392b; background:#fdecea;">
@@ -2293,11 +2365,13 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
     </div>
 
   </div>
+  </details>
 </section>
 
 <!-- ======== 予約ダッシュボード ======== -->
 <section id="resv">
-  <div class="section-title">🎫 予約一覧（番号・連絡先・期限）</div>
+  <details class="sec" id="sec-resv" open>
+    <summary class="section-title">🎫 予約一覧（番号・連絡先・期限）</summary>
   <div class="section-body">
     <div class="note-box" style="margin-bottom:14px;">
       <strong>📌 この1枚に、旅行中に聞かれる番号をすべて集めています。</strong><br>
@@ -2327,12 +2401,12 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
 
       <tr><td>🏨 Day1<br>10/4</td>
         <td><strong>SpringHill Suites by Marriott SLC Downtown</strong><br>625 S 300 W, Salt Lake City<br>駐車場無料・朝食付き
-        <div class="btn-row"><a class="btn map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=SpringHill%20Suites%20Salt%20Lake%20City%20Downtown%20625%20S%20300%20W">🗺 地図</a></div></td>
+        <div class="btn-row"><a class="btn map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=SpringHill%20Suites%20Salt%20Lake%20City%20Downtown%20625%20S%20300%20W">🗺 地図</a><a class="btn tel" href="tel:+18012383000">📞 電話</a></div></td>
         <td>予約済み<br><a href="#hotel" style="color:#2e6da4;">詳細を見る</a></td></tr>
 
       <tr><td>🏨 Day2<br>10/5</td>
         <td><strong>ラスティック イン（モアブ）</strong><br>120 E 100 S, Moab, UT 84532<br>US$178.08・Visa 末尾8359・<strong>朝食なし</strong>
-        <div class="btn-row"><a class="btn map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Rustic%20Inn%20120%20E%20100%20S%20Moab%20UT%2084532">🗺 地図</a></div></td>
+        <div class="btn-row"><a class="btn map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Rustic%20Inn%20120%20E%20100%20S%20Moab%20UT%2084532">🗺 地図</a><a class="btn tel" href="tel:+14352596177">📞 電話</a></div></td>
         <td><span style="color:#c0392b;">キャンセル無料<br>10/3 0:00（UT）</span></td></tr>
 
       <tr><td>🏨 Day3<br>10/6</td>
@@ -2347,7 +2421,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
 
       <tr><td>🏨 Day6<br>10/9</td>
         <td><strong>Sugar Loaf Lodge</strong>（西セドナ）<br>1870 W State Route 89A, Sedona, AZ<br>USD 261.37・<strong>現地払い</strong>・朝食無料
-        <div class="btn-row"><a class="btn map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Sugar%20Loaf%20Lodge%201870%20W%20State%20Route%2089A%20Sedona%20AZ">🗺 地図</a></div></td>
+        <div class="btn-row"><a class="btn map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Sugar%20Loaf%20Lodge%201870%20W%20State%20Route%2089A%20Sedona%20AZ">🗺 地図</a><a class="btn tel" href="tel:+19282829451">📞 電話</a></div></td>
         <td><span style="color:#c0392b;">キャンセル無料<br>10/7 16時頃（JST）</span></td></tr>
     </table>
     </div>
@@ -2365,11 +2439,13 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       <a href="#todo" style="color:#2e6da4;font-weight:bold;">→ やることリストで確認する</a>
     </div>
   </div>
+  </details>
 </section>
 
 <!-- ======== 緊急・連絡先 ======== -->
 <section id="emergency">
-  <div class="section-title" style="background:#c0392b;">🆘 緊急・連絡先</div>
+  <details class="sec" id="sec-emergency" open>
+    <summary class="section-title" style="background:#c0392b;">🆘 緊急・連絡先</summary>
   <div class="section-body">
 
     <div class="alert-box" style="border-color:#c0392b;background:#fdf0ef;">
@@ -2389,17 +2465,17 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
     <table class="flight-table">
       <tr><th style="width:150px">連絡先</th><th>番号・メモ</th></tr>
       <tr><td><strong>海外旅行保険<br>緊急アシスタンス</strong><br><span style="color:#888;">24時間・日本語</span></td>
-          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">保険証券に記載の「事故受付・緊急デスク」の番号。3名分の証券番号もここに控えること</span></td></tr>
+          <td><span class="fillin">✍️ 出発前に記入<span class="s">まだ空欄です</span></span><br><span style="color:#888;">保険証券に記載の「事故受付・緊急デスク」の番号。3名分の証券番号もここに控えること</span></td></tr>
       <tr><td><strong>クレジットカード<br>紛失・盗難窓口</strong></td>
-          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">三井住友NLゴールド（VISA）／Visa 末尾8359／JALカード など、持参する全カード分</span></td></tr>
+          <td><span class="fillin">✍️ 出発前に記入<span class="s">まだ空欄です</span></span><br><span style="color:#888;">三井住友NLゴールド（VISA）／Visa 末尾8359／JALカード など、持参する全カード分</span></td></tr>
       <tr><td><strong>Avis<br>ロードサービス</strong></td>
-          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">受取時に渡される契約書に記載。<strong>受取後すぐここに書き写すこと</strong>。パンク・バッテリー上がり・事故時に使用</span></td></tr>
+          <td><span class="fillin">✍️ 出発前に記入<span class="s">まだ空欄です</span></span><br><span style="color:#888;">受取時に渡される契約書に記載。<strong>受取後すぐここに書き写すこと</strong>。パンク・バッテリー上がり・事故時に使用</span></td></tr>
       <tr><td><strong>在米日本国<br>領事館</strong></td>
-          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">パスポート紛失時。訪問先はユタ州・アリゾナ州のため、管轄の総領事館を出発前に確認</span></td></tr>
+          <td><span class="fillin">✍️ 出発前に記入<span class="s">まだ空欄です</span></span><br><span style="color:#888;">パスポート紛失時。訪問先はユタ州・アリゾナ州のため、管轄の総領事館を出発前に確認</span></td></tr>
       <tr><td><strong>パスポート情報</strong></td>
-          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">3名分の番号・発行日・有効期限。<strong>顔写真ページの写真をスマホにも保存</strong>しておくこと</span></td></tr>
+          <td><span class="fillin">✍️ 出発前に記入<span class="s">まだ空欄です</span></span><br><span style="color:#888;">3名分の番号・発行日・有効期限。<strong>顔写真ページの写真をスマホにも保存</strong>しておくこと</span></td></tr>
       <tr><td><strong>ESTA番号</strong></td>
-          <td style="color:#c0392b;"><strong>（未記入）</strong><br><span style="color:#888;">3名分の申請番号</span></td></tr>
+          <td><span class="fillin">✍️ 出発前に記入<span class="s">まだ空欄です</span></span><br><span style="color:#888;">3名分の申請番号</span></td></tr>
     </table>
     </div>
 
@@ -2450,6 +2526,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       ・ <strong>Googleマップのオフライン地図</strong>を6エリアに分けて必ずダウンロードしておくこと（有効期限があるため出発1〜2週間前に）
     </div>
   </div>
+  </details>
 </section>
 
 <nav class="fnav" aria-label="主要メニュー">
@@ -2466,18 +2543,33 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
 </footer>
 
 <script>
-  // GitHubにpushされた時刻を自動取得して日本時間で表示
-  const raw = document.lastModified; // ブラウザがサーバーから取得した更新日時
-  const dt = new Date(raw);
-  const jst = new Date(dt.getTime() + (9 * 60 * 60 * 1000)); // UTC→JST変換
-  const fmt = jst.getFullYear() + '年'
-    + (jst.getUTCMonth() + 1) + '月'
-    + jst.getUTCDate() + '日 '
-    + String(jst.getUTCHours()).padStart(2, '0') + ':'
-    + String(jst.getUTCMinutes()).padStart(2, '0');
-  const text = '最終更新：' + fmt + '（JST）';
-  document.getElementById('last-updated').textContent = text;
-  document.getElementById('footer-updated').textContent = text;
+  /* 更新日時の表示
+     🔴 IIFEで包むこと。包まないと raw/dt/jst/fmt/text がグローバルになり、
+        あとから足すスクリプトが同じ変数名を使った瞬間に SyntaxError で全部止まる */
+  (function () {
+    "use strict";
+    // GitHubにpushされた時刻を自動取得して日本時間で表示
+    var raw = document.lastModified;
+    var dt  = new Date(raw);
+    var jst = new Date(dt.getTime() + (9 * 60 * 60 * 1000)); // UTC→JST変換
+    var fmt = jst.getFullYear() + '年'
+      + (jst.getUTCMonth() + 1) + '月'
+      + jst.getUTCDate() + '日 '
+      + String(jst.getUTCHours()).padStart(2, '0') + ':'
+      + String(jst.getUTCMinutes()).padStart(2, '0');
+
+    /* 🔴 端末に保存したファイル（file://）では document.lastModified が
+       「保存した日時」になる。中身の更新日時ではないので、ラベルを変えて誤解を防ぐ */
+    var isFile = (location.protocol === 'file:');
+    var label  = isFile ? 'この端末に保存した日時：' : '最終更新：';
+    var note   = isFile ? '（中身の新しさではありません。WiFiのある場所で公開サイトを開き直してください）' : '（JST）';
+    var msg    = label + fmt + note;
+
+    var a = document.getElementById('last-updated');
+    var b = document.getElementById('footer-updated');
+    if (a) a.textContent = msg;
+    if (b) b.textContent = msg;
+  })();
 </script>
 
 
@@ -2500,10 +2592,22 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
     return parseInt(m[1],10)*60 + parseInt(m[2],10);
   }
 
+  /* 🔴 .tl-main の中には、あとから別スクリプトが「要確認」チップ(.imp-chip)を
+     差し込む。textContent をそのまま読むと「起床・館内で朝食要確認」のように
+     ゴミが混ざるため、複製してチップを除いてから文字列にする。
+     （初回描画では出ず、60秒後の再描画から出る＝旅行中に発症するバグだった） */
+  function mainTxt(el){
+    if (!el) return '';
+    var c = el.cloneNode(true);                 // 複製なので画面のDOMは触らない
+    var chips = c.querySelectorAll('.imp-chip');
+    for (var i = 0; i < chips.length; i++) chips[i].parentNode.removeChild(chips[i]);
+    return (c.textContent || '').replace(/\s+/g,' ').trim();
+  }
+
   function rowsOf(card){
     return Array.prototype.slice.call(card.querySelectorAll('.tl-row')).map(function(r){
       var t = txt(r.querySelector('.tl-time'));
-      return { time: t, min: startMin(t), main: txt(r.querySelector('.tl-main')) };
+      return { time: t, min: startMin(t), main: mainTxt(r.querySelector('.tl-main')) };
     });
   }
 
@@ -2524,11 +2628,36 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
 
     if (!card){
       var diff = Math.round((new Date(first+'T00:00:00') - new Date(todayKey()+'T00:00:00')) / 86400000);
-      var msg = diff > 0 ? ('出発まで あと <strong style="font-size:26px">'+diff+'</strong> 日')
-                         : '旅行期間は終了しました。おつかれさまでした。';
+
+      /* 🔴 日程カードは 10/04〜10/10 の7枚しかないが、実際の旅は
+         10/03（前泊）に家を出て 10/12（熊本着）に帰るまで続く。
+         この分岐を入れないと、台北で乗り継いでいる 10/11 と、
+         帰国便に乗っている 10/12 に「旅行期間は終了しました」と表示されてしまう */
+      var TRIP_END = '2026-10-12';                 // 自宅帰着日
+      var RETURN_MSG = {
+        '2026-10-11': '✈️ <strong>帰国中です</strong><br>' +
+          '<span style="font-size:15px">JX025 でフェニックス 23:25発 → 台北 10/12 04:55着。' +
+          '乗継2時間35分・<strong>T2 → T1 へ移動</strong>（往路より短いので注意）</span>',
+        '2026-10-12': '🏠 本日 <strong style="font-size:22px">10:45 熊本空港 着</strong>（JX846）<br>' +
+          '<span style="font-size:15px">台北 T1 07:30発。到着したら<strong>ピース駐車場へ電話して迎えを頼む</strong>' +
+          '（駐車料金 9日分 6,300円）</span>'
+      };
+
+      var tk  = todayKey();
+      var msg;
+      if (diff > 0) {
+        msg = '出発まで あと <strong style="font-size:26px">'+diff+'</strong> 日';
+      } else if (RETURN_MSG[tk]) {
+        msg = RETURN_MSG[tk];
+      } else if (tk <= TRIP_END) {
+        msg = '旅行中です。下の「日程」から該当の日をご覧ください。';
+      } else {
+        msg = '旅行期間は終了しました。おつかれさまでした。';
+      }
+
       box.innerHTML =
-        '<div class="today-head"><span>📍 今日</span><span class="sub">'+todayKey().replace(/-/g,'/')+'</span></div>'+
-        '<div class="now-box"><div class="now-lbl">旅行期間：'+first.replace(/-/g,'/')+' 〜 '+last.replace(/-/g,'/')+'</div>'+
+        '<div class="today-head"><span>📍 今日</span><span class="sub">'+tk.replace(/-/g,'/')+'</span></div>'+
+        '<div class="now-box"><div class="now-lbl">旅行期間：'+first.replace(/-/g,'/')+' 〜 '+TRIP_END.replace(/-/g,'/')+'（自宅帰着）</div>'+
         '<div class="now-main" style="margin-top:6px">'+msg+'</div>'+
         '<div class="now-sub">下の「日程」から各日の詳細を確認できます。旅行中はこの欄が自動で「今日の予定」に変わります。</div></div>'+
         '<div class="today-foot"><div class="tf-card tf-full"><div class="k">日を選んで内容を確認する</div>'+
@@ -2722,5 +2851,37 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
 })();
 </script>
 
+
+<script>
+/* ===== ナビやリンクで飛んだ先が折りたたまれていたら自動で開く =====
+   これが無いと、上部ナビの「持ち物」を押しても畳まれたままで
+   「押しても何も起きない」ように見える（Round 1 の事故S4） */
+(function () {
+  "use strict";
+  function openTo(el) {
+    if (!el) return;
+    var inner = el.querySelector ? el.querySelector('details.sec') : null;
+    if (inner) inner.open = true;                     // 飛び先が section の場合
+    var d = el.closest ? el.closest('details') : null;
+    while (d) {                                       // 祖先の details を全部開ける
+      d.open = true;
+      d = d.parentElement && d.parentElement.closest ? d.parentElement.closest('details') : null;
+    }
+  }
+  function fromHash() {
+    var id = location.hash.replace('#', '');
+    if (id) openTo(document.getElementById(id));
+  }
+  window.addEventListener('hashchange', fromHash);
+  // 同じリンクを再度押すと hashchange が起きないので、クリックでも拾う
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (id) setTimeout(function () { openTo(document.getElementById(id)); }, 0);
+  });
+  fromHash();
+})();
+</script>
 </body>
 </html>
