@@ -406,7 +406,44 @@
     .dw-close{display:block;width:100%;min-height:50px;margin-top:6px;border:1px solid #cfdae6;
       border-radius:10px;background:#f2f7fc;color:#2e6da4;font-size:16px;font-weight:bold;
       font-family:inherit;cursor:pointer;}
-  
+
+    /* ===== 🔎 さがす（検索） =====
+       iPhoneのSafariの「ページ内検索」は畳んだ <details> の中を探せない。
+       畳む改修をした以上、自前の検索が無いと本文の9割が探せなくなるため必須。 */
+    .dw-find{margin:0 0 12px;}
+    .dw-flabel{display:block;font-size:16px;font-weight:bold;color:#2c3e50;margin:0 0 6px;}
+    #findBox{width:100%;box-sizing:border-box;min-height:52px;padding:10px 12px;
+      font-size:17px;font-family:inherit;color:#2c3e50;background:#fff;
+      border:2px solid #b9c6d2;border-radius:10px;-webkit-appearance:none;appearance:none;}
+    #findBox:focus{outline:none;border-color:#1f5c8b;box-shadow:0 0 0 3px rgba(31,92,139,.18);}
+    .dw-finfo{font-size:14px;color:#5a6b7b;margin:7px 2px 0;line-height:1.7;}
+    .dw-finfo b{color:#1f5c8b;}
+    #findResults{margin:0 0 10px;}
+    button.fr{display:block;width:100%;text-align:left;box-sizing:border-box;
+      min-height:56px;padding:10px 12px;margin:0 0 8px;background:#fff;
+      border:1px solid #e3e9ef;border-left:5px solid #1f5c8b;border-radius:10px;
+      font-family:inherit;cursor:pointer;}
+    button.fr:active{background:#eef4fa;}
+    button.fr.syn{border-left-color:#b9c6d2;}
+    .fr-div{margin:14px 0 9px;padding:9px 11px;background:#f2f7fc;border:1px solid #dbe6f0;
+      border-radius:8px;font-size:14px;color:#33475b;line-height:1.7;}
+    .fr-div b{color:#1f5c8b;}
+    .fr-ctx{display:block;font-size:14px;font-weight:bold;color:#1f5c8b;margin-bottom:4px;}
+    .fr-txt{display:block;font-size:15px;color:#33475b;line-height:1.7;}
+    mark.sf-hit,.fr-txt mark{background:#ffe680;color:#4a3600;font-weight:bold;
+      padding:0 2px;border-radius:3px;}
+    /* 0件のときは「無い」と誤解させないことが最優先 */
+    .fr-none{border:2px solid #e0a800;background:#fff9e8;border-radius:10px;padding:13px;}
+    .fr-none-t{font-size:16px;font-weight:bold;color:#8a5a00;margin-bottom:7px;}
+    .fr-none-b{font-size:14px;color:#4a3600;line-height:1.8;}
+    .fr-chips{margin-top:11px;display:flex;flex-wrap:wrap;gap:8px;}
+    button.fr-chip{min-height:46px;padding:6px 15px;background:#fff;border:1px solid #b9c6d2;
+      border-radius:23px;font-size:15px;font-family:inherit;color:#1f5c8b;cursor:pointer;}
+    button.fr-chip:active{background:#eef4fa;}
+    /* 飛んだ先を数秒だけ光らせる（どこに来たのか分かるように） */
+    .sf-flash{animation:sfflash 3.4s ease-out 1;}
+    @keyframes sfflash{0%,55%{background:#fff3bf;}100%{background:transparent;}}
+
     /* 完了済みのやること（既定は畳む。件数はボタンに出すので存在を見失わない） */
     .donebar{margin:0 0 12px;}
     .donebar button{width:100%;min-height:48px;border:1px solid #cfdae6;border-radius:10px;
@@ -2671,7 +2708,15 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
   <div class="dw-scrim" data-close></div>
   <div class="dw-sheet" role="dialog" aria-modal="true" aria-label="もくじ">
     <div class="dw-grip"></div>
-    <div class="dw-title">☰ もくじ　<span class="dw-sub">項目をタップすると、畳んであっても開いて移動します</span></div>
+    <div class="dw-title">🔎 さがす／☰ もくじ　<span class="dw-sub">項目をタップすると、畳んであっても開いて移動します</span></div>
+    <div class="dw-find">
+      <label class="dw-flabel" for="findBox">🔎 ことばで探す</label>
+      <input id="findBox" type="search" inputmode="search" autocomplete="off"
+             autocorrect="off" autocapitalize="off" spellcheck="false"
+             placeholder="例：ガソリン／予約番号／マスク／Wi-Fi">
+      <div id="findInfo" class="dw-finfo"></div>
+    </div>
+    <div id="findResults" hidden></div>
     <div id="dwList"></div>
     <button type="button" class="dw-close" data-close>閉じる</button>
   </div>
@@ -3152,6 +3197,397 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
             '<div class="x">' + deco(t) + '</div></div>';
   });
   list.innerHTML = rows;
+})();
+</script>
+
+<script>
+/* ===== 🔎 さがす（本文検索）=====
+   なぜ必要か：iPhone Safari の「ページ内検索」は畳んだ <details> の中を探せない。
+   本文の約94%を畳んだ以上、自前の検索が無いと大半が探せない状態だった。
+
+   設計の要点
+   1) 畳んである中も探し、飛ぶときに祖先の <details> を全部開く
+   2) 同義語辞書を持つ（ATB／Wi-Fi／レンタカー など言い換えで0件にしない）
+   3) 表記ゆれを吸収（全角半角・カタカナひらがな・大文字小文字・記号や空白）
+   4) 🔴 0件のとき「無い」と誤解させない。必ず注意書きと言い換え候補を出す
+   5) 外部依存ゼロ・索引は初回に開いたときだけ作る（圏外でも動く） */
+(function () {
+  "use strict";
+  var drawer = document.getElementById('uiDrawer');
+  var btn    = document.getElementById('menuBtn');
+  var box    = document.getElementById('findBox');
+  var info   = document.getElementById('findInfo');
+  var out    = document.getElementById('findResults');
+  var list   = document.getElementById('dwList');
+  if (!drawer || !btn || !box || !info || !out || !list) return;
+
+  /* ---------- 表記ゆれの吸収 ---------- */
+  /* 🔴 空白は「消さずに残す」。消すと単語の切れ目が無くなり、
+     たとえば "Yavapai Golf" が "yavapaigolf" になって「AIG」に誤ヒットする（実際に出た） */
+  var SKIP = '-ー－―‐・,，.．、。/／' +
+             ':：;；()（）[]［］【】「」『』' +
+             '"\'’“”!！?？&＆~～|｜*＊#＃%％' +
+             '+＋=＝…▼▸→';
+  function normChar(c) {
+    if (c === ' ' || c === '　' || c === '\t' || c === '\n' || c === '\r') return ' ';
+    var k = c.charCodeAt(0);
+    if (k >= 0xFF01 && k <= 0xFF5E) { c = String.fromCharCode(k - 0xFEE0); k = c.charCodeAt(0); }
+    if (k >= 0x30A1 && k <= 0x30F6) { c = String.fromCharCode(k - 0x60);   k = c.charCodeAt(0); }
+    if (k >= 0x41   && k <= 0x5A)   { c = String.fromCharCode(k + 0x20);   k = c.charCodeAt(0); }
+    return (SKIP.indexOf(c) >= 0) ? '' : c;
+  }
+  /* 正規化した文字列と、「正規化後の位置 → 元の位置」の対応表を同時に作る。
+     対応表があるので、抜粋を元の文章のまま切り出して強調できる */
+  function normMap(s) {
+    var n = '', m = [], i, t;
+    for (i = 0; i < s.length; i++) {
+      t = normChar(s.charAt(i));
+      if (!t) continue;
+      if (t === ' ' && (!n || n.charAt(n.length - 1) === ' ')) continue;  // 空白の連続は1つに
+      n += t; m.push(i);
+    }
+    return { n: n, m: m };
+  }
+  function norm(s) { return normMap(String(s)).n; }
+  function clean(s) { return String(s).replace(/\s+/g, ' ').trim(); }
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  /* ---------- 同義語辞書 ----------
+     ここが「検索窓を保留にしていた理由」への回答。
+     入力した語がグループのどれかと完全に一致したら、同じ行の語も一緒に探す */
+  var SYN = [
+    ['ATB', 'America the Beautiful', '国立公園パス', '年間パス', '公園パス', '入園パス', '非居住者パス'],
+    ['Wi-Fi', 'WiFi', 'ワイファイ', '無線LAN', 'インターネット', 'ネット', '通信'],
+    ['eSIM', 'Airalo', 'エアラロ', 'SIM', 'データローミング', 'ローミング', 'ahamo'],
+    ['レンタカー', 'Avis', 'エイビス', '乗り捨て', '追加ドライバー'],
+    ['保険', 'たびとも', 'AIG', '海外旅行保険', '治療費', '携行品'],
+    ['免許', '国際免許', '国外運転免許証', '運転免許', '免許証'],
+    ['飛行機', 'フライト', '航空券', '搭乗', 'チェックイン', 'JX'],
+    ['ホテル', '宿', '宿泊', 'チェックアウト'],
+    ['ガソリン', '給油', '燃料', 'スタンド'],
+    ['グランドキャニオン', 'Grand Canyon'],
+    ['モニュメントバレー', 'Monument Valley', 'MV'],
+    ['ソルトレイク', 'Salt Lake', 'SLC'],
+    ['フェニックス', 'Phoenix', 'PHX'],
+    ['薬', '常備薬', '医薬品', '持病'],
+    ['お金', '現金', 'ドル', '両替', '支払い', 'クレジットカード'],
+    ['電話', '連絡先'],
+    ['母', 'おかあさん', 'お母さん'],
+    ['荷物', '持ち物', 'スーツケース', '預け荷物', '手荷物'],
+    ['予約番号', '確認番号', '予約'],
+    ['食事', '朝食', '夕食', '昼食', 'レストラン'],
+    ['駐車場', 'パーキング'],
+    ['時差', 'タイムゾーン'],
+    ['日没', '夕日', 'サンセット', '日の出'],
+    ['登山', 'ハイキング', 'トレイル'],
+    ['セドナ', 'Sedona'],
+    ['アーチーズ', 'Arches'],
+    ['デビルズブリッジ', "Devil's Bridge", 'Devils Bridge'],
+    ['水', '給水', '飲み水'],
+    ['気温', '服装', '防寒', '寒い'],
+    ['ESTA', '入国審査', '入国'],
+    ['マスク', '砂埃'],
+    ['買い出し', 'スーパー', 'Walmart', 'City Market', 'Safeway']
+  ];
+  var SYNN = SYN.map(function (g) { return g.map(norm).filter(Boolean); });
+  function expand(t) {
+    var v = [t];
+    SYNN.forEach(function (g) {
+      if (g.indexOf(t) >= 0) g.forEach(function (x) { if (v.indexOf(x) < 0) v.push(x); });
+    });
+    return v;
+  }
+  var CHIPS = ['ガソリン', '予約番号', 'マスク', 'Wi-Fi', 'ATB', '保険', '免許',
+               '駐車場', '水', '薬', '時差', '日没', '荷物', '電話', 'レンタカー'];
+
+  /* ---------- 索引（初回に開いたときだけ作る） ----------
+     🔴 方式：文章のかたまりを選ぶのではなく、「すべての文字を、必ずどこか1つの
+     かたまりに所属させる」。こうしないと、外側の箱に直接書かれた文章が
+     どこにも属さず、検索から丸ごと消える（実測で本文の19%が消えていた）。
+
+     所属先の決め方
+       1. UNIT（下記）に当てはまる最も近い先祖があれば、そこに属する
+       2. 無ければ、太字などの飾りタグを飛ばした最も近い先祖に属する
+     どの文字もちょうど1か所に属するので、取りこぼしも重複も出ない */
+  var UNIT = '.tl-row, .todo-item, tr, li, .alert-box, .note-box, .checklist-title,' +
+             '.momrow, p, .info-grid, summary, .dbody, .hotel-card, .hotel-note,' +
+             '.tab-note, .mom-b, .mom-n, .mom-t';
+  var INLINE = { STRONG:1, B:1, EM:1, I:1, SPAN:1, A:1, MARK:1, SMALL:1, CODE:1,
+                 U:1, S:1, SUP:1, SUB:1, FONT:1, ABBR:1, TIME:1, BDI:1 };
+  var idx = null;
+
+  function buildIndex() {
+    if (idx) return idx;
+    idx = [];
+    var heads = Array.prototype.slice.call(document.querySelectorAll('.checklist-title'));
+    function nearestHeading(el) {
+      var best = null, i;
+      for (i = 0; i < heads.length; i++) {
+        if (el.compareDocumentPosition(heads[i]) & 2) best = heads[i]; else break;
+      }
+      return best;
+    }
+    function ctxOf(el) {
+      var parts = [], sec = el.closest('section[id]'), st, day, dl, dd, h;
+      if (sec) {
+        st = sec.querySelector('summary.section-title, .section-title');
+        if (st) parts.push(clean(st.textContent).replace(/\s*[▼▸].*$/, ''));
+      }
+      day = el.closest('details.day-card');
+      if (day) {
+        dl = day.querySelector('.day-label'); dd = day.querySelector('.day-date');
+        parts.push(clean(((dl ? dl.textContent : '') + ' ' + (dd ? dd.textContent : ''))
+                   .replace(/[▸▼]/g, '')));
+      } else if (!el.classList.contains('checklist-title')) {
+        h = nearestHeading(el);
+        if (h) parts.push(clean(h.textContent));
+      }
+      return parts.filter(Boolean).join(' › ');
+    }
+    /* すべての文字を1回ずつ、所属先ごとに集める。
+       上から1回なぞりながら「いま属すべき箱」を持ち回る方式にしている。
+       文字ごとに closest() を呼ぶ書き方は同じ結果になるが、実測で約4倍遅かった */
+    var owners = [], bag = [];
+    var SKIPTAG = { SCRIPT:1, STYLE:1, NOSCRIPT:1, TEMPLATE:1 };
+    function add(own, raw) {
+      if (!own) return;
+      if (own.__sfi === undefined) { own.__sfi = owners.length; owners.push(own); bag.push([]); }
+      bag[own.__sfi].push(raw.replace(/\s+/g, ' '));
+    }
+    function walk(el, unit, block) {
+      for (var c = el.firstChild; c; c = c.nextSibling) {
+        if (c.nodeType === 3) {
+          if (/\S/.test(c.nodeValue)) add(unit || block, c.nodeValue);
+        } else if (c.nodeType === 1) {
+          if (SKIPTAG[c.tagName]) continue;
+          if (c.id === 'uiDrawer') continue;                       // もくじ自身は数えない
+          if (c.classList && c.classList.contains('fnav')) continue;
+          var u = unit, b = block;
+          if (!INLINE[c.tagName]) { b = c; if (c.matches(UNIT)) u = c; }
+          walk(c, u, b);
+        }
+      }
+    }
+    walk(document.body, null, document.body);
+    owners.forEach(function (el, i) {
+      var t = clean(bag[i].join(''));
+      if (t.length < 2) return;
+      var nm = normMap(t);
+      if (!nm.n) return;
+      idx.push({ el: el, t: t, n: nm.n, m: nm.m, c: ctxOf(el) });
+    });
+    owners.forEach(function (el) { delete el.__sfi; });   // 目印は後片付けする
+    return idx;
+  }
+
+  /* ---------- 検索 ---------- */
+  function search(q) {
+    var toks = q.split(/[\s　]+/).map(norm).filter(Boolean);
+    if (!toks.length) return [];
+    var vars = toks.map(expand), hits = [];
+    buildIndex().forEach(function (r) {
+      var ep = -1, el = 0, ap = -1, al = 0, nEx = 0, vs = [], ex = [], i, j, f, fl, p, xp;
+      for (i = 0; i < vars.length; i++) {
+        f = -1; fl = 0;
+        for (j = 0; j < vars[i].length; j++) {
+          p = r.n.indexOf(vars[i][j]);
+          if (p >= 0 && (f < 0 || p < f)) { f = p; fl = vars[i][j].length; }
+        }
+        if (f < 0) return;                       // この語が無い行は不一致
+        if (ap < 0 || f < ap) { ap = f; al = fl; }
+        xp = r.n.indexOf(toks[i]);               // 入力した語そのものがあるか
+        if (xp >= 0) { nEx++; ex.push(toks[i]); if (ep < 0 || xp < ep) { ep = xp; el = toks[i].length; } }
+        vs.push(vars[i].filter(function (v) { return r.n.indexOf(v) >= 0; }));
+      }
+      hits.push({ r: r, p: ep >= 0 ? ep : ap, l: ep >= 0 ? el : al,
+                  ex: ex, vs: [].concat.apply([], vs), s: nEx });
+    });
+    /* 🔴 入力した語そのものが入っている行を先に出す。
+       そうしないと「たびとも」で探したのに言い換えの「保険」の行が先頭に来る。
+       並べ替えは安定なので、同じ点数どうしは本文の並び順のまま */
+    hits.sort(function (a, b) { return b.s - a.s; });
+    return hits;
+  }
+
+  /* 一致した範囲の末尾に、正規化で消える文字（長音「ー」など）が続くときは
+     そこまで含める。含めないと「グリーンリバー」が「グリーンリバ」と光る */
+  var TAIL = 'ーー－―‐';
+  function tailEnd(t, e) {
+    while (e < t.length && TAIL.indexOf(t.charAt(e)) >= 0) e++;
+    return e;
+  }
+  function excerpt(r, p, l) {
+    var s = r.m[p], e = tailEnd(r.t, r.m[p + l - 1] + 1);
+    var a = Math.max(0, s - 28), b = Math.min(r.t.length, e + 62);
+    return (a > 0 ? '…' : '') + esc(r.t.slice(a, s)) +
+           '<mark>' + esc(r.t.slice(s, e)) + '</mark>' +
+           esc(r.t.slice(e, b)) + (b < r.t.length ? '…' : '');
+  }
+
+  /* ---------- 飛んだ先の強調（元に戻せる形でだけ触る） ---------- */
+  var flashed = [];
+  function clearMarks() {
+    Array.prototype.slice.call(document.querySelectorAll('mark.sf-hit')).forEach(function (mk) {
+      var p = mk.parentNode;
+      while (mk.firstChild) p.insertBefore(mk.firstChild, mk);
+      p.removeChild(mk);
+      p.normalize();
+    });
+    flashed.forEach(function (el) { el.classList.remove('sf-flash'); });
+    flashed = [];
+  }
+  function markIn(root, ex, vs) {
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+    var nodes = [], n;
+    while ((n = w.nextNode())) nodes.push(n);
+    function find(nm, terms) {
+      var pos = -1, len = 0, i, p;
+      for (i = 0; i < terms.length; i++) {
+        p = nm.indexOf(terms[i]);
+        if (p >= 0 && (pos < 0 || p < pos)) { pos = p; len = terms[i].length; }
+      }
+      return [pos, len];
+    }
+    nodes.forEach(function (node) {
+      var nm = normMap(node.nodeValue), s, e, mid, mk;
+      /* 入力した語がこの行にあるなら、言い換えのほうは光らせない。
+         でないと「たびとも」で探したのに「海外旅行保険」が光る */
+      var hit = find(nm.n, ex.length ? ex : vs);
+      var pos = hit[0], len = hit[1];
+      if (pos < 0) return;
+      s = nm.m[pos]; e = tailEnd(node.nodeValue, nm.m[pos + len - 1] + 1);
+      mid = node.splitText(s);
+      mid.splitText(e - s);
+      mk = document.createElement('mark');
+      mk.className = 'sf-hit';
+      mid.parentNode.replaceChild(mk, mid);
+      mk.appendChild(mid);
+    });
+  }
+
+  /* 飛ぶ前に、その文が隠れている理由を全部つぶす。
+     この画面には隠し方が4通りあり、1つでも残ると「飛んだのに読めない」が起きる */
+  function reveal(el) {
+    var p = el;
+    while (p && p !== document.body) {                 // ① 畳んだ <details>
+      if (p.tagName === 'DETAILS') p.open = true;
+      p = p.parentElement;
+    }
+    var pnl = el.closest ? el.closest('.tab-panel') : null;
+    if (pnl && pnl.hidden) {                           // ② タブで裏に回っている面
+      var host = pnl.closest('details.day-card') || document;
+      var tb = host.querySelector('.tab-btn[data-tab="' + pnl.getAttribute('data-panel') + '"]');
+      if (tb) tb.click();
+    }
+    var notes = [], own = el.closest ? el.closest('.tl-note') : null;
+    if (own) notes.push(own);
+    if (el.classList && el.classList.contains('tl-note')) notes.push(el);
+    if (el.querySelectorAll) {
+      Array.prototype.slice.call(el.querySelectorAll('.tl-note')).forEach(function (n) { notes.push(n); });
+    }
+    notes.forEach(function (n) {                       // ③ 「＋ 詳細を見る」で閉じた注記
+      if (n.classList.contains('shown')) return;
+      var b = n.previousElementSibling;
+      if (b && b.classList && b.classList.contains('more-btn')) b.click();  // 見出しも同期させる
+      else n.classList.add('shown');
+    });
+    var todo = document.getElementById('sec-todo');
+    var dbtn = document.getElementById('doneToggle');  // ④ 畳んだ「済んだこと」
+    if (todo && dbtn && todo.contains(el) && todo.classList.contains('hide-done')) dbtn.click();
+  }
+
+  function jump(x) {
+    clearMarks();
+    var el = x.r.el;
+    reveal(el);
+    drawer.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+    setTimeout(function () {
+      el.classList.add('sf-flash');
+      flashed.push(el);
+      markIn(el, x.ex, x.vs);
+      /* 🔴 かたまりではなく「一致した語そのもの」へ寄せる。
+         長い項目だと、かたまりの中央に寄せても一致箇所が画面の外に出る */
+      var mk = el.querySelector('mark.sf-hit');
+      (mk || el).scrollIntoView({ block: 'center' });
+      setTimeout(function () { el.classList.remove('sf-flash'); }, 3400);
+    }, 70);
+  }
+
+  /* ---------- 表示 ---------- */
+  var cur = [];
+  function noneHTML(q) {
+    var h = '<div class="fr-none"><div class="fr-none-t">「' + esc(q) +
+            '」 は見つかりませんでした</div>' +
+            '<div class="fr-none-b">🔴 <b>見つからない＝予定に無い、ではありません。</b><br>' +
+            '書き方が違うだけかもしれません。下のことばでも試してください。' +
+            'それでも出ないときは「☰ もくじ」から順に見てください。</div>' +
+            '<div class="fr-chips">';
+    CHIPS.forEach(function (c) {
+      h += '<button type="button" class="fr-chip" data-chip="' + esc(c) + '">' + esc(c) + '</button>';
+    });
+    return h + '</div></div>';
+  }
+  function render() {
+    var q = box.value;
+    clearMarks();
+    if (!clean(q)) {
+      out.hidden = true; out.innerHTML = ''; list.hidden = false;
+      info.innerHTML = '検索は<b>畳んである中も</b>探します。' +
+                       '言い換え（ATB、Wi-Fi など）にも対応しています。';
+      cur = [];
+      return;
+    }
+    var hits = search(q);
+    list.hidden = true; out.hidden = false;
+    if (!hits.length) {
+      info.textContent = '';
+      out.innerHTML = noneHTML(clean(q));
+      cur = [];
+      return;
+    }
+    cur = hits.slice(0, 40);
+    var nEx = 0;
+    hits.forEach(function (x) { if (x.s > 0) nEx++; });
+    info.innerHTML = '<b>' + hits.length + '件</b> 見つかりました' +
+      (nEx < hits.length ? '（うち <b>' + nEx + '件</b> が入力どおり）' : '') +
+      (hits.length > cur.length ? '／先頭 ' + cur.length + ' 件を表示' : '') +
+      '<br>畳んである中も探しています。タップすると、その場所を開いて移動します。';
+    /* 🔴 「入力どおりの行」と「言い換えで出た行」の境目を必ず見せる。
+       混ぜたままだと、AIG で探して出た「保険」の行を AIG の記述だと読み違える */
+    var h = '', divided = false;
+    cur.forEach(function (x, i) {
+      if (!divided && x.s === 0) {
+        divided = true;
+        h += '<div class="fr-div">ここから下は<b>言い換え</b>で見つかった行です（「' +
+             esc(clean(q)) + '」そのものは入っていません）</div>';
+      }
+      h += '<button type="button" class="fr' + (x.s ? '' : ' syn') + '" data-i="' + i + '">' +
+           '<span class="fr-ctx">' + esc(x.r.c || '本文') + '</span>' +
+           '<span class="fr-txt">' + excerpt(x.r, x.p, x.l) + '</span></button>';
+    });
+    out.innerHTML = h;
+  }
+
+  /* ---------- つなぎ込み ---------- */
+  var timer = null;
+  box.addEventListener('input', function () {
+    clearTimeout(timer);
+    timer = setTimeout(render, 120);
+  });
+  box.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); box.blur(); render(); }
+  });
+  out.addEventListener('click', function (e) {
+    var chip = e.target.closest('.fr-chip');
+    if (chip) { box.value = chip.getAttribute('data-chip'); render(); return; }
+    var hit = e.target.closest('button.fr');
+    if (hit) { var x = cur[Number(hit.getAttribute('data-i'))]; if (x) jump(x); }
+  });
+  btn.addEventListener('click', function () { buildIndex(); });
+  render();
 })();
 </script>
 </body>
