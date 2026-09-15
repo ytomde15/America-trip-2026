@@ -471,6 +471,14 @@
       border-radius:8px;background:#fdf0ef;font-size:16px;}
     a.telink:active{background:#fbe3e0;}
 
+    /* 電話で読み上げる英文（英文＋カタカナの読み） */
+    .say{display:block;background:#f4f6f8;border-left:4px solid #2e6da4;border-radius:6px;
+      padding:8px 10px;margin:6px 0;font-size:14px;line-height:1.6;color:#333;text-decoration:none;}
+    .say .say-t{display:block;font-weight:bold;color:#2e6da4;margin-bottom:4px;}
+    .say .en{display:block;font-weight:bold;font-size:16px;color:#111;}
+    .say .kana{display:block;color:#555;}
+    .say .ja{display:block;color:#888;font-size:12px;margin-bottom:6px;}
+
     /* 「＋ 詳細を見る」は約28px しかなく、手袋・暗所で押せない */
     .more-btn{min-height:44px;font-size:15px;padding:10px 14px;}
     /* タブは約38px */
@@ -801,6 +809,13 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
           <summary>⏱ 予定が遅れたとき・トラブル時はここ</summary>
           <div class="dbody"><strong>🔴 最優先：15:15のツアーに間に合わせること</strong>（前払い済み・返金されない可能性があります）<br>
 <strong>14:55までに Goulding&#39;s のツアーデスク</strong>へ。遅れそうなら早めに <a class="telink" href="tel:+14357273231">435-727-3231</a> へ電話を。<br>
+<span class="say"><span class="say-t">📞 電話で言うこと（上から順に読み上げる）</span>
+<span class="en">I don't speak English well. Please speak slowly.</span><span class="kana">アイ ドウント スピーク イングリッシュ ウェル。プリーズ スピーク スロウリー。</span><span class="ja">英語が得意ではありません。ゆっくり話してください</span>
+<span class="en">Hello. I have a tour today at three fifteen.</span><span class="kana">ハロー。アイ ハヴ ア ツアー トゥデイ アット スリー フィフティーン。</span><span class="ja">今日15:15のツアーを予約しています</span>
+<span class="en">My reservation number is 3-7-4-0-7-0-2-3-2.</span><span class="kana">マイ リザヴェイション ナンバー イズ スリー・セヴン・フォー・ゼロ・セヴン・ゼロ・トゥー・スリー・トゥー。</span><span class="ja">予約番号は 374070232 です</span>
+<span class="en">We will be about thirty minutes late.</span><span class="kana">ウィー ウィル ビー アバウト サーティ ミニッツ レイト。</span><span class="ja">30分ほど遅れます（15分＝fifteen フィフティーン／1時間＝one hour ワン アワー に言い換え）</span>
+<span class="en">Can we still join the tour?</span><span class="kana">キャン ウィー スティル ジョイン ザ ツアー？</span><span class="ja">それでも参加できますか</span>
+<span class="en">Could you send me an email?</span><span class="kana">クッジュー センド ミー アン イーメイル？</span><span class="ja">（聞き取れないとき）メールで送ってもらえますか</span></span>
 <strong>🔺 削る順番</strong><br>
 ① <strong>ビジターセンターの滞在</strong>（10:55〜12:00の65分）を短縮 ── 展望テラスの撮影だけにする<br>
 ② <strong>Forrest Gump Point</strong>（30分）を車窓のみに<br>
@@ -2469,6 +2484,13 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       ▸ 🔴 <strong>チップは前払い済みなので、当日あらためて渡す必要はありません</strong>（追加で渡したい場合は任意）<br>
       ▸ 🔴 <strong>マスク必須</strong>：予約確認書に「トライバルパークではマスク着用が非常に厳しく義務付けられています」と明記<br>
       ▸ ⚠️ <strong>キャンセル規定</strong>：確認画面には「一部の料金は返金不可」「具体的なキャンセル期間は各料金の説明に記載」とあるだけで、<strong>期限は表示されていません</strong>（不明のまま）。<u>変更が必要になったら早めに電話を</u><br>
+      <span class="say"><span class="say-t">📞 取り消しの電話で言うこと（上から順に読み上げる）</span>
+      <span class="en">I don't speak English well. Please speak slowly.</span><span class="kana">アイ ドウント スピーク イングリッシュ ウェル。プリーズ スピーク スロウリー。</span><span class="ja">英語が得意ではありません。ゆっくり話してください</span>
+      <span class="en">Hello. I have a Deluxe Tour reservation on October sixth.</span><span class="kana">ハロー。アイ ハヴ ア デラックス ツアー リザヴェイション オン オクトウバー シックスス。</span><span class="ja">10月6日のデラックスツアーを予約しています</span>
+      <span class="en">My reservation number is 3-7-4-0-7-0-2-3-2.</span><span class="kana">マイ リザヴェイション ナンバー イズ スリー・セヴン・フォー・ゼロ・セヴン・ゼロ・トゥー・スリー・トゥー。</span><span class="ja">予約番号は 374070232 です</span>
+      <span class="en">I would like to cancel it.</span><span class="kana">アイ ウッド ライク トゥ キャンセル イット。</span><span class="ja">取り消したいです</span>
+      <span class="en">Is there a cancellation fee?</span><span class="kana">イズ ゼア ア キャンセレイション フィー？</span><span class="ja">取消料はかかりますか</span>
+      <span class="en">Could you send me an email?</span><span class="kana">クッジュー センド ミー アン イーメイル？</span><span class="ja">（聞き取れないとき）メールで送ってもらえますか</span></span>
       ▸ 💧 水はツアーで提供されます（水筒があるとなお良い）</span></div>
     </div>
 
