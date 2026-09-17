@@ -498,7 +498,10 @@
     #mom .momrow .d{flex:0 0 92px;font-weight:bold;color:#5b3d7a;font-size:15px;}
     #mom .momrow .x{font-size:16px;line-height:1.6;}
     #mom li{font-size:16px;line-height:1.9;}
-  </style>
+      /* 整理済みの日：補足を常に表示・時刻は折り返してよい */
+    .plain .tl-time{white-space:normal;line-height:1.35;}
+    .plain .tl-note{display:block;margin-top:4px;color:#555;}
+</style>
 </head>
 <body>
 
@@ -3082,6 +3085,9 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
 
     tl.parentNode.insertBefore(wrap, tl);
     pAct.appendChild(tl);
+    if (card.dataset.plain) {                 /* 整理済みの日は補足が短いので、折りたたまずに全部見せる */
+      tl.classList.add('plain');
+    } else {
     tl.classList.add('compact');
 
     Array.prototype.slice.call(tl.querySelectorAll('.tl-row')).forEach(function (row) {
@@ -3112,6 +3118,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       });
       note.parentNode.insertBefore(btn, note);
     });
+    }
 
     var btns = Array.prototype.slice.call(wrap.querySelectorAll('.tab-btn'));
     btns.forEach(function (b) {
@@ -3126,6 +3133,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
     });
 
     /* 「すべての詳細を開く」トグル */
+    if (!card.dataset.plain) {
     var all = document.createElement('button');
     all.className = 'more-btn';
     all.type = 'button';
@@ -3140,6 +3148,7 @@ Day2は <strong>Dead Horse Point を外せば1時間20分＋滞在1時間30分�
       });
     });
     pAct.insertBefore(all, tl);
+    }
   });
 })();
 </script>
