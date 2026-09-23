@@ -339,6 +339,14 @@
       header h1 { font-size: 19px; }
     }
 
+    /* ---- 🎒 手荷物（各日の詳細タブの先頭） ---- */
+    .carry { margin: 0 0 14px 0; padding: 11px 13px; background: #eef4fb; border-left: 4px solid #2e6fb7;
+      border-radius: 4px; font-size: 14px; line-height: 1.6; }
+    .carry-h { font-weight: bold; margin-bottom: 4px; }
+    .carry-row { display: grid; grid-template-columns: 9em 1fr; gap: 10px; padding: 6px 0; border-top: 1px dashed #c9d8ea; }
+    .carry-when { font-weight: bold; color: #1f4e79; }
+    @media (max-width: 480px) { .carry-row { grid-template-columns: 1fr; gap: 1px; } }
+
     /* ---- Day3タブ試作：行動タブでは詳細を畳む ---- */
     .compact .tl-note { display: none; }
     .compact .tl-note.shown { display: block; margin-top: 6px; }
@@ -592,6 +600,16 @@
           <div class="expand-hint">▼ 詳細タイムラインを見る</div>
         </summary>
         <div class="timeline">
+          <div data-tabgroup="det" class="carry">
+            <div class="carry-h">🎒 手荷物（前の晩か朝に見て準備）</div>
+            <div class="carry-row"><span class="carry-when">出発〜熊本空港</span><span class="carry-what">🛂 <strong>パスポート（3人とも）</strong>・e-チケット控え（3人分）</span></div>
+            <div class="carry-row"><span class="carry-when">機内（3便）</span><span class="carry-what">上着・マスク・常用薬・イヤフォン・充電器（モバイルバッテリーは預けない）</span></div>
+            <div class="carry-row"><span class="carry-when">16:10 シアトル入国</span><span class="carry-what">🛂 <strong>パスポート（3人とも）</strong>・<strong>入国審査カード</strong>（パスポートに挟む）・ESTA認証画面の紙</span></div>
+            <div class="carry-row"><span class="carry-when">00:30 Avisカウンター</span><span class="carry-what">ご本人：日本の免許証・国際運転免許証・パスポート・本人名義VISA（物理カード）・<strong>Avis予約確認書の紙</strong><br>奥様：日本の免許証・国際運転免許証・パスポート・奥様名義のカード</span></div>
+            <div class="carry-row"><span class="carry-when">車の受け取り</span><span class="carry-what">スマホ（車を360度撮影）</span></div>
+            <div class="carry-row"><span class="carry-when">01:30 ホテル</span><span class="carry-what">パスポート・SpringHill Suites の予約確認書</span></div>
+          </div>
+
           <div class="tl-row">
             <div class="tl-time">📱通信</div>
             <div><span class="cat-badge cat-注意">注意</span><div class="tl-main">スマホの切り替え ── この日だけ3回</div><div class="tl-note">
@@ -647,6 +665,14 @@
           <div class="expand-hint">▼ 詳細タイムラインを見る</div>
         </summary>
         <div class="timeline">
+          <div data-tabgroup="det" class="carry">
+            <div class="carry-h">🎒 手荷物（前の晩か朝に見て準備）</div>
+            <div class="carry-row"><span class="carry-when">12:40 アーチーズ入園</span><span class="carry-what">🛂 <strong>ATBパス</strong>（スマホ＋印刷PDF）・<strong>ご本人のパスポート</strong>（運転席からすぐ出せる所に）</span></div>
+            <div class="carry-row"><span class="carry-when">13:25 The Windows</span><span class="carry-what">歩きやすい靴・帽子・サングラス・日焼け止め・水</span></div>
+            <div class="carry-row"><span class="carry-when">17:10 Dead Horse Point</span><span class="carry-what">入園料 <strong>$20</strong>（ATBパス不可）・<strong>上着</strong>（風が強く冷える）</span></div>
+            <div class="carry-row"><span class="carry-when">19:15 ホテル</span><span class="carry-what">パスポート・ラスティック インの予約確認書・Visa 末尾8359</span></div>
+          </div>
+
 
           <div data-tabgroup="det" style="margin:0 0 14px 0; padding:11px 13px; background:#eafaf1; border-left:4px solid #27ae60; border-radius:4px; font-size:14px; line-height:1.7;">
             <strong>🛒 買い出し</strong>：Walmart の1回だけ（08:55〜09:20）<br>
@@ -738,6 +764,13 @@
           <div class="expand-hint">▼ 詳細タイムラインを見る</div>
         </summary>
         <div class="timeline">
+          <div data-tabgroup="det" class="carry">
+            <div class="carry-h">🎒 手荷物（前の晩か朝に見て準備）</div>
+            <div class="carry-row"><span class="carry-when">10:55 モニュメントバレー入園</span><span class="carry-what">入園料（目安 3人で$30・ATBパス不可）</span></div>
+            <div class="carry-row"><span class="carry-when">13:10 Goulding's 到着</span><span class="carry-what">パスポート・Goulding's Lodge の予約確認書・Visa 末尾8359</span></div>
+            <div class="carry-row"><span class="carry-when">15:15 ツアー</span><span class="carry-what">😷 <strong>マスク（必須）</strong>・<strong>上着・手袋</strong>（屋根なしの車・帰りは10℃前後）・帽子・日焼け止め・カメラ・つま先の覆われた靴・ツアー確認書（予約番号 374070232）</span></div>
+          </div>
+
           <div data-tabgroup="det" style="margin:0 0 14px 0; padding:11px 13px; background:#f4f9f4; border-left:4px solid #7f8c8d; border-radius:4px; font-size:14px; line-height:1.7;">
             <strong>🛒 買い出し</strong>：City Market（モアブ）07:15〜07:45。今朝の朝食・水・行動食・果物<br>
             Goulding's の売店に寄るなら 13:10〜14:55 の休憩中に<br>
@@ -827,6 +860,15 @@
           <div class="expand-hint">▼ 詳細タイムラインを見る</div>
         </summary>
         <div class="timeline">
+          <div data-tabgroup="det" class="carry">
+            <div class="carry-h">🎒 手荷物（前の晩か朝に見て準備）</div>
+            <div class="carry-row"><span class="carry-when">10:05 東口から入園</span><span class="carry-what">🛂 <strong>ATBパス</strong>・<strong>ご本人のパスポート</strong></span></div>
+            <div class="carry-row"><span class="carry-when">Lipan Point・Mather Point</span><span class="carry-what">上着・帽子・サングラス</span></div>
+            <div class="carry-row"><span class="carry-when">14:20 ホテル</span><span class="carry-what">パスポート・Red Feather Lodge の予約確認書・Visa 末尾8359</span></div>
+            <div class="carry-row"><span class="carry-when">16:30 南口から再入園</span><span class="carry-what">🛂 <strong>ATBパス</strong>・<strong>ご本人のパスポート</strong></span></div>
+            <div class="carry-row"><span class="carry-when">17:00 夕日</span><span class="carry-what"><strong>防寒着</strong>（日が沈むと急に冷える）・懐中電灯</span></div>
+          </div>
+
           <div data-tabgroup="det" style="margin:0 0 14px 0; padding:11px 13px; background:#fdecea; border-left:4px solid #c0392b; border-radius:4px; font-size:14px; line-height:1.7;">
             <strong>🕐 時計が1時間戻る</strong>：キャメロンから AZ-64 に入って東口へ向かう途中で、MDT → MST に変わる。下の時刻はその土地の時刻<br>
             スマホの時刻がずれて表示されることがある地域。車のナビや Googleマップの到着予定時刻でも確かめる<br>
@@ -915,6 +957,14 @@
           <div class="expand-hint">▼ 詳細タイムラインを見る</div>
         </summary>
         <div class="timeline">
+          <div data-tabgroup="det" class="carry">
+            <div class="carry-h">🎒 手荷物（前の晩か朝に見て準備）</div>
+            <div class="carry-row"><span class="carry-when">07:30 南口から入園（夫婦）</span><span class="carry-what">🛂 <strong>ATBパス</strong>・<strong>ご本人のパスポート</strong></span></div>
+            <div class="carry-row"><span class="carry-when">08:40 Ooh Aah Point（夫婦）</span><span class="carry-what">リュックに：<strong>水 1人1L以上</strong>・行動食・簡易トイレ・下痢止め・マスク・タオル<br>着ていく：手袋・帽子・フリースかダウン・汚れてもいい靴</span></div>
+            <div class="carry-row"><span class="carry-when">12:15 南口から再入園（3人）</span><span class="carry-what">🛂 <strong>ATBパス</strong>・<strong>ご本人のパスポート</strong></span></div>
+            <div class="carry-row"><span class="carry-when">13:00 Village 散策</span><span class="carry-what">上着・帽子・歩きやすい靴</span></div>
+          </div>
+
           <div data-tabgroup="det" style="margin:0 0 14px 0; padding:11px 13px; background:#f4f9f4; border-left:4px solid #7f8c8d; border-radius:4px; font-size:14px; line-height:1.7;">
             <strong>🍞 朝食</strong>：夫婦は前日に買ったものを部屋か車内で（ホテルに無料朝食なし・部屋に冷蔵庫あり）<br>
             <strong>🛒 買い出し</strong>：Market Plaza General Store（園内）に昼食の前後で寄れる。明日の長い移動のための飲み物・軽食を<br>
@@ -1012,6 +1062,14 @@
           <div class="expand-hint">▼ 詳細タイムラインを見る</div>
         </summary>
         <div class="timeline">
+          <div data-tabgroup="det" class="carry">
+            <div class="carry-h">🎒 手荷物（前の晩か朝に見て準備）</div>
+            <div class="carry-row"><span class="carry-when">13:15 ホテル</span><span class="carry-what">パスポート・Sugar Loaf Lodge の予約確認書・<strong>Visa 末尾8359</strong>（現地払い）</span></div>
+            <div class="carry-row"><span class="carry-when">14:00 Safeway</span><span class="carry-what">明日の Devil's Bridge 用の水・行動食をここで買う</span></div>
+            <div class="carry-row"><span class="carry-when">16:15 Airport Mesa</span><span class="carry-what">駐車料 <strong>$3</strong>・<strong>懐中電灯かヘッドランプ</strong>・上着</span></div>
+            <div class="carry-row"><span class="carry-when">夜・荷造り</span><span class="carry-what">明日の登山リュックを別に用意（下の Day7 の中身）</span></div>
+          </div>
+
           <div data-tabgroup="det" style="margin:0 0 14px 0; padding:11px 13px; background:#fdf3e7; border-left:4px solid #e67e22; border-radius:4px; font-size:14px; line-height:1.7;">
             <strong>🛒 買い出し</strong>：<strong>Safeway セドナ</strong>（2300 W Hwy 89A・6:00〜21:00）で昼食のときに。旅でいちばん最後の大きなスーパー<br>
             <strong>明日の朝の Devil's Bridge 用の水・行動食は必ずここで</strong>（明日は朝6:00に出るので店が開いていない）<br>
@@ -1082,6 +1140,16 @@
           <div class="expand-hint">▼ 詳細タイムラインを見る</div>
         </summary>
         <div class="timeline">
+          <div data-tabgroup="det" class="carry">
+            <div class="carry-h">🎒 手荷物（前の晩か朝に見て準備）</div>
+            <div class="carry-row"><span class="carry-when">06:00 Mescal Trailhead</span><span class="carry-what">🎫 <strong>ATBパスの印刷PDF</strong>（ダッシュボードに置く）</span></div>
+            <div class="carry-row"><span class="carry-when">06:30 Devil's Bridge（夫婦）</span><span class="carry-what">リュックに：<strong>水</strong>・行動食・簡易トイレ・下痢止め・日焼け止め・<strong>ヘッドランプ</strong>（歩き始めは暗い）<br>着ていく：防寒着・手袋・汚れてもいい靴</span></div>
+            <div class="carry-row"><span class="carry-when">11:30 Yavapai Vista・Bell Rock</span><span class="carry-what">🎫 <strong>ATBパスの印刷PDF</strong>（ダッシュボードに置く）</span></div>
+            <div class="carry-row"><span class="carry-when">16:28 レンタカー返却</span><span class="carry-what">スマホ（返却時も撮影）・契約書の控え</span></div>
+            <div class="carry-row"><span class="carry-when">19:55 チェックイン</span><span class="carry-what">🛂 <strong>パスポート（3人とも）</strong>・e-チケット控え</span></div>
+            <div class="carry-row"><span class="carry-when">機内・熊本空港</span><span class="carry-what"><strong>税関の申告書</strong>（機内で「はい・いいえ」と署名を書く・ペン）・パスポート</span></div>
+          </div>
+
           <div data-tabgroup="det" style="margin:0 0 14px 0; padding:11px 13px; background:#f4f9f4; border-left:4px solid #7f8c8d; border-radius:4px; font-size:14px; line-height:1.7;">
             <strong>🛒 買い出し</strong>：<strong>Clark's Market</strong>（Village of Oak Creek・14:20〜14:40）で空港・機内用の飲み物と軽食。PHXではカウンターが開く19:55まで保安検査の外で待つ<br>
             <strong>⛽ 給油</strong>：しなくてよい（ガソリン込みプラン）。PHXまで約190km走れる残りがあるかだけ見る<br>
@@ -2140,7 +2208,7 @@
     wrap.innerHTML =
       ((det.length || why.length) ? '<div class="tabs" role="tablist">' + tabsHTML + '</div>' : '') +
       '<div class="tab-panel" data-panel="act"></div>' +
-      (det.length ? '<div class="tab-panel" data-panel="det" hidden><div class="tab-note">この日の買い出し・料金・営業時間など、当日参照する情報です。</div></div>' : '') +
+      (det.length ? '<div class="tab-panel" data-panel="det" hidden><div class="tab-note">この日の手荷物・買い出し・料金・営業時間など、当日参照する情報です。</div></div>' : '') +
       (why.length ? '<div class="tab-panel" data-panel="why" hidden><div class="tab-note">なぜこの予定にしたのかの記録です。旅行中に読む必要はありません。</div></div>' : '');
 
     var pAct = wrap.querySelector('[data-panel="act"]');
