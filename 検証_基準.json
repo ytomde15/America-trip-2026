@@ -12,7 +12,7 @@
     "23:25": 9,
     "10:45": 8,
     "SS15206360": 1,
-    "Mescal Trailhead": 8,
+    "Mescal Trailhead": 9,
     "QGLMJG": 3,
     "EQHTGG": 3,
     "FLSYYD": 3,
@@ -62,13 +62,13 @@
     "（3.5時間）"
   ],
   "タグ数": {
-    "div": 738,
+    "div": 811,
     "section": 8,
     "table": 12,
     "tr": 81,
     "td": 205,
-    "span": 315,
-    "a": 62,
+    "span": 316,
+    "a": 131,
     "details": 21,
     "summary": 21
   }
