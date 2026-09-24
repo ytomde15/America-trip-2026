@@ -2051,7 +2051,11 @@
   function rowsOf(card){
     return Array.prototype.slice.call(card.querySelectorAll('.tl-row')).map(function(r){
       var t = txt(r.querySelector('.tl-time'));
-      return { time: t, min: startMin(t), main: mainTxt(r.querySelector('.tl-main')) };
+      /* 🧭 その行のナビボタン（日程に付けた a.btn.nav）を拾う。「今日」欄の「次の行き先へナビ」に使う */
+      var navs = Array.prototype.slice.call(r.querySelectorAll('a.btn.nav')).map(function(a){
+        return { href: a.getAttribute('href'), text: txt(a) };
+      });
+      return { time: t, min: startMin(t), main: mainTxt(r.querySelector('.tl-main')), navs: navs };
     });
   }
 
@@ -2135,10 +2139,25 @@
       if (isToday && left >= 0 && left < 600){
         leftTxt = 'あと ' + (left >= 60 ? Math.floor(left/60)+'時間'+(left%60 ? (left%60)+'分' : '') : left+'分');
       }
+      /* 🧭 次の行き先へナビ：「次の行動」から先で、最初にナビボタンが付いている行を探す */
+      var navRow = null;
+      for (i = rows.indexOf(next); i < rows.length; i++){
+        if (rows[i].navs && rows[i].navs.length){ navRow = rows[i]; break; }
+      }
+      var navHTML = '';
+      if (navRow){
+        navHTML = (navRow === next ? '' :
+            '<div class="now-sub" style="margin-top:8px">🧭 次の行き先：<strong>'+esc(navRow.time)+'</strong> '+esc(navRow.main)+'</div>')+
+          '<div class="btn-row">' + navRow.navs.map(function(n){
+            var label = (n.text === '🧭 ナビ') ? '🧭 次の行き先へナビ' : n.text;
+            return '<a class="btn nav" style="font-size:16px;padding:10px 16px" target="_blank" rel="noopener" href="'+esc(n.href)+'">'+esc(label)+'</a>';
+          }).join('') + '</div>';
+      }
       nowHTML = '<div class="now-box"><div class="now-lbl">'+(isToday ? '\u25B6 次の行動' : '\u25B6 最初の予定')+'</div>'+
         '<div class="now-time">'+esc(next.time)+'</div>'+
         '<div class="now-main">'+esc(next.main)+'</div>'+
         (leftTxt ? '<div class="now-sub">'+leftTxt+'</div>' : '') +
+        navHTML +
         '<div class="btn-row"><a class="btn" href="#day'+day+'">この日の詳細をすべて見る</a></div></div>';
     } else {
       nowHTML = '<div class="now-box"><div class="now-lbl">\u25B6 次の行動</div>'+
