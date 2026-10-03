@@ -1478,8 +1478,9 @@
       <div class="todo-box"></div>
       <div>🔴 <strong style="color:#c0392b;">予備の版を作り直し、3人のiPhoneにこのページを保存する（10/3まで）</strong><br>
       <span style="font-size:14px; color:#666;">
-      ▸ 3人のiPhoneでこのページを開いて表示を確かめる → Claude に「予備版を作って」と頼む（stable.html が最新の内容になる）→ 公開サイトを更新<br>
-      ▸ そのあと3人のiPhoneに、圏外でも開けるようにページを保存する（やり方は Claude が案内）<br>
+      ▸ 3人のiPhoneの Safari で、<strong>このページ</strong>と<strong>予備の版（…/stable.html）</strong>を<strong>1回ずつ開く</strong>（これで圏外でも開くようになる）→ ホーム画面に追加<br>
+      ▸ 試し方：機内モードにして、もう一度開く。開けばOK<br>
+      ▸ 保険：共有ボタン → オプション →「Webアーカイブ」→「"ファイル"に保存」でも1つ保存しておく<br>
       ▸ 現地でページが壊れたら <strong>…/America-trip-2026/stable.html</strong> を開く</span></div>
     </div>
 
@@ -1691,7 +1692,8 @@
     <div class="alert-box" style="margin-top:14px; border-color:#f0d9b5; background:#fffaf0;">
       <strong>📵 圏外はよくあること</strong>（モアブ〜モニュメントバレー〜グランドキャニオンは電波が弱い）<br>
       ・ナビはオフライン地図で動く（出発前にダウンロードしておく）<br>
-      ・このページは一度開いておけば圏外でも読めることが多い。出発前に<strong>ホーム画面に追加</strong>しておく（iPhone：共有ボタン→ホーム画面に追加）<br>
+      ・このページは<strong>電波のあるところで一度開いておけば、圏外でも前回の内容が開く</strong>。出発前に<strong>ホーム画面に追加</strong>しておく（iPhone：共有ボタン→ホーム画面に追加）<br>
+      ・圏外で出るのは「最後に電波のあるところで開いたときの内容」。朝、宿のWiFiで一度開いておく<br>
       ・宿の住所と電話番号は紙にも控えておく
     </div>
   </div>
@@ -2950,6 +2952,14 @@
   btn.addEventListener('click', function () { buildIndex(); });
   render();
 })();
+</script>
+<script>
+/* 圏外でも開けるようにする（sw.js）。対応していない端末では何もしない */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
 </script>
 </body>
 </html>
